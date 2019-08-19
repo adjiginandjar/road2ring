@@ -59,4 +59,12 @@ public class TripPriceService {
   public TripPrice getTripPrice(Integer tripId, Date startDate){
     return tripPriceRepository.findOneByTripIdAndStartTrip(tripId,startDate);
   }
+
+  public List<TripPrice> getAllTripPriceByTripId(Integer tripId){
+    List<TripPrice> result = tripPriceRepository
+        .findAllByTripIdAndStatusAndStartTripGreaterThanOrderByStartTripAsc(
+            tripId, TripPriceStatus.WAITING, new Date());
+
+    return result;
+  }
 }

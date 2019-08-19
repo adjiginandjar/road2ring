@@ -33,7 +33,6 @@ public class MotorMAPIController {
     if (principal != null) {
       Authentication auth = (Authentication) principal;
       UserDetails currentConsumer = (UserDetails) auth.getPrincipal();
-      System.out.println(currentConsumer.getUsername());
     }
 
     ResponseMessage responseMessage = new ResponseMessage();
