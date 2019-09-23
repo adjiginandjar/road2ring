@@ -51,7 +51,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.pictureUrl)}"
                class="wrap-img-image p-top-sm">
-            <img th:src="${baseUrl + response.object.pictureUrl}"/>
+            <img th:src="${response.object.pictureUrl}"/>
           </div>
         </div>
 

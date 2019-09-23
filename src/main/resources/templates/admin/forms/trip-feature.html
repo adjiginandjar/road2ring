@@ -51,7 +51,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.icon)}"
                class="wrap-img-icon p-top-sm">
-            <img th:src="${baseUrl + response.object.icon}"/>
+            <img th:src="${response.object.icon}"/>
           </div>
         </div>
 
@@ -81,7 +81,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.cover)}"
                class="wrap-img-image p-top-sm">
-            <img th:src="${baseUrl + response.object.cover}"/>
+            <img th:src="${response.object.cover}"/>
           </div>
         </div>
 
@@ -102,8 +102,8 @@
   <script>
   $(function() {
       $(document).ready(function () {
-        upload_trip("/api/trip/upload_icon", "image","#image", "#hidden_image",640,640, "landscape");
-        upload_trip("/api/trip/upload_icon", "icon","#icon", "#hidden_icon",640,640, "landscape");
+        upload_trip("/api/trip/upload_trip", "image","#image", "#hidden_image",640,640, "landscape");
+        upload_trip("/api/trip/upload_trip", "icon","#icon", "#hidden_icon",640,640, "landscape");
       })
   })
   </script>
