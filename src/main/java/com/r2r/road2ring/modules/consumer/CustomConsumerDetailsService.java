@@ -36,6 +36,10 @@ public class CustomConsumerDetailsService implements UserDetailsService {
     /*Consumer in SI*/
     User user = userRepository.findOneByEmailIgnoreCase(email);
     List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
+
+    if(user.getRole().getId() == 2){
+      throw new UsernameNotFoundException("user not found");
+    }
     return buildUserForAuthentication(user, authorities) ;
 
   }
