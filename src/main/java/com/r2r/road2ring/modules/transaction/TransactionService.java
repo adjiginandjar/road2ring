@@ -1,5 +1,7 @@
 package com.r2r.road2ring.modules.transaction;
 
+import com.midtrans.httpclient.error.MidtransError;
+import com.r2r.road2ring.modules.common.InvalidOrderException;
 import com.r2r.road2ring.modules.common.PaymentStatus;
 import com.r2r.road2ring.modules.common.R2rTools;
 import com.r2r.road2ring.modules.common.ResponseMessage;
@@ -9,6 +11,7 @@ import com.r2r.road2ring.modules.confirmation.Confirmation;
 import com.r2r.road2ring.modules.confirmation.ConfirmationService;
 import com.r2r.road2ring.modules.consumer.Consumer;
 import com.r2r.road2ring.modules.mail.MailClient;
+import com.r2r.road2ring.modules.midtrans.MidtransService;
 import com.r2r.road2ring.modules.transactionlog.TransactionCreator;
 import com.r2r.road2ring.modules.transactionlog.TransactionLog;
 import com.r2r.road2ring.modules.transactionlog.TransactionLogService;
@@ -60,6 +63,9 @@ public class TransactionService {
 
   @Autowired
   TripService tripService;
+
+  @Autowired
+  MidtransService midtransService;
 
   @Autowired
   public void setTransactionRepository(TransactionRepository transactionRepository){
@@ -119,11 +125,12 @@ public class TransactionService {
 
   @Transactional
   public TransactionCreateView createTransaction(Transaction transaction, User user)
-      throws Road2RingException {
+      throws Road2RingException, MidtransError {
 
     Transaction result = new Transaction();
     TripPrice tripPrice = null;
     Date created  = new Date();
+    String midtransToken ="";
 
     Calendar cal = Calendar.getInstance();
     cal.setTime(created);
@@ -163,10 +170,13 @@ public class TransactionService {
       if (transactionRepository.save(result) != null) {
         tripPrice = tripPriceService.addPersonTripPrice(transaction.getTrip().getId(), result.getStartDate());
         Transaction transactionSaved = transactionRepository.findOneByCode(result.getCode());
-        transactionDetailService.saveMotor(transaction.getMotor(), transactionSaved, transaction.getBringOwnMotor());
-        transactionDetailService
+        TransactionDetail detailMotor = transactionDetailService.saveMotor(transaction.getMotor(),
+            transactionSaved, transaction.getBringOwnMotor());
+        List<TransactionDetail> detailAccessories = transactionDetailService
             .saveListTransactionalAccessory(transaction.getAccessories(), transactionSaved,
                 transaction.getBringOwnHelm());
+
+        midtransToken = midtransService.checkoutTrip(detailAccessories,detailMotor,transactionSaved,tripPrice,user);
         this.createTransactionLogByUser(transactionSaved);
       }
 
@@ -174,6 +184,7 @@ public class TransactionService {
       view.setLastPayment(newDate);
       view.setTotalPrice(result.getPrice());
       view.setTransactionCodeId(result.getCode());
+      view.setMidtransToken(midtransToken);
 
       /*CREATE EMAIL DATA INVOICE*/
 

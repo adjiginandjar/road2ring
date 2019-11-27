@@ -8,4 +8,5 @@ public class TransactionCreateView {
   private Integer totalPrice;
   private Date lastPayment;
   private String transactionCodeId;
+  private String midtransToken;
 }

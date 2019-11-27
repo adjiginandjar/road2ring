@@ -30,6 +30,7 @@ bootRun {
 
 repositories {
 	mavenCentral()
+    jcenter()
 }
 
 
@@ -60,7 +61,10 @@ dependencies {
 	
 	//SMTP
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
-	
+
+	//Midtrans
+	compile 'com.midtrans:java-library:1.1.0'
+
 	compile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.0.RELEASE') {
 		exclude(module: 'commons-logging')
 	}

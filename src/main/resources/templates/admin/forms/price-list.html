@@ -36,9 +36,41 @@
         </div>
 
         <div class="form-group">
-          <label for="price">Price</label>
-          <div class="input-group" id="price">
-            <input type="number" min="0" name="price" class="form-control" placeholder="Price" th:value="${response.object.price}" required>
+          <label for="price">Fuel Price</label>
+          <div class="input-group" id="tripPriceDetail.fuelPrice">
+            <input type="number" min="0" name="tripPriceDetail.fuelPrice" class="form-control" placeholder="Fuel Price" th:value="${response.object.tripPriceDetail.fuelPrice}" required>
+            <span class="input-group-addon">$ total distance / 20 * pertamax </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Hotel Price</label>
+          <div class="input-group" id="tripPriceDetail.hotelPrice">
+            <input type="number" min="0" name="tripPriceDetail.hotelPrice" class="form-control" placeholder="Hotel Price" th:value="${response.object.tripPriceDetail.hotelPrice}" required>
+            <span class="input-group-addon">$ /all Hotel Price / person / bed </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Road Captain Price</label>
+          <div class="input-group" id="tripPriceDetail.roadCaptainPrice">
+            <input type="number" min="0" name="tripPriceDetail.roadCaptainPrice" class="form-control" placeholder="Road Captain Price" th:value="${response.object.tripPriceDetail.roadCaptainPrice}" required>
+            <span class="input-group-addon">$ fee RC / minimum riders </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Towing Price</label>
+          <div class="input-group" id="tripPriceDetail.toweingPrice">
+            <input type="number" min="0" name="tripPriceDetail.towingPrice" class="form-control" placeholder="Towing Price" th:value="${response.object.tripPriceDetail.towingPrice}" required>
+            <span class="input-group-addon">$ Towing Price / minimum riders </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Food Price</label>
+          <div class="input-group" id="tripPriceDetail.foodPrice">
+            <input type="number" min="0" name="tripPriceDetail.foodprice" class="form-control" placeholder="Food Price" th:value="${response.object.tripPriceDetail.foodPrice}" required>
             <span class="input-group-addon">$ /person</span>
           </div>
         </div>

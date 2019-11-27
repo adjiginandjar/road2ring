@@ -60,4 +60,9 @@ public class TripPrice {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "tripPrice")
   @JsonView(ResponseView.DetailedTripPrice.class)
   private List<TripPriceMotor> tripPriceMotorList;
+
+  @ManyToOne(fetch = FetchType.LAZY , optional = true)
+  @JoinColumn(name = "trip_price_trip_price_detail_id" , nullable = true)
+  @JsonView(ResponseView.DetailedTripPrice.class)
+  private TripPriceDetail tripPriceDetail;
 }
