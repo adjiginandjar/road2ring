@@ -61,7 +61,7 @@ public class MidtransMAPIController {
         }
       } else if (transactionStatus.equals("cancel") || transactionStatus.equals("deny") || transactionStatus.equals("expire")) {
         // TODO set transaction status on your database to 'failure'
-        \System.out.println("MidtransMAPIController.handleNotification Fail");
+        System.out.println("MidtransMAPIController.handleNotification Fail");
       } else if (transactionStatus.equals("pending")) {
         // TODO set transaction status on your database to 'pending' / waiting payment
         System.out.println("MidtransMAPIController.handleNotification Pending");
