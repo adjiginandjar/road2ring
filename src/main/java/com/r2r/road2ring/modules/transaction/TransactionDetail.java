@@ -44,6 +44,9 @@ public class TransactionDetail implements Serializable {
   @Column(name = "transaction_detail_type")
   private String type;
 
+  @Column(name = "transaction_detail_quantity")
+  private Integer quantity;
+
   @Transient
   private String brand;
 

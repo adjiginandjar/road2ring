@@ -2,6 +2,7 @@ package com.r2r.road2ring.modules.transaction;
 
 import static com.r2r.road2ring.modules.common.Static.M_API;
 
+import com.midtrans.httpclient.error.MidtransError;
 import com.r2r.road2ring.modules.common.ResponseMessage;
 import com.r2r.road2ring.modules.common.Road2RingException;
 import com.r2r.road2ring.modules.user.User;
@@ -59,6 +60,10 @@ public class TransactionMAPIController {
         responseMessage.setCode(e.getCode());
         responseMessage.setMessage(e.getMessage());
         httpStatus.setStatus(HttpStatus.FORBIDDEN.value());
+      }catch(MidtransError e){
+        responseMessage.setCode(555);
+        responseMessage.setMessage(e.getMessage());
+        httpStatus.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
       }
     } else {
       httpStatus.setStatus(HttpStatus.BAD_REQUEST.value());
