@@ -49,9 +49,10 @@ public class AccessoryMAPIController {
 
   @GetMapping (ACCESSORIES + "/by-sub-category")
   public ResponseMessage getAccessoryByCategory(Principal principal,
-      @RequestParam("subCategoryId") Integer subcategoryId){
+      @RequestParam("subCategoryId") Integer subcategoryId,
+  @RequestParam("categoryId") Integer categoryId){
     ResponseMessage responseMessage = new ResponseMessage();
-    responseMessage.setObject(accessoryViewService.getListAccessoriesBySubCategory(subcategoryId));
+    responseMessage.setObject(accessoryViewService.getListAccessoriesBySubCategory(subcategoryId,categoryId));
     return responseMessage;
   }
 
