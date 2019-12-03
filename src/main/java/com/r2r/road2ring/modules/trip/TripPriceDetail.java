@@ -27,6 +27,12 @@ public class TripPriceDetail {
   private Integer towingPrice; //fee towing / min oranng
   @Column(name = "trip_price_detail_food_price")
   private Integer foodPrice; //fee makan * total hari
+  @Column(name = "trip_price_detail_helper")
+  private Integer helper;//total fee helper / minimum orang
+  @Column(name = "trip_price_detail_documentation")
+  private Integer documentation; //total fee documentation / minimum orang
+  @Column(name = "trip_price_detail_crew_accommodation")
+  private Integer crewAccommodation; //total fee helper / minimum orang
   @Column(name = "trip_price_detail_company_commission")
   private Integer companyCommission;
 }
