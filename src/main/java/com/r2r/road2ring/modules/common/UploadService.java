@@ -92,7 +92,7 @@ public class UploadService {
 
     return linkUrl;
 
-  }git
+  }
 
   public void uploadToSpaces(File file, String imgName, String ext) throws IOException {
     String key = FOLDER + imgName + "." + ext;
