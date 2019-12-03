@@ -60,7 +60,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.picture)}"
                class="wrap-img-image p-top-sm">
-            <img th:src="${baseUrl + response.object.picture}"/>
+            <img th:src="${response.object.picture}"/>
           </div>
         </div>
 
@@ -98,7 +98,7 @@
   <script src="../../js/si/upload.js"></script>
   <script src="../../js/si/parsley.min.js"></script>
   <script>
-    upload_trip("/api/trip/upload_icon", "image","#image", "#hidden_image",640,640, "landscape");
+    upload_trip("/api/trip/upload_trip", "image","#image", "#hidden_image",640,640, "landscape");
     general_editor()
     tinyMCE.triggerSave();
   </script>

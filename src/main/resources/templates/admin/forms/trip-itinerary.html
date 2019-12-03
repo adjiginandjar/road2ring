@@ -60,7 +60,7 @@
                   </div>
                   <div th:if="${not #strings.isEmpty(response.object[iterStat.index].imageUrl)}"
                        th:class="wrap-img-picture-+${iterStat.index}+' p-top-sm'">
-                    <img th:src="${baseUrl + response.object[iterStat.index].imageUrl}"/>
+                    <img th:src="${response.object[iterStat.index].imageUrl}"/>
                   </div>
                 </div>
 

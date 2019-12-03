@@ -97,7 +97,7 @@
             </div>
             <div th:if="${not #strings.isEmpty(response.object.iconCover)}"
                  class="wrap-img-icon_cover p-top-sm">
-              <img th:src="${baseUrl + response.object.iconCover}"/>
+              <img th:src="${response.object.iconCover}"/>
             </div>
         </div>
 
@@ -123,7 +123,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.iconPublisher)}"
                class="wrap-img-icon_publisher p-top-sm">
-            <img th:src="${baseUrl + response.object.iconPublisher}"/>
+            <img th:src="${response.object.iconPublisher}"/>
           </div>
         </div>
 
@@ -149,7 +149,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.coverLandscape)}"
                class="wrap-img-cover_trip p-top-sm">
-            <img th:src="${baseUrl + response.object.coverLandscape}"/>
+            <img th:src="${response.object.coverLandscape}"/>
           </div>
         </div>
 
@@ -175,7 +175,7 @@
           </div>
           <div th:if="${not #strings.isEmpty(response.object.coverPotrait)}"
                class="wrap-img-cover_trips p-top-sm">
-            <img th:src="${baseUrl + response.object.coverPotrait}"/>
+            <img th:src="${response.object.coverPotrait}"/>
           </div>
         </div>
 
@@ -282,8 +282,8 @@
   <script>
 $(function() {
   $(document).ready(function () {
-      upload_trip("/api/trip/upload_icon", "icon_cover","#icon_cover", "#hidden_icon_cover",640,640, "landscape");
-      upload_trip("/api/trip/upload_icon", "icon_publisher","#icon_publisher", "#hidden_icon_publisher",640,640, "potrait");
+      upload_trip("/api/trip/upload_trip", "icon_cover","#icon_cover", "#hidden_icon_cover",640,640, "landscape");
+      upload_trip("/api/trip/upload_trip", "icon_publisher","#icon_publisher", "#hidden_icon_publisher",640,640, "potrait");
       upload_trip("/api/trip/upload_trip", "cover_trip","#cover_trip", "#hidden_cover_trip",640,640, "potrait");
       upload_trip("/api/trip/upload_trip", "cover_trips","#cover_trips", "#hidden_cover_trips",640,640, "potrait");
       console.log($('#trip-facility').val())
