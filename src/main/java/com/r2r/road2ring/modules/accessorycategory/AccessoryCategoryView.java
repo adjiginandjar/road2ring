@@ -12,6 +12,7 @@ import lombok.Data;
 public class AccessoryCategoryView extends BaseView {
 
   String categoryName;
-  List<AccessorySubCategory> subCategories;
+  Integer categoryId;
+  List<AccessorySubCategoryView> subCategories;
   List<AccessoryView> accessories;
 }

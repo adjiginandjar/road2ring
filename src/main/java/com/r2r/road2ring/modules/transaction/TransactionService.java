@@ -457,12 +457,5 @@ public class TransactionService {
     return result;
   }
 
-  public List<TransactionView> getDummyData(Integer page, Integer limit) throws Road2RingException {
-    List<TransactionView> result = transactionViewService.createDummyMyTransaction(
-        tripService.findTripPageablePage(page,limit).getContent());
-    if(result.size() == 0){
-      throw new Road2RingException("you have 0 transaction yet", 200);
-    }
-    return result;
-  }
+
 }

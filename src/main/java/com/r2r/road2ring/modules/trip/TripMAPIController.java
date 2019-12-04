@@ -52,7 +52,6 @@ public class TripMAPIController {
     if (principal != null) {
       Authentication auth = (Authentication) principal;
       UserDetails currentConsumer = (UserDetails) auth.getPrincipal();
-      System.out.println(currentConsumer.getUsername());
     }
 
     ResponseMessage responseMessage = tripViewService.getListTripView(page, limit);
@@ -67,7 +66,6 @@ public class TripMAPIController {
     if (principal != null) {
       Authentication auth = (Authentication) principal;
       UserDetails currentConsumer = (UserDetails) auth.getPrincipal();
-      System.out.println(currentConsumer.getUsername());
     }
 
     ResponseMessage responseMessage = new ResponseMessage();
@@ -83,7 +81,6 @@ public class TripMAPIController {
     if (principal != null) {
       Authentication auth = (Authentication) principal;
       UserDetails currentConsumer = (UserDetails) auth.getPrincipal();
-      System.out.println(currentConsumer.getUsername());
     }
 
     ResponseMessage responseMessage = new ResponseMessage();

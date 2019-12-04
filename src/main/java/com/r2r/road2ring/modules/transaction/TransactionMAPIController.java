@@ -85,8 +85,8 @@ public class TransactionMAPIController {
       User user = userService.findUserByEmail(currentConsumer.getUsername());
       try {
         //dummy
-//        responseMessage.setObject(transactionService.getAllMyTransaction(user,pageId,limit));
-        responseMessage.setObject(transactionService.getDummyData(pageId,limit));
+        responseMessage.setObject(transactionService.getAllMyTransaction(user,pageId,limit));
+//        responseMessage.setObject(transactionService.getDummyData(pageId,limit));
         responseMessage.setCode(200);
       } catch (Road2RingException e) {
         responseMessage.setMessage(e.getMessage());

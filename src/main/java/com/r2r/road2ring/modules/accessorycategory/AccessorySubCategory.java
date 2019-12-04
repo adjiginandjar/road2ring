@@ -41,7 +41,7 @@ public class AccessorySubCategory {
   private String title;
 
   @Column(name = "accessory_sub_category_image")
-  @JsonView(ResponseView.DetailSubCategory.class)
+  @JsonView(ResponseView.DefaultSubCategory.class)
   private String image;
 
   @Column(name = "accessory_sub_category_status")
@@ -50,6 +50,6 @@ public class AccessorySubCategory {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "accessory_sub_category_category_id", nullable = false)
-  @JsonView(ResponseView.DefaultSubCategory.class)
+  @JsonView(ResponseView.DetailedSubCategory.class)
   private AccessoryCategory accessoryCategory;
 }

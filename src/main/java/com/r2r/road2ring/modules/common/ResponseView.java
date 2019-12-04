@@ -65,7 +65,7 @@ public class ResponseView {
 
   public interface LimitedSubCategory extends Base {}
   public interface DefaultSubCategory extends LimitedSubCategory, DefaultCategory {}
-  public interface DetailSubCategory extends DefaultSubCategory {}
+  public interface DetailedSubCategory extends DefaultSubCategory {}
 
   public interface LimitedCategory extends Base {}
   public interface DefaultCategory extends LimitedCategory {}

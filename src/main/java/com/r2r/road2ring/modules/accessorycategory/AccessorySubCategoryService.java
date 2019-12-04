@@ -36,7 +36,24 @@ public class AccessorySubCategoryService {
 
     AccessoryCategoryView result = new AccessoryCategoryView();
     result.setCategoryName(category.getTitle());
-    result.setSubCategories(accessorySubCategoryRepository.findAllByAccessoryCategoryIdAndStatus(category.getId(),PublishedStatus.PUBLISHED));
+    result.setCategoryId(category.getId());
+    result.setSubCategories(this.bindAccessorySubCateory(accessorySubCategoryRepository
+        .findAllByAccessoryCategoryIdAndStatus(category.getId(),PublishedStatus.PUBLISHED)));
+    return result;
+  }
+
+  private List<AccessorySubCategoryView> bindAccessorySubCateory(List<AccessorySubCategory> subCategories) {
+    List<AccessorySubCategoryView> result = new ArrayList<>();
+    AccessorySubCategoryView subCategoryView;
+    for (AccessorySubCategory item :
+        subCategories) {
+      subCategoryView = new AccessorySubCategoryView();
+      subCategoryView.setId(item.getId());
+      subCategoryView.setImage(item.getImage());
+      subCategoryView.setTitle(item.getTitle());
+      result.add(subCategoryView);
+
+    }
     return result;
   }
 
