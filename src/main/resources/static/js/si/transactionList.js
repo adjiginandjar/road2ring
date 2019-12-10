@@ -58,13 +58,18 @@ $(document).ready( function () {
                $(td).attr('data-th', 'Action');
 
            }
-         },
-			],
+         },],
 			"columnDefs": [ {
-        "searchable": false,
-        "orderable": true,
-        "targets": 0
-      }],
+            "searchable": false,
+            "orderable": true,
+            "targets": 0
+         },{
+             "targets":4,
+             "render": function(data, type, row) {
+                  var parseTs = moment(data, 'x');
+                  return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+              }
+         },],
       "order": [[ 2, "asc" ]],
 
 	 });
@@ -73,14 +78,6 @@ $(document).ready( function () {
     table.column(0, { page: 'current' }).nodes().each( function (cell, i) {
        cell.innerHTML = i + 1 + PageInfo.start;
     } );
-    table.column(4, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-    } );
-//    table.column(6, { page: 'current' }).nodes().each( function (cell, i) {
-//       var parseTs = moment(cell.innerHTML, 'x');
-//       cell.innerHTML = cell.innerHTML != '' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-//    } );
   });
 //
 //  var btnNew = '<a href="'+window.location.pathname+'/add" class="btn btn-default btn-sm"><span class="fa fa-plus-circle fa-lg"></span> Add New Record</a>';

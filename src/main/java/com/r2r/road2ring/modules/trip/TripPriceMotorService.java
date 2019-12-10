@@ -10,6 +10,8 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class TripPriceMotorService {
 
@@ -92,6 +94,21 @@ public class TripPriceMotorService {
     return tripPriceMotorRepository.save(saved);
   }
 
+  @Transactional
+  public TripPriceMotor saveTripPriceMotors(Integer motorId, Integer tripPriceId, Integer stock, Integer price){
+    TripPriceMotor saved = new TripPriceMotor();
+    Motor motor = new Motor();
+    motor = motorService.getMotoyrById(motorId);
+    TripPrice tripPrice = tripPriceService.getOneTripPrice(tripPriceId);
+
+    saved.setTripPrice(tripPrice);
+    saved.setStock(stock);
+    saved.setBike(motor);
+    saved.setPrice(price);
+
+    return tripPriceMotorRepository.save(saved);
+  }
+
   public boolean ifExist(TripPriceMotor tripPriceMotor, Integer tripPriceId){
     if(tripPriceMotor.getId() != null && tripPriceMotor.getId() != 0){
       TripPriceMotor current = getOneTripPriceMotor(tripPriceMotor.getId());
@@ -103,6 +120,10 @@ public class TripPriceMotorService {
     }else{
       return tripPriceMotorRepository.findAllByBikeIdAndTripPriceId(tripPriceMotor.getBike().getId(), tripPriceId).size() != 0;
     }
+  }
+
+  public boolean ifExists(Integer motorId, Integer tripPriceId){
+    return tripPriceMotorRepository.findAllByBikeIdAndTripPriceId(motorId, tripPriceId).size() != 0;
   }
 
 }

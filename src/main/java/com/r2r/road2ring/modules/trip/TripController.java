@@ -248,12 +248,17 @@ public class TripController {
     return "admin/forms/price-list";
   }
 
+
+
   @RequestMapping(value = "/{tripId}/price-list/{tripPriceId}/bike",method = RequestMethod.GET)
-  public String listBikeTripPrice(@PathVariable("tripId") int tripId,
-      @PathVariable("tripId") int tripPriceId, Model model) {
+  public String listBikeTripPrice(@PathVariable("tripPriceId") int tripPriceId,
+      @PathVariable("tripId") int tripId, Model model) {
 
     ResponseMessage response = new ResponseMessage();
+    response.setObject(tripPriceMotorService.getDatatable(tripPriceId));
     model.addAttribute("response", response);
+    model.addAttribute("tripId", tripId);
+    model.addAttribute("priceId", tripPriceId);
     return "admin/page/trip-bike";
   }
   @RequestMapping(value = "/{tripId}/price-list/{tripPriceId}/bike/add",method = RequestMethod.GET)
@@ -285,6 +290,7 @@ public class TripController {
     model.addAttribute("tripPriceId", tripPriceId);
     return "admin/forms/bike";
   }
+
   @RequestMapping(value = "/{tripId}/price-list/{tripPriceId}/bike/save",method = RequestMethod.POST)
   public String saveBikeTripPrice(@ModelAttribute TripPriceMotor tripPriceMotor, @PathVariable("tripId") int tripId,
       @PathVariable("tripPriceId") int tripPriceId, Model model) {

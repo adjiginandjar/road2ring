@@ -72,6 +72,12 @@ $(document).ready( function () {
 //              console.log(data)
               return data != null && data != '' ? data : '' ;
           }
+      },{
+        "targets":2,
+        "render": function(data, type, row) {
+          var parseTs = moment(data, 'x');
+          return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+        }
       }],
       "order": [[ 0, "asc" ]],
 
@@ -80,14 +86,6 @@ $(document).ready( function () {
     var PageInfo = $('#rsp-tbl').DataTable().page.info();
     table.column(0, { page: 'current' }).nodes().each( function (cell, i) {
        cell.innerHTML = i + 1 + PageInfo.start;
-    } );
-//    table.column(1, { page: 'current' }).nodes().each( function (cell, i) {
-//       var parseTs = moment(cell.innerHTML, 'x');
-//       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-//    } );
-    table.column(2, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
     } );
   });
 

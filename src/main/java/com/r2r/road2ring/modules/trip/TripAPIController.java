@@ -22,12 +22,7 @@ import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceed
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -145,6 +140,31 @@ public class TripAPIController {
       responseMessage.setCode(ResponseCode.INTERNAL_SERVER_ERROR.getCode());
     }
     return responseMessage;
+  }
+
+  @PostMapping("/{tripId}/price-list/{tripPriceId}/bike/save")
+  public ResponseMessage saveTripPriceMotor(@PathVariable("tripId") int tripId,
+                              @PathVariable("tripPriceId") int tripPriceId,
+                              @RequestParam Integer[] id, @RequestParam Integer[] price,
+                              @RequestParam Integer[] stock){
+
+    ResponseMessage responseMessage = new ResponseMessage();
+    int failure = 0;
+    for(int i = 0; i<id.length; i++){
+      if(!tripPriceMotorService.ifExists(id[i], tripPriceId)) {
+        tripPriceMotorService.saveTripPriceMotors(id[i], tripPriceId, stock[i], price[i]);
+      }else{
+        failure+=1;
+      }
+    }
+    if(failure > 0){
+      responseMessage.setMessage(failure+" data anda tidak berhasil disimpan karena list ini sudah memiliki motor yang anda masukkan.");
+    }else{
+      responseMessage.setMessage("sukses");
+    }
+
+    return responseMessage;
+
   }
 
   @PostMapping("/change-status/{tripId}/{statusId}")
