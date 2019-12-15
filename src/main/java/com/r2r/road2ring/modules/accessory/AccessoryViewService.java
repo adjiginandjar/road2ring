@@ -3,6 +3,7 @@ package com.r2r.road2ring.modules.accessory;
 import com.r2r.road2ring.modules.accessorycategory.AccessoryCategory;
 import com.r2r.road2ring.modules.accessorycategory.AccessoryCategoryService;
 import com.r2r.road2ring.modules.accessorycategory.AccessoryCategoryView;
+import com.r2r.road2ring.modules.accessorycategory.AccessorySubCategory;
 import com.r2r.road2ring.modules.accessorycategory.AccessorySubCategoryService;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,11 @@ public class AccessoryViewService {
   @Autowired
   public void setAccessoryCategoryService(AccessoryCategoryService accessoryCategoryService){
     this.accessoryCategoryService = accessoryCategoryService;
+  }
+
+  public AccessoryView getAccessoryById(Integer accessoryId){
+    Accessory result = accessoryService.getAccessoryById(accessoryId);
+    return this.bindAccessoryView(result);
   }
 
   public AccessoryView bindAccessoryView(Accessory accessory){
@@ -61,62 +67,23 @@ public class AccessoryViewService {
     return result;
   }
 
-  public List<AccessoryView> getListAccessoriesBySubCategoryName(String subCategoryName){
-    Integer accessorySubCategoryId = accessorySubCategoryService.getOneByName(subCategoryName).getId();
-    List<Accessory> accessories = accessoryService.getAllAccessoryBySubCategory(accessorySubCategoryId);
-    List<AccessoryView> result = this.bindListAccessoryView(accessories);
+  public AccessoryCategoryView getListAccessoriesBySubCategory(Integer accessorySubCategoryId,Integer categoryId){
+    AccessoryCategoryView result = new AccessoryCategoryView();
+    List<Accessory> accessories = new ArrayList<Accessory>();
+    if(accessorySubCategoryId != 0) {
+      AccessorySubCategory subCategory = accessorySubCategoryService
+          .getAccessorySubCategroryById(accessorySubCategoryId);
+      accessories = accessoryService
+          .getAllAccessoryBySubCategory(accessorySubCategoryId);
+      result.setCategoryName(subCategory.getTitle());
+    }else{
+      accessories = accessoryService.getAllAccessoryByCategory(categoryId);
+    }
+
+    result.setAccessories(this.bindListAccessoryView(accessories));
     return result;
   }
 
 
-  public AccessoryCategoryView getDummy(String subCategoryName){
-    AccessoryCategoryView dummyResult = new AccessoryCategoryView();
-    dummyResult.setCategoryName("Helmet");
-    AccessoryView item = new AccessoryView();
-    List<AccessoryView> result = new ArrayList<AccessoryView>();
-
-    item = new AccessoryView();
-    item.setId(1);
-    item.setTitle("MDS");
-    item.setDescription("helmet");
-    item.setPrice(140000);
-    item.setPicture("https://res.cloudinary.com/marfycarlo/image/upload/dummy/img/helmet-r2r-4.png");
-    result.add(item);
-
-    item = new AccessoryView();
-    item.setId(2);
-    item.setTitle("Arai");
-    item.setDescription("helmet");
-    item.setPrice(250000);
-    item.setPicture("https://res.cloudinary.com/marfycarlo/image/upload/dummy/img/helmet-r2r-3.png");
-    result.add(item);
-
-    item = new AccessoryView();
-    item.setId(3);
-    item.setTitle("Ink");
-    item.setDescription("helmet");
-    item.setPrice(375000);
-    item.setPicture("https://res.cloudinary.com/marfycarlo/image/upload/dummy/img/helmet-r2r-2.png");
-    result.add(item);
-
-    item = new AccessoryView();
-    item.setId(4);
-    item.setTitle("KYT");
-    item.setDescription("helmet");
-    item.setPrice(400000);
-    item.setPicture("https://res.cloudinary.com/marfycarlo/image/upload/dummy/img/helmet-r2r-1.png");
-    result.add(item);
-
-    item = new AccessoryView();
-    item.setId(5);
-    item.setTitle("Arai");
-    item.setDescription("helmet");
-    item.setPrice(500000);
-    item.setPicture("https://res.cloudinary.com/marfycarlo/image/upload/dummy/img/helmet-r2r-0.png");
-    result.add(item);
-
-    dummyResult.setAccessories(result);
-    return dummyResult;
-  }
 
 }

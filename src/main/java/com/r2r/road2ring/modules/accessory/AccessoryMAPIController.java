@@ -38,20 +38,21 @@ public class AccessoryMAPIController {
     return responseMessage;
   }
 
-  @GetMapping (ACCESSORIES + "/{titleAccessoryCategory}/{titleAccessorySubCategory}")
-  public ResponseMessage getAccessoryByCategory(Principal principal,
-      @PathVariable("titleAccessoryCategory") String titleCategory,
-      @PathVariable("titleAccessorySubCategory") String titleSubCategory){
+  @GetMapping (ACCESSORIES + "/detail")
+  public ResponseMessage getDetailAccessory(Principal principal,
+      @RequestParam("accessoryId") Integer accessoryId){
     ResponseMessage responseMessage = new ResponseMessage();
-    responseMessage.setObject(accessoryViewService.getDummy(titleCategory));
+    responseMessage.setObject(accessoryViewService.getAccessoryById(accessoryId));
     return responseMessage;
   }
 
+
   @GetMapping (ACCESSORIES + "/by-sub-category")
   public ResponseMessage getAccessoryByCategory(Principal principal,
-      @RequestParam("subCategoryId") Integer subcategoryId){
+      @RequestParam("subCategoryId") Integer subcategoryId,
+  @RequestParam("categoryId") Integer categoryId){
     ResponseMessage responseMessage = new ResponseMessage();
-    responseMessage.setObject(accessoryViewService.getDummy(subcategoryId.toString()));
+    responseMessage.setObject(accessoryViewService.getListAccessoriesBySubCategory(subcategoryId,categoryId));
     return responseMessage;
   }
 

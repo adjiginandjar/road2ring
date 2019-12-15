@@ -46,12 +46,28 @@ public class AccessoryService {
   }
 
   public List<Accessory> getAllAccessoryBySubCategory(Integer accessorySubCategory){
-    return accessoryRepository.findAllByAccessoryCategoryIdAndStatusOrderByIdAsc(accessorySubCategory,PublishedStatus.PUBLISHED);
+    return accessoryRepository.findAllByAccessorySubCategoryIdAndStatusOrderByIdAsc(accessorySubCategory,PublishedStatus.PUBLISHED);
   }
 
   public void changeStatus(PublishedStatus statusId, int id) throws Road2RingException {
     Accessory save = accessoryRepository.findOne(id);
     save.setStatus(statusId);
     accessoryRepository.save(save);
+  }
+
+  public Accessory reverseStock(Integer accessoryId){
+    Accessory result = accessoryRepository.findOne(accessoryId);
+    result.setStock(result.getStock() + 1);
+    return accessoryRepository.save(result);
+  }
+
+  public Accessory substractStock(Integer accessoryId,Integer quantity ) throws Road2RingException {
+    Accessory result = accessoryRepository.findOne(accessoryId);
+    if(result.getStock() - 1 >= 0) {
+      result.setStock(result.getStock() - 1);
+      return accessoryRepository.save(result);
+    }
+    else
+      throw new Road2RingException("Stock Motor not Available",500);
   }
 }

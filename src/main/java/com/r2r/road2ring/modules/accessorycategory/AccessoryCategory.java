@@ -38,7 +38,5 @@ public class AccessoryCategory implements Serializable {
   @JsonView(ResponseView.DefaultCategory.class)
   private PublishedStatus status;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "accessoryCategory")
-  private List<AccessorySubCategory> subCategoryList;
 
 }

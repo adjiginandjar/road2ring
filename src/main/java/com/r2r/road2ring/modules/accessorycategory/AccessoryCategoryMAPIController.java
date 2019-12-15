@@ -34,7 +34,7 @@ public class AccessoryCategoryMAPIController {
   public ResponseMessage getAccessorySubCatagory(
       @PathVariable("accessoryCategoryId") Integer accessoryCategoryId){
     ResponseMessage responseMessage = new ResponseMessage();
-    responseMessage.setObject(accessorySubCategoryService.findAllDummySubCategory(accessoryCategoryId));
+    responseMessage.setObject(accessorySubCategoryService.getSubCategoryByCategory(accessoryCategoryId));
     return responseMessage;
   }
 }

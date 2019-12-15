@@ -2,8 +2,14 @@ package com.r2r.road2ring.modules.transaction;
 
 import com.r2r.road2ring.modules.accessory.Accessory;
 import com.r2r.road2ring.modules.accessory.AccessoryRepository;
+import com.r2r.road2ring.modules.accessory.AccessoryService;
+import com.r2r.road2ring.modules.common.InvalidOrderException;
+import com.r2r.road2ring.modules.common.Road2RingException;
 import com.r2r.road2ring.modules.motor.Motor;
 import com.r2r.road2ring.modules.motor.MotorRepository;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
+import com.r2r.road2ring.modules.trip.TripPriceMotorService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +22,12 @@ public class TransactionDetailService {
   TransactionDetailRepository transactionDetailRepository;
 
   MotorRepository motorRepository;
+
+  @Autowired
+  TripPriceMotorService tripPriceMotorService;
+
+  @Autowired
+  AccessoryService accessoryService;
 
   @Autowired
   public void setTransactionDetailRepository(TransactionDetailRepository transactionDetailRepository){
@@ -32,61 +44,66 @@ public class TransactionDetailService {
     this.motorRepository = motorRepository;
   }
 
-  public void saveTransactionDetailAccessory(Accessory accessory, Transaction transaction, boolean bringOwnHelm){
+  public TransactionDetail saveTransactionDetailAccessory(Accessory accessory,
+      Transaction transaction,Integer quantity, boolean bringOwnHelm)
+      throws Road2RingException {
     TransactionDetail transactionDetail = new TransactionDetail();
     if(!bringOwnHelm) {
+      accessoryService.substractStock(accessory.getId(),quantity);
       transactionDetail.setTransaction(transaction);
       transactionDetail.setTitle(accessory.getTitle());
-      transactionDetail.setType(accessory.getAccessoryCategory().getTitle());
+      transactionDetail.setType(accessory.getAccessorySubCategory().getTitle());
       transactionDetail.setPrice(accessory.getPrice());
       transactionDetail.setDiscount(accessory.getDiscount());
       transactionDetail.setPicture(accessory.getPicture());
       transactionDetail.setSize(accessory.getSize());
-      transactionDetailRepository.save(transactionDetail);
+      transactionDetail.setQuantity(quantity);
+      return transactionDetailRepository.save(transactionDetail);
     } else {
       transactionDetail.setTransaction(transaction);
       transactionDetail.setTitle("Bring Own Helm");
       transactionDetail.setType("Helm");
-      transactionDetailRepository.save(transactionDetail);
+      return transactionDetailRepository.save(transactionDetail);
     }
   }
 
-  public void saveListTransactionalAccessory(List<Accessory> accessoryList, Transaction transaction, boolean bringOwnHelm){
+  public List<TransactionDetail> saveListTransactionalAccessory(List<Accessory> accessoryList, Transaction transaction, boolean bringOwnHelm)
+      throws Road2RingException {
 
-    /*BECAUSE THIS STATE JUST USING ONE ACCESSORY*/
-    /**
-    We can use this because only helm is binding into accessory yet
-     **/
+    List<TransactionDetail> result = new ArrayList<>();
     if(!bringOwnHelm) {
       for (Accessory accessory : accessoryList) {
         Accessory saved = accessoryRepository.findOne(accessory.getId());
         saved.setSize(accessory.getSize());
-        saveTransactionDetailAccessory(saved, transaction, bringOwnHelm);
+        result.add(saveTransactionDetailAccessory(saved, transaction,accessory.getQuantity(), bringOwnHelm));
       }
     } else {
       Accessory saved = new Accessory();
-      saveTransactionDetailAccessory(saved, transaction, bringOwnHelm);
+      saveTransactionDetailAccessory(saved, transaction,0, bringOwnHelm);
     }
+    return result;
   }
 
-  public void saveMotor(Motor motor, Transaction transaction, boolean bringOwn){
+  public TransactionDetail saveMotor(Motor motor, Transaction transaction, boolean bringOwn)
+      throws Road2RingException {
     TransactionDetail transactionDetail = new TransactionDetail();
     if(bringOwn != true) {
-      Motor saved = motorRepository.findOne(motor.getId());
+      TripPriceMotor saved = tripPriceMotorService.substractStock(motor.getId());
       transactionDetail.setTransaction(transaction);
-      transactionDetail.setTitle(saved.getTitle());
-      transactionDetail.setType("motor");
+      transactionDetail.setTitle(saved.getBike().getTitle());
+      transactionDetail.setType("Motor");
       transactionDetail.setPrice(saved.getPrice());
-      transactionDetail.setDiscount(saved.getDiscount());
-      transactionDetail.setPicture(saved.getPicture());
-      transactionDetail.setCapacity(saved.getCapacity());
-      transactionDetail.setBrand(saved.getBrand());
-      transactionDetailRepository.save(transactionDetail);
+      transactionDetail.setDiscount(saved.getBike().getDiscount());
+      transactionDetail.setPicture(saved.getBike().getPicture());
+      transactionDetail.setCapacity(saved.getBike().getCapacity());
+      transactionDetail.setBrand(saved.getBike().getBrand());
+      transactionDetail.setQuantity(1);
+      return transactionDetailRepository.save(transactionDetail);
     } else {
       transactionDetail.setTransaction(transaction);
       transactionDetail.setTitle("Bring Own Motor");
       transactionDetail.setType("motor");
-      transactionDetailRepository.save(transactionDetail);
+      return null;
     }
   }
 

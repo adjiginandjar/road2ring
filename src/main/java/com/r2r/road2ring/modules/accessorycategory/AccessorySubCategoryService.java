@@ -31,11 +31,29 @@ public class AccessorySubCategoryService {
     return accessorySubCategoryRepository.findAllByTitleIgnoreCaseNotLikeAndStatus(name,PublishedStatus.PUBLISHED);
   }
 
-  public AccessoryCategoryView findAllDummySubCategory(Integer accessoryCategoryId){
+  public AccessoryCategoryView getSubCategoryByCategory(Integer accessoryCategoryId){
+    AccessoryCategory category = accessoryCategoryService.getAccessoryCategoryById(accessoryCategoryId);
 
     AccessoryCategoryView result = new AccessoryCategoryView();
-    result.setCategoryName("Safety");
-    result.setSubCategories(this.generateDataDummy());
+    result.setCategoryName(category.getTitle());
+    result.setCategoryId(category.getId());
+    result.setSubCategories(this.bindAccessorySubCateory(accessorySubCategoryRepository
+        .findAllByAccessoryCategoryIdAndStatus(category.getId(),PublishedStatus.PUBLISHED)));
+    return result;
+  }
+
+  private List<AccessorySubCategoryView> bindAccessorySubCateory(List<AccessorySubCategory> subCategories) {
+    List<AccessorySubCategoryView> result = new ArrayList<>();
+    AccessorySubCategoryView subCategoryView;
+    for (AccessorySubCategory item :
+        subCategories) {
+      subCategoryView = new AccessorySubCategoryView();
+      subCategoryView.setId(item.getId());
+      subCategoryView.setImage(item.getImage());
+      subCategoryView.setTitle(item.getTitle());
+      result.add(subCategoryView);
+
+    }
     return result;
   }
 
@@ -61,22 +79,6 @@ public class AccessorySubCategoryService {
     return accessorySubCategoryRepository.save(result);
   }
 
-  private List<AccessorySubCategory> generateDataDummy(){
-    List<AccessorySubCategory> result = new ArrayList<AccessorySubCategory>();
-    AccessorySubCategory item;
-
-    item = new AccessorySubCategory(1,"Helmet","http://lorempixel.com/768/432/technics/6/",PublishedStatus.PUBLISHED);
-    result.add(item);
-    item = new AccessorySubCategory(1,"Jacket","http://lorempixel.com/768/432/technics/7/",PublishedStatus.PUBLISHED);
-    result.add(item);
-    item = new AccessorySubCategory(1,"Goggles","http://lorempixel.com/768/432/technics/2/",PublishedStatus.PUBLISHED);
-    result.add(item);
-    item = new AccessorySubCategory(1,"T-Shirt","http://lorempixel.com/768/432/technics/4/",PublishedStatus.PUBLISHED);
-    result.add(item);
-
-    return result;
-
-  }
 
   public void changeStatus(PublishedStatus statusId, int id) throws Road2RingException {
     AccessorySubCategory save = accessorySubCategoryRepository.findOne(id);

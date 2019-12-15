@@ -108,6 +108,12 @@ public class Transaction implements Serializable {
   @Column(name = "transaction_creator")
   private TransactionCreator transactionCreator;
 
+  @Column(name = "transaction_single_room")
+  private Boolean singleRoom;
+
+  @Column(name = "transaction_pillion")
+  private Boolean pillion;
+
   @Transient
   private Motor motor;
 

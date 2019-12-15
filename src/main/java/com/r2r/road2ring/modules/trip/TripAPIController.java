@@ -124,24 +124,6 @@ public class TripAPIController {
     return responseMessage;
   }
 
-  @PostMapping("/upload_icon/{typeImage}")
-  public ResponseMessage uploadIcon(@PathVariable String typeImage,@RequestParam("file") MultipartFile file) {
-    ResponseMessage responseMessage = new ResponseMessage();
-    try {
-      if (!file.isEmpty()) {
-        responseMessage.setCode(ResponseCode.SUCCESS.getCode());
-        responseMessage.setObject(uploadService.uploadIconPicture(file, typeImage));
-      }
-    }catch (IOException e){
-      responseMessage.setMessage(e.getMessage());
-      responseMessage.setCode(ResponseCode.INTERNAL_SERVER_ERROR.getCode());
-    }catch (FileSizeLimitExceededException e){
-      responseMessage.setMessage(e.getMessage());
-      responseMessage.setCode(ResponseCode.INTERNAL_SERVER_ERROR.getCode());
-    }
-    return responseMessage;
-  }
-
   @PostMapping("/{tripId}/price-list/{tripPriceId}/bike/save")
   public ResponseMessage saveTripPriceMotor(@PathVariable("tripId") int tripId,
                               @PathVariable("tripPriceId") int tripPriceId,

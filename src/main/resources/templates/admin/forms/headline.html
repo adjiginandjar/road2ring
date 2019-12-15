@@ -65,7 +65,7 @@
             </div>
             <div th:if="${not #strings.isEmpty(response.object.mediaUrl)}"
                  class="wrap-img-image p-top-sm">
-              <img th:src="${baseUrl + response.object.mediaUrl}"/>
+              <img th:src="${response.object.mediaUrl}"/>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
   <script>
   $(function() {
       $(document).ready(function () {
-        upload_trip("/api/trip/upload_icon", "image","#image", "#hidden_image",640,640, "landscape");
+        upload_trip("/api/trip/upload_trip", "image","#image", "#hidden_image",640,640, "landscape");
         general_editor()
       })
   })

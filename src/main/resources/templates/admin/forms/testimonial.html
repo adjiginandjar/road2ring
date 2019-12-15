@@ -96,7 +96,7 @@ form.form-border .form-group {
           </div>
           <div th:if="${not #strings.isEmpty(response.object.coverLandscape)}"
                class="wrap-img-cover_trip p-top-sm">
-            <img th:src="${baseUrl + response.object.coverLandscape}"/>
+            <img th:src="${response.object.coverLandscape}"/>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ form.form-border .form-group {
           </div>
           <div th:if="${not #strings.isEmpty(response.object.coverPotrait)}"
                class="wrap-img-cover_trips p-top-sm">
-            <img th:src="${baseUrl + response.object.coverPotrait}"/>
+            <img th:src="${response.object.coverPotrait}"/>
           </div>
         </div>
 
@@ -253,7 +253,7 @@ form.form-border .form-group {
   <script>
     $(function() {
       $(document).ready(function () {
-          upload_trip("/api/trip/upload_icon", "icon_cover","#icon_cover", "#hidden_icon_cover",640,640, "landscape");
+          upload_trip("/api/trip/upload_trip", "icon_cover","#icon_cover", "#hidden_icon_cover",640,640, "landscape");
           upload_trip("/api/trip/upload_trip", "cover_trip","#cover_trip", "#hidden_cover_trip",640,640, "potrait");
           upload_trip("/api/trip/upload_trip", "cover_trips","#cover_trips", "#hidden_cover_trips",640,640, "potrait");
           multi_page_editor();

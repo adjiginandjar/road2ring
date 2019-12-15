@@ -71,4 +71,7 @@ public class Accessory implements Serializable {
 
   @Transient
   private String size;
+
+  @Transient
+  private Integer quantity;
 }

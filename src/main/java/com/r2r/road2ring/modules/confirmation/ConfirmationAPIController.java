@@ -1,7 +1,6 @@
 package com.r2r.road2ring.modules.confirmation;
 
 import static com.r2r.road2ring.modules.common.Static.CONFIRMATION;
-import static com.r2r.road2ring.modules.common.Static.IMAGE_ASSETS_URL;
 import static com.r2r.road2ring.modules.common.Static.M_API;
 
 import com.r2r.road2ring.modules.common.ResponseMessage;
@@ -9,7 +8,6 @@ import com.r2r.road2ring.modules.common.Road2RingException;
 import com.r2r.road2ring.modules.common.UploadService;
 import com.r2r.road2ring.modules.user.User;
 import com.r2r.road2ring.modules.user.UserService;
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +61,7 @@ public class ConfirmationAPIController {
       String picture;
       if(file != null) {
         picture = uploadService.uploadImagePicture(file, "jpeg");
-        confirmation.setPicture(IMAGE_ASSETS_URL + picture);
+        confirmation.setPicture(picture);
       }
       try {
         responseMessage.setObject(confirmationService.saveConfirmation(confirmation));

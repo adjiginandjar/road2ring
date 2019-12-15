@@ -36,3 +36,5 @@ src/main/resources/static/img/
 
 #bash
 start.sh
+
+src/main/webapp/uploads/

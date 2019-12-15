@@ -1,7 +1,6 @@
 package com.r2r.road2ring.modules.user;
 
 import static com.r2r.road2ring.modules.common.Static.API;
-import static com.r2r.road2ring.modules.common.Static.IMAGE_ASSETS_URL;
 import static com.r2r.road2ring.modules.common.Static.M_API;
 import static com.r2r.road2ring.modules.common.Static.USER;
 
@@ -141,15 +140,15 @@ public class UserAPIController {
       String pictureUserUrl;
       if(userIdentitiy != null) {
         userIdentityUrl = uploadService.uploadImagePicture(userIdentitiy, "jpeg");
-        user.setUserIdentityPicture(IMAGE_ASSETS_URL + userIdentityUrl);
+        user.setUserIdentityPicture(userIdentityUrl);
       }
       if(driverLicense != null){
         driverLicenseUrl = uploadService.uploadImagePicture(driverLicense, "jpeg");
-        user.setDriverLicensePicture(IMAGE_ASSETS_URL + driverLicenseUrl);
+        user.setDriverLicensePicture(driverLicenseUrl);
       }
       if(pictureUser != null){
         pictureUserUrl = uploadService.uploadImagePicture(pictureUser, "jpeg");
-        user.setPicture(IMAGE_ASSETS_URL + pictureUserUrl);
+        user.setPicture(pictureUserUrl);
       }
       responseMessage.setCode(200);
       responseMessage.setObject(userViewService.bindUserViewDetail(userService.saveUserProfile(user)));

@@ -55,21 +55,20 @@ function upload_trip(url_upload, section,image_field, hidden_field,width,height,
 
             if (responseText != "") {
                 hidden_val = json.object;
-                var base_url = window.location.origin;
 
 //                console.log($('.wrap_'+section+' .pre_img img'))
 //                console.log('/img/assets/'+json.object)
 
                 if(json.code === 600 ){
                   isValidImg = true;
-                  $('.wrap_'+section+' .pre_img img').attr('src', base_url + '/img/assets/'+json.object);
+                  $('.wrap_'+section+' .pre_img img').attr('src',json.object);
                 }else{
                   isValidImg = false;
                 }
 
             }
             if(isValidImg)
-              $(hidden_field).val('/img/assets/' + hidden_val);
+              $(hidden_field).val(hidden_val);
             else
               alert("Size Image kebesaran, tidak boleh lebih dari 100Kb")
 

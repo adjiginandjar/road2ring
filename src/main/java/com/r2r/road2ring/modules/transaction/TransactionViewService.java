@@ -141,34 +141,4 @@ public class TransactionViewService {
   }
 
 
-  public List<TransactionView> createDummyMyTransaction(List<Trip> trips){
-    List<TransactionView> result = new ArrayList<TransactionView>();
-    for (Trip item :
-        trips) {
-      result.add(this.bindTransactionViewDummy(item));
-    }
-    return result;
-  }
-
-  public TransactionView bindTransactionViewDummy(Trip trip){
-    Random rand = new Random();
-    TransactionView result = new TransactionView();
-    result.setId(trip.getId());
-    result.setTitle(trip.getTitle());
-    result.setDuration(trip.getDuration());
-    result.setCoverLandscape(trip.getCoverLandscape());
-    result.setCoverPortrait(trip.getCoverPotrait());
-    result.setIconCover(trip.getIconCover());
-    result.setIconPublisher(trip.getIconPublisher());
-    result.setLocation(trip.getLocation());
-    result.setTripPrice(20);
-    result.setExpiredDate(new Date());
-    result.setStartDate(new Date());
-    result.setCode("MIAKHALIFA");
-    result.setTripStatus(TripStatus.values()[rand.nextInt(TripStatus.values().length)]);
-    result.setPaymentStatus(PaymentStatus.values()[rand.nextInt(PaymentStatus.values().length)]);
-
-
-    return result;
-  }
 }
