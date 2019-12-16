@@ -67,11 +67,24 @@ $(document).ready( function() {
           "searchable": false,
           "orderable": true,
           "targets": 0
-        } ],
+        }, ],
+
         "columnDefs": [{
             "targets": 4,
             "visible": false,
-        }],
+        },{
+          "targets":2,
+          "render": function(data, type, row) {
+               var parseTs = moment(data, 'x');
+               return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+          }
+      },{
+          "targets":3,
+          "render": function(data, type, row) {
+               var parseTs = moment(data, 'x');
+               return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+          }
+      }],
         "order": [[ 4, "asc" ]],
 
   	 });
@@ -81,15 +94,6 @@ $(document).ready( function() {
        cell.innerHTML = i + 1 + PageInfo.start;
     } );
 
-    table.column(2, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY  H:mm') : '-';
-    } );
-
-    table.column(3, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY  H:mm') : '-';
-    } );
 
     if(PageInfo.recordsTotal >= 5){
       $("div.newRecord").hide();
@@ -106,7 +110,10 @@ $(document).ready( function() {
   $("div.toolbar").html(filter);
 
   $('.isPublished').on('change', function() {
-    table.columns(4).search(this.value).draw();
+   if ($(this).val() != "")
+        table.columns(4).search('^'+this.value+'$', true,false).draw();
+    else
+        table.columns(4).search('').draw();
   });
 
   $('.findTitle').on('keyup', function(event) {

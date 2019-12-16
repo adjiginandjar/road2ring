@@ -75,6 +75,12 @@ $(document).ready( function () {
       "columnDefs": [{
           "targets": 3,
           "visible": false
+      },{
+         "targets":2,
+         "render": function(data, type, row) {
+              var parseTs = moment(data, 'x');
+              return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+         }
       }],
       "order": [[ 0, "asc" ]],
 
@@ -84,18 +90,10 @@ $(document).ready( function () {
     table.column(0, { page: 'current' }).nodes().each( function (cell, i) {
        cell.innerHTML = i + 1 + PageInfo.start;
     } );
-//    table.column(1, { page: 'current' }).nodes().each( function (cell, i) {
-//       var parseTs = moment(cell.innerHTML, 'x');
-//       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-//    } );
-    table.column(2, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-    } );
   });
 
   var btnNew = '<a href="'+window.location.pathname+'/add" class="btn btn-default btn-sm"><span class="fa fa-plus-circle fa-lg"></span> Add New Record</a>';
-  var filterStatus = 'Filter by : <select class="form-control tripStatus"><option value="">--- All Status ---</option><option value="PUBLISHED">Waiting</option><option value="UNPUBLISHED">Expired</option></select>';
+  var filterStatus = 'Filter by : <select class="form-control tripStatus"><option value="">--- All Status ---</option><option value="PUBLISHED">Published</option><option value="UNPUBLISHED">Unpublished</option></select>';
   var filterCaptain = '&nbsp;<input class="form-control findCaptain" size="24" type="text" name="findCaptain" placeholder="Find Specific Captain">';
   var filterTitle = '&nbsp;<input class="form-control findTitle" size="47" type="text" name="findTitle" placeholder="Find Specific Title">';
   var filter = filterStatus + filterTitle;
@@ -103,8 +101,11 @@ $(document).ready( function () {
   $("div.toolbar").html(filter);
 
   $('.tripStatus').on('change', function() {
-          table.columns(3).search(this.value).draw();
-      });
+    if ($(this).val() != "")
+      table.columns(3).search('^'+this.value+'$',true, false).draw();
+    else
+       table.columns(3).search('').draw();
+  });
 
 
   $('.findTitle').on('keyup', function(event) {

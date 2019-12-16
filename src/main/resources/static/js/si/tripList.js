@@ -26,6 +26,23 @@ $(document).ready( function () {
                  $(td).attr('data-th', 'Duration');
              }
           },
+			    { "mData": "itineraries.length",
+            "createdCell": function(td, cellData, rowData, row, col) {
+                 $(td).attr('data-th', 'Itinerary');
+                 $(td).html(rowData.itineraries.length == 0 ? "<span style='color:red;'>Uncomplete</span>":"Completed")
+             }
+          },
+			    { "mData": "tripPrices.length",
+            "createdCell": function(td, cellData, rowData, row, col) {
+                 $(td).attr('data-th', 'Pricelist');
+                 var render;
+                 if(rowData.tripPrices.length < 3){
+                    render = rowData.tripPrices.length != 0 ? "<span style='color:red;'>"+ rowData.tripPrices.length +" package</span>" : "<span style='color:red;'>not set</span>"
+                 }else
+                    render = "<span>"+ rowData.tripPrices.length +" package</span>"
+                 $(td).html(render);
+             }
+          },
 			    { "mData": "roadCaptain.name",
             "createdCell": function(td, cellData, rowData, row, col) {
                  $(td).attr('data-th', 'Captain');
@@ -65,29 +82,33 @@ $(document).ready( function () {
          },
 			],
 			"columnDefs": [ {
-        "searchable": false,
-        "orderable": true,
-        "targets": 0
-      } ],
-      "columnDefs": [{
-          "targets": 3,
-          "render": function(data, type, row) {
-              return data != null && data != '' ? data : '' ;
-          }
-      }],
-      "columnDefs": [{
-          "targets": 4,
-          "visible": false,
-      }],
-      "order": [[ 4, "asc" ]],
-
-	 });
+                "searchable": false,
+                "orderable": true,
+                "targets": 0
+            }],
+            "columnDefs": [{
+              "targets": 5,
+              "render": function(data, type, row) {
+                  return data != null && data != '' ? data : '' ;
+              }
+            }],
+            "columnDefs": [{
+              "searchable": true,
+              "targets": 6,
+              "visible": false,
+            }],
+            "order": [[ 6, "asc" ]],
+     });
 	 table.on( 'draw.dt', function () {
-    var PageInfo = $('#rsp-tbl').DataTable().page.info();
-    table.column(0, { page: 'current' }).nodes().each( function (cell, i) {
-       cell.innerHTML = i + 1 + PageInfo.start;
-    } );
-  });
+        var PageInfo = $('#rsp-tbl').DataTable().page.info();
+        table.column(0, { page: 'current' }).nodes().each( function (cell, i) {
+           cell.innerHTML = i + 1 + PageInfo.start;
+        } );
+
+//        table.column(3, { page: 'current' }).nodes().each( function (cell, i) {
+//           cell.innerHTML = cell.innerHTML == 0 ? "<span style='color:red;'>Uncomplete</span>" : "Completed";
+//        } );
+      });
 
   var btnNew = '<a href="/trip/add" class="btn btn-default btn-sm"><span class="fa fa-plus-circle fa-lg"></span> Add New Record</a>';
   var filterStatus = 'Filter by : <select class="form-control isPublished"><option value="">--- All Status ---</option><option value="UNPUBLISHED">Unpublish Content</option><option value="PUBLISHED">Published Content</option></select>';
@@ -98,7 +119,10 @@ $(document).ready( function () {
   $("div.toolbar").html(filter);
 
   $('.isPublished').on('change', function() {
-    table.columns(4).search(this.value).draw();
+    if ($(this).val() != "")
+        table.columns(6).search('^'+this.value+'$', true, false).draw();
+    else
+        table.columns(6).search('').draw();
   });
 
   $('.findTitle').on('keyup', function(event) {
@@ -109,9 +133,9 @@ $(document).ready( function () {
   });
   $('.findCaptain').on('keyup', function(event) {
       if ($(this).val().length > 2)
-          table.columns(3).search(this.value).draw();
+          table.columns(5).search(this.value).draw();
       else
-          table.columns(3).search('').draw();
+          table.columns(5).search('').draw();
   });
 
   $(document).on('click', '#publishContent', function() {

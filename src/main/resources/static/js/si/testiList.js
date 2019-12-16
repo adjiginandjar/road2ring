@@ -67,18 +67,17 @@ $(document).ready( function () {
         "searchable": false,
         "orderable": true,
         "targets": 0
-      } ],
-      "columnDefs": [{
-          "targets": 3,
-          "render": function(data, type, row) {
-//              console.log(data)
-              return data != null && data != '' ? data : '' ;
-          }
       }],
       "columnDefs": [{
           "targets": 4,
           "visible": false
-      }],
+      },{
+                  "targets": 3,
+                  "render": function(data, type, row) {
+                     var parseTs = moment(data, 'x');
+                     return data != null && data != '' ? moment(parseTs).format('DD/MM/YYYY') : '-'
+                  }
+              }],
       "order": [[ 4, "asc" ]],
 
 	 });
@@ -91,14 +90,14 @@ $(document).ready( function () {
 //       var parseTs = moment(cell.innerHTML, 'x');
 //       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
 //    } );
-    table.column(3, { page: 'current' }).nodes().each( function (cell, i) {
-       var parseTs = moment(cell.innerHTML, 'x');
-       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
-    } );
+//    table.column(3, { page: 'current' }).nodes().each( function (cell, i) {
+//       var parseTs = moment(cell.innerHTML, 'x');
+//       cell.innerHTML = cell.innerHTML != '-' ? moment(parseTs).format('DD/MM/YYYY') : '-';
+//    } );
   });
 
   var btnNew = '<a href="'+window.location.pathname+'/add" class="btn btn-default btn-sm"><span class="fa fa-plus-circle fa-lg"></span> Add New Record</a>';
-  var filterStatus = 'Filter by : <select class="form-control tripStatus"><option value="">--- All Status ---</option><option value="PUBLISHED">Waiting</option><option value="UNPUBLISHED">Expired</option></select>';
+  var filterStatus = 'Filter by : <select class="form-control tripStatus"><option value="">--- All Status ---</option><option value="PUBLISHED">PUBLISH</option><option value="UNPUBLISHED">UNPUBLISH</option></select>';
   var filterCaptain = '&nbsp;<input class="form-control findCaptain" size="24" type="text" name="findCaptain" placeholder="Find Specific Captain">';
   var filterTitle = '&nbsp;<input class="form-control findTitle" size="47" type="text" name="findTitle" placeholder="Find Specific Title">';
   var filter = filterStatus + filterTitle;
@@ -106,7 +105,10 @@ $(document).ready( function () {
   $("div.toolbar").html(filter);
 
   $('.tripStatus').on('change', function() {
-          table.columns(4).search(this.value).draw();
+    if ($(this).val() != "")
+      table.columns(4).search('^'+this.value+'$',true, false).draw();
+    else
+       table.columns(4).search('').draw();
       });
 
 
