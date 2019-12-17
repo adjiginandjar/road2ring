@@ -215,6 +215,8 @@ public class TripController {
   @RequestMapping(value = "/{tripId}/price-list/add")
   public String addTripPriceList(@PathVariable("tripId") int id, @ModelAttribute TripPrice tripPrice, Model model) {
     TripPrice price = new TripPrice();
+    TripPriceDetail detail = new TripPriceDetail();
+    price.setTripPriceDetail(detail);
     ResponseMessage response = new ResponseMessage();
     response.setObject(price);
     model.addAttribute("response", response);
@@ -234,7 +236,9 @@ public class TripController {
     Date newDate = cal.getTime();
     tripPrice.setFinishTrip(newDate);
 
-    tripService.saveTripPrice(id, tripPrice);
+    System.out.println("tripPrice = " + tripPrice);
+
+//    tripService.saveTripPrice(id, tripPrice);
     return "redirect:/trip/"+id+"/price-list";
   }
 
