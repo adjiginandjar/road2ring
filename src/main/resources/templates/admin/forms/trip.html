@@ -187,7 +187,7 @@
         <div class="form-group">
           <label for="duration">Duration</label>
           <div class="input-group" id="duration">
-            <input type="number" min="0" name="duration" class="form-control" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
+            <input type="number" min="0" name="duration" class="form-control durations" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">Days</span>
           </div>
         </div>
@@ -248,6 +248,69 @@
           <button type="button" class="btn btn-embed" id="embed-map">Embed Map</button>
           <iframe class="collapse" src="" width="400" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
           <input type="hidden" name="map;" id="hiddenMapLink" th:value="${response.object.map}">
+        </div>
+
+        <label for="add-event">List Hotel</label>
+        <button style="margin: 0px 15px; height: 30px;" id="add-event" type="button"
+                class="btn btn-default btn-sm m-bottom-sm btn-add-tab">
+          <i class="fa fa-plus fa-lg"></i>
+        </button>
+
+        <div id="hotel-form">
+          <br />
+          <div th:each="hotels, iterStat:${response.object.hotels}" class="itinerary-event" >
+
+            <input type="hidden" th:id="id[+${iterStat.index}+]" th:name="hotels[+${iterStat.index}+].id" th:value="${response.object.hotels[iterStat.index].id}" th:if="${hotels.id != null}">
+
+            <div class="form-group">
+              <label th:for="picture-+${iterStat.index}">Picture</label>
+              <div class="wrap-file">
+                <input type="file" th:id="picture-+${iterStat.index}">
+              </div>
+              <input type="hidden" th:id="hidden_picture-+${iterStat.index}" th:name="hotels[+${iterStat.index}+].picture"
+                     th:value="${response.object.hotels[iterStat.index].picture}">
+              <div th:class="wrap_picture-+${iterStat.index}+' collapse'">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info progress-bar-striped"
+                       role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+                       style="">
+                  </div>
+                </div>
+                <div class="msg collapse text-info"><i class="fa fa-check"></i> Upload Succeed</div>
+                <div class="pre_img">
+                  <img src="" alt="">
+                </div>
+              </div>
+              <div th:if="${not #strings.isEmpty(response.object.hotels[iterStat.index].picture)}"
+                   th:class="wrap-img-picture-+${iterStat.index}+' p-top-sm'">
+                <img th:src="${response.object.hotels[iterStat.index].picture}"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label th:for="event-+${iterStat.index}">Nama</label>
+              <input type="text" class="form-control" th:id="name-+${iterStat.index}" th:name="hotels[+${iterStat.index}+].nama" placeholder="Enter Event Title"
+                     th:value="${response.object.hotels[iterStat.index].nama}" required>
+            </div>
+
+            <div class="form-group">
+              <label th:for="description-+${iterStat.index}">Alamat</label>
+              <textarea class="form-control" th:id="description-+${iterStat.index}" th:name="hotels[+${iterStat.index}+].alamat" th:text="${response.object.hotels[iterStat.index].alamat}" placeholder="Enter Description" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label th:for="event-+${iterStat.index}">Bintang</label>
+              <input type="number" max="5" class="form-control" th:id="star-+${iterStat.index}" th:name="hotels[+${iterStat.index}+].star" placeholder="Enter Event Title"
+                     th:value="${response.object.hotels[iterStat.index].star}" required>
+            </div>
+
+<!--            <input type="hidden" class="group" th:name="itineraries[+${iterStat.index}+].group" th:value="${response.object[iterStat.index].group}" required>-->
+<!--            <input type="hidden" class="groupTitle" th:name="itineraries[+${iterStat.index}+].groupTitle" th:value="${response.object[iterStat.index].groupTitle}" required>-->
+            <div class="list-del collapse"> </div>
+            <button id="delete-form" style="margin: 2px 0px; height: 30px;" type="button" class="btn btn-default btn-sm m-bottom-xs btn-add-tab btn-del-margin"><i class="fa fa-minus fa-lg"></i></button>
+
+            <hr style="border: none !important;"/>
+          </div>
         </div>
 
       </div>

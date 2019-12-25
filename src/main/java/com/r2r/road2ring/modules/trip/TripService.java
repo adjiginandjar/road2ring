@@ -3,6 +3,7 @@ package com.r2r.road2ring.modules.trip;
 import com.r2r.road2ring.modules.TripFacility.TripFacility;
 import com.r2r.road2ring.modules.TripFacility.TripFacilityService;
 import com.r2r.road2ring.modules.common.Road2RingException;
+import com.r2r.road2ring.modules.hotel.HotelService;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
 import java.math.BigInteger;
@@ -31,6 +32,8 @@ public class TripService {
 
   TripPriceRepository tripPriceRepository;
 
+  HotelService hotelService;
+
   @Autowired
   public void setTripRepository(TripRepository tripRepository){
     this.tripRepository = tripRepository;
@@ -39,6 +42,11 @@ public class TripService {
   @Autowired
   public void setItineraryService(ItineraryService itineraryService){
     this.itineraryService = itineraryService;
+  }
+
+  @Autowired
+  public void setHotelService(HotelService hotelService) {
+    this.hotelService = hotelService;
   }
 
   @Autowired
@@ -93,6 +101,7 @@ public class TripService {
         tripSaved = tripRepository.findByCreated(saved.getCreated());
       }
       tripFacilityService.saveListOfTripFacilityByInteger(trip.getFacilityInclude(),tripSaved);
+      hotelService.saveListHotel(trip.getHotels(), tripSaved, trip.getDeletedHotel());
 
     }
     return saved;
