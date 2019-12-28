@@ -65,4 +65,18 @@ public class TripPrice {
   @JoinColumn(name = "trip_price_trip_price_detail_id" , nullable = true)
   @JsonView(ResponseView.DetailedTripPrice.class)
   private TripPriceDetail tripPriceDetail;
+
+  @Override
+  public String toString() {
+    return "TripPrice{" +
+        "id=" + id +
+        ", startTrip=" + startTrip +
+        ", finishTrip=" + finishTrip +
+        ", personPaid=" + personPaid +
+        ", price=" + price +
+        ", status=" + status +
+        ", discount=" + discount +
+        ", tripPriceDetail=" + tripPriceDetail +
+        '}';
+  }
 }

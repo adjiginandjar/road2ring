@@ -235,9 +235,12 @@ public class TripController {
   @RequestMapping(value = "/{tripId}/price-list/add")
   public String addTripPriceList(@PathVariable("tripId") int id, @ModelAttribute TripPrice tripPrice, Model model) {
     TripPrice price = new TripPrice();
+    TripPriceDetail detail = new TripPriceDetail();
+
     ResponseMessage response = new ResponseMessage();
     response.setObject(price);
     model.addAttribute("response", response);
+    model.addAttribute("tripPriceDetail", detail);
     model.addAttribute("action", "/trip/"+id+"/price-list/save");
     model.addAttribute("tripId", id);
     return "admin/forms/price-list";
@@ -254,6 +257,8 @@ public class TripController {
     Date newDate = cal.getTime();
     tripPrice.setFinishTrip(newDate);
 
+    System.out.println("tripPrice = " + tripPrice);
+
     tripService.saveTripPrice(id, tripPrice);
     return "redirect:/trip/"+id+"/price-list";
   }
@@ -261,9 +266,14 @@ public class TripController {
   @RequestMapping(value = "/{tripId}/price-list/edit")
   public String editTripPrice(@PathVariable("tripId") int tripId, @RequestParam int id, @ModelAttribute Itinerary itinerary, Model model) {
     TripPrice tripPrice = tripService.getTripPriceById(id);
+    TripPriceDetail detail = new TripPriceDetail();
+    if(tripPrice.getTripPriceDetail() !=null){
+      detail = tripPrice.getTripPriceDetail();
+    }
     ResponseMessage response = new ResponseMessage();
     response.setObject(tripPrice);
     model.addAttribute("response", response);
+    model.addAttribute("tripPriceDetail", detail);
     model.addAttribute("action", "/trip/"+tripId+"/price-list/save");
     return "admin/forms/price-list";
   }
