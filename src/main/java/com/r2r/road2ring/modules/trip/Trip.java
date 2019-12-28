@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.r2r.road2ring.modules.TripFacility.TripFacility;
 import com.r2r.road2ring.modules.common.Language;
 import com.r2r.road2ring.modules.common.ResponseView;
+import com.r2r.road2ring.modules.hotel.Hotel;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.roadcaptain.RoadCaptain;
 import java.io.Serializable;
@@ -130,6 +131,10 @@ public class Trip implements Serializable {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
   @JsonView(ResponseView.DetailedTrip.class)
+  private List<Hotel> hotels;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
+  @JsonView(ResponseView.DetailedTrip.class)
   private List<TripPrice> tripPrices;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
@@ -143,9 +148,13 @@ public class Trip implements Serializable {
   public List<Itinerary> deletedItinerary;
 
   @Transient
+  public List<Hotel> deletedHotel;
+  
+  @Transient
   private Double midtransFee;
-
+  
   @Transient
   private Integer virtualAccountFee;
+
 
 }

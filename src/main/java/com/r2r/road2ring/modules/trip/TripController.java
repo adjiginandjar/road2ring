@@ -4,6 +4,7 @@ import com.r2r.road2ring.modules.TripFacility.TripFacilityService;
 import com.r2r.road2ring.modules.common.ResponseMessage;
 import com.r2r.road2ring.modules.facility.Facility;
 import com.r2r.road2ring.modules.facility.FacilityService;
+import com.r2r.road2ring.modules.hotel.Hotel;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
 import com.r2r.road2ring.modules.motor.Motor;
@@ -108,6 +109,25 @@ public class TripController {
   @RequestMapping(value = "/save", method = RequestMethod.POST)
   public String save(@ModelAttribute Trip trip, Model model, Principal principal) {
     ResponseMessage response = new ResponseMessage();
+    if(trip.getDeletedHotel()!= null) {
+      for (Iterator<Hotel> iter = trip.getDeletedHotel().listIterator();
+           iter.hasNext(); ) {
+        Hotel deleted = iter.next();
+        if (deleted.getId() == 0) {
+          iter.remove();
+        }
+      }
+    }
+
+    if(trip.getDeletedHotel()!= null) {
+      for (Iterator<Hotel> iter = trip.getHotels().listIterator();
+           iter.hasNext(); ) {
+        Hotel deleted = iter.next();
+        if (deleted.getId() == null) {
+          iter.remove();
+        }
+      }
+    }
     response.setObject(tripService.saveTrip(trip));
     model.addAttribute("response", response);
 
