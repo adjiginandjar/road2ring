@@ -142,4 +142,10 @@ public class Trip implements Serializable {
   @Transient
   public List<Itinerary> deletedItinerary;
 
+  @Transient
+  private Double midtransFee;
+
+  @Transient
+  private Integer virtualAccountFee;
+
 }

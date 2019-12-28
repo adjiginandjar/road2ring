@@ -35,10 +35,12 @@
           </div>
         </div>
 
+        <input type="hidden" min="0" name="tripPriceDetail.id" class="form-control" placeholder="" th:value="${tripPriceDetail.id}"  >
+
         <div class="form-group">
           <label for="price">Fuel Price</label>
           <div class="input-group" id="tripPriceDetail.fuelPrice">
-            <input type="number" min="0" name="tripPriceDetail.fuelPrice" class="form-control" placeholder="Fuel Price" th:value="${response.object.tripPriceDetail.fuelPrice}" required>
+            <input type="number" min="0" id="fuel" name="tripPriceDetail.fuelPrice" class="form-control" placeholder="Fuel Price" th:value="${tripPriceDetail.fuelPrice}" onblur="findTotal()"  required>
             <span class="input-group-addon">(total distance / 20) * pertamax price </span>
           </div>
         </div>
@@ -46,7 +48,7 @@
         <div class="form-group">
           <label for="price">Hotel Price</label>
           <div class="input-group" id="tripPriceDetail.hotelPrice">
-            <input type="number" min="0" name="tripPriceDetail.hotelPrice" class="form-control" placeholder="Hotel Price" th:value="${response.object.tripPriceDetail.hotelPrice}" required>
+            <input type="number" min="0" id="hotel" name="tripPriceDetail.hotelPrice" class="form-control" placeholder="Hotel Price" th:value="${tripPriceDetail.hotelPrice}" onblur="findTotal()" required>
             <span class="input-group-addon">all Hotel Price / person / bed </span>
           </div>
         </div>
@@ -54,7 +56,7 @@
         <div class="form-group">
           <label for="price">Road Captain Price</label>
           <div class="input-group" id="tripPriceDetail.roadCaptainPrice">
-            <input type="number" min="0" name="tripPriceDetail.roadCaptainPrice" class="form-control" placeholder="Road Captain Price" th:value="${response.object.tripPriceDetail.roadCaptainPrice}" required>
+            <input type="number" min="0" id="rc" name="tripPriceDetail.roadCaptainPrice" class="form-control" placeholder="Road Captain Price" th:value="${tripPriceDetail.roadCaptainPrice}" onblur="findTotal()" required>
             <span class="input-group-addon">fee RC / minimum riders </span>
           </div>
         </div>
@@ -62,7 +64,7 @@
         <div class="form-group">
           <label for="price">Towing Price</label>
           <div class="input-group" id="tripPriceDetail.toweingPrice">
-            <input type="number" min="0" name="tripPriceDetail.towingPrice" class="form-control" placeholder="Towing Price" th:value="${response.object.tripPriceDetail.towingPrice}" required>
+            <input type="number" min="0" id="towing" name="tripPriceDetail.towingPrice" class="form-control" placeholder="Towing Price" th:value="${tripPriceDetail.towingPrice}" onblur="findTotal()" required>
             <span class="input-group-addon">Towing Price / minimum riders </span>
           </div>
         </div>
@@ -70,7 +72,7 @@
         <div class="form-group">
           <label for="price">Food Price</label>
           <div class="input-group" id="tripPriceDetail.foodPrice">
-            <input type="number" min="0" name="tripPriceDetail.foodprice" class="form-control" placeholder="Food Price" th:value="${response.object.tripPriceDetail.foodPrice}" required>
+            <input type="number" min="0" id="food" name="tripPriceDetail.foodprice" class="form-control" placeholder="Food Price" th:value="${tripPriceDetail.foodPrice}" onblur="findTotal()" required>
             <span class="input-group-addon">person</span>
           </div>
         </div>
@@ -78,7 +80,7 @@
         <div class="form-group">
           <label for="price">Helper Fee</label>
           <div class="input-group" id="tripPriceDetail.helper">
-            <input type="number" min="0" name="tripPriceDetail.helper" class="form-control" placeholder="Helper Fee" th:value="${response.object.tripPriceDetail.helper}" required>
+            <input type="number" min="0" id="helper" name="tripPriceDetail.helper" class="form-control" placeholder="Helper Fee" th:value="${tripPriceDetail.helper}" onblur="findTotal()" required>
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -86,7 +88,7 @@
         <div class="form-group">
           <label for="price">Documentation Fee</label>
           <div class="input-group" id="tripPriceDetail.documentation">
-            <input type="number" min="0" name="tripPriceDetail.documentation" class="form-control" placeholder="Documentation Fee" th:value="${response.object.tripPriceDetail.documentation}" required>
+            <input type="number" min="0" id="documentation" name="tripPriceDetail.documentation" class="form-control" placeholder="Documentation Fee" th:value="${tripPriceDetail.documentation}" onblur="findTotal()" required>
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -94,7 +96,7 @@
         <div class="form-group">
           <label for="price">Crew Accommodation</label>
           <div class="input-group" id="tripPriceDetail.crewAccommodation">
-            <input type="number" min="0" name="tripPriceDetail.crewAccommodation" class="form-control" placeholder="Crew Accommodation Fee" th:value="${response.object.tripPriceDetail.crewAccommodation}" required>
+            <input type="number" min="0" id="crewAccommodation" name="tripPriceDetail.crewAccommodation" class="form-control" placeholder="Crew Accommodation Fee" th:value="${tripPriceDetail.crewAccommodation}" onblur="findTotal()" required>
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -102,7 +104,7 @@
         <div class="form-group">
           <label for="price">Total Price</label>
           <div class="input-group" id="price">
-            <input type="number" disabled min="0" name="price" class="form-control" placeholder="Price" th:value="${response.object.price}" >
+            <input type="number" disabled  min="0" id="grand-total" name="price" class="form-control" placeholder="Price" th:value="${response.object.price}"  >
             <span class="input-group-addon">person</span>
           </div>
         </div>
@@ -139,7 +141,24 @@
     startDate: new Date(),
   });
   </script>
+  <script type="text/javascript">
+    function findTotal(){
+      var fuel = parseInt(document.getElementById('fuel').value)?parseInt(document.getElementById('fuel').value):0;
+      var hotel = parseInt(document.getElementById('hotel').value)?parseInt(document.getElementById('hotel').value):0;
+      var rc = parseInt(document.getElementById('rc').value)?parseInt(document.getElementById('rc').value):0;
+      var towing = parseInt(document.getElementById('towing').value)?parseInt(document.getElementById('towing').value):0;
+      var food = parseInt(document.getElementById('food').value)?parseInt(document.getElementById('food').value):0;
+      var helper = parseInt(document.getElementById('helper').value)?parseInt(document.getElementById('helper').value):0;
+      var documentation = parseInt(document.getElementById('documentation').value)?parseInt(document.getElementById('documentation').value):0;
+      var crewAccommodation = parseInt(document.getElementById('crewAccommodation').value)?parseInt(document.getElementById('crewAccommodation').value):0;
+      var total = parseInt(document.getElementById('grand-total').value)?parseInt(document.getElementById('grand-total').value):0;
+      total = fuel + hotel + rc + towing + food + helper + documentation + crewAccommodation;
+      document.getElementById('grand-total').value = total;
+    }
+  </script>
 </th:block>
+
+
 
 </body>
 </html>

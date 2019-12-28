@@ -32,6 +32,9 @@ public class TripService {
   TripPriceRepository tripPriceRepository;
 
   @Autowired
+  TripPriceDetailService tripPriceDetailService;
+
+  @Autowired
   public void setTripRepository(TripRepository tripRepository){
     this.tripRepository = tripRepository;
   }
@@ -147,6 +150,7 @@ public class TripService {
 
   public TripPrice saveTripPrice(int tripId, TripPrice tripPrice){
     TripPrice saved = new TripPrice();
+    TripPriceDetail tripPriceDetail = new TripPriceDetail();
 
     if(tripPrice.getId() != null && tripPrice.getId() != 0){
       saved = tripPriceRepository.findOne(tripPrice.getId());
@@ -160,12 +164,15 @@ public class TripService {
     saved.setStatus(tripPrice.getStatus());
     saved.setPrice(tripPrice.getPrice());
     saved.setTrip(tripRepository.findOne(tripId));
+    saved.setTripPriceDetail(tripPriceDetailService.save(tripPrice.getTripPriceDetail()));
 
     return tripPriceRepository.save(saved);
   }
 
   public TripPrice getTripPriceById(int tripPricId){
-    return tripPriceRepository.findOne(tripPricId);
+    TripPrice result = tripPriceRepository.findOne(tripPricId);
+
+    return result;
   }
 
   public List<TripItineraryDataView> getTripItineraryGroup(int tripId){
