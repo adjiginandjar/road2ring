@@ -131,6 +131,7 @@ public class TransactionService {
     TripPrice tripPrice = null;
     Date created  = new Date();
     String midtransToken ="";
+    TransactionCreateView view = new TransactionCreateView();
 
     Calendar cal = Calendar.getInstance();
     cal.setTime(created);
@@ -178,18 +179,23 @@ public class TransactionService {
 
         midtransToken = midtransService.checkoutTrip(detailAccessories,detailMotor,transactionSaved,tripPrice,user);
         this.createTransactionLogByUser(transactionSaved);
+
+
+        view.setLastPayment(newDate);
+        view.setTotalPrice(result.getPrice());
+        view.setTransactionCodeId(result.getCode());
+        view.setMidtransToken(midtransToken);
+
+      }else{
+        throw new Road2RingException("CAN NOT CREATE TRANSACTION", 705);
       }
 
-      TransactionCreateView view = new TransactionCreateView();
-      view.setLastPayment(newDate);
-      view.setTotalPrice(result.getPrice());
-      view.setTransactionCodeId(result.getCode());
-      view.setMidtransToken(midtransToken);
+
 
       /*CREATE EMAIL DATA INVOICE*/
 
-      int index = result.getUser().getEmail().indexOf('@');
-      String username = result.getUser().getEmail().substring(0,index);
+//      int index = result.getUser().getEmail().indexOf('@');
+//      String username = result.getUser().getEmail().substring(0,index);
 
 //      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
 //          transaction.getMotor(), transaction.getAccessories(), tripPrice,

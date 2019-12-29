@@ -34,14 +34,14 @@ public class TripPriceMotorService {
 
   public List<Motor> getTripPriceMotor(Integer tripPriceMotorId){
     List<Motor> result = new ArrayList<Motor>();
-//    List<TripPriceMotor> listTripPriceMotor = tripPriceMotorRepository
-//        .findAllByTripPriceIdAndStockGreaterThan(tripPriceMotorId,0);
-//    for (TripPriceMotor item :
-//        listTripPriceMotor) {
-//      result.add(item.getBike());
-//    }
-
-    result = motorService.getAllMotor();
+    List<TripPriceMotor> listTripPriceMotor = tripPriceMotorRepository
+        .findAllByTripPriceIdAndStockGreaterThan(tripPriceMotorId,0);
+    for (TripPriceMotor item :
+        listTripPriceMotor) {
+      item.getBike().setAvailableStock(item.getStock());
+      item.getBike().setStocks(item.getStockReserved());
+      result.add(item.getBike());
+    }
 
     return result;
   }

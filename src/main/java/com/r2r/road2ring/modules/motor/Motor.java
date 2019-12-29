@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -53,4 +54,10 @@ public class Motor implements Serializable {
 
   @Column(name = "motor_status")
   private PublishedStatus status;
+
+  @Transient
+  private Integer availableStock;
+
+  @Transient
+  private Integer stocks;
 }

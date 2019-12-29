@@ -30,7 +30,7 @@ public class TripPriceMotor {
   @JsonView(ResponseView.LimitedTripPriceMotor.class)
   private Integer id;
 
-  @ManyToOne(fetch = FetchType.LAZY , optional = true)
+  @ManyToOne(fetch = FetchType.EAGER , optional = true)
   @JoinColumn(name = "trip_price_motor_motor_id" )
   @JsonView(ResponseView.LimitedTripPriceMotor.class)
   private Motor bike;
