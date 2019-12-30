@@ -40,6 +40,7 @@ public class TripPriceMotorService {
         listTripPriceMotor) {
       item.getBike().setAvailableStock(item.getStock());
       item.getBike().setStocks(item.getStockReserved());
+      item.getBike().setPrice(item.getPrice());
       result.add(item.getBike());
     }
 

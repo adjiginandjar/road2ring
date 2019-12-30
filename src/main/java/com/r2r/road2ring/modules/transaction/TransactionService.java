@@ -176,8 +176,13 @@ public class TransactionService {
         List<TransactionDetail> detailAccessories = transactionDetailService
             .saveListTransactionalAccessory(transaction.getAccessories(), transactionSaved,
                 transaction.getBringOwnHelm());
+        try {
+          midtransToken = midtransService
+              .checkoutTrip(detailAccessories, detailMotor, transactionSaved, tripPrice, user);
+        }catch (MidtransError e){
+          throw new Road2RingException(e.getMessage(),705);
+        }
 
-        midtransToken = midtransService.checkoutTrip(detailAccessories,detailMotor,transactionSaved,tripPrice,user);
         this.createTransactionLogByUser(transactionSaved);
 
 
