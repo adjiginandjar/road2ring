@@ -38,6 +38,7 @@ public class TripPriceMotorService {
         .findAllByTripPriceIdAndStockGreaterThan(tripPriceMotorId,0);
     for (TripPriceMotor item :
         listTripPriceMotor) {
+      item.getBike().setId(item.getId());
       item.getBike().setAvailableStock(item.getStock());
       item.getBike().setStocks(item.getStockReserved());
       item.getBike().setPrice(item.getPrice());
