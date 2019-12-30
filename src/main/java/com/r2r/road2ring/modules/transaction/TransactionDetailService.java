@@ -84,7 +84,7 @@ public class TransactionDetailService {
     return result;
   }
 
-  public TransactionDetail saveMotor(Motor motor, Transaction transaction, boolean bringOwn)
+  public TransactionDetail saveMotor(TripPriceMotor motor, Transaction transaction, boolean bringOwn)
       throws Road2RingException {
     TransactionDetail transactionDetail = new TransactionDetail();
     if(bringOwn != true) {

@@ -8,6 +8,7 @@ import com.r2r.road2ring.modules.common.TripStatus;
 import com.r2r.road2ring.modules.motor.Motor;
 import com.r2r.road2ring.modules.transactionlog.TransactionCreator;
 import com.r2r.road2ring.modules.trip.Trip;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
 import com.r2r.road2ring.modules.user.User;
 import java.io.Serializable;
 import java.util.Date;
@@ -115,7 +116,7 @@ public class Transaction implements Serializable {
   private Boolean pillion;
 
   @Transient
-  private Motor motor;
+  private TripPriceMotor motor;
 
   @Transient
   private List<Accessory> accessories;
