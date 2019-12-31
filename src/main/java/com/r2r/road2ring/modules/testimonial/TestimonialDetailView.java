@@ -17,4 +17,5 @@ public class TestimonialDetailView extends TestimonialView {
   private String iconCover;
   private Date startTripDate;
   private Date endTripDate;
+  private Integer albumId;
 }

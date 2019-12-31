@@ -50,6 +50,7 @@ public class TestimonialViewService {
     result.setIsVideo(testimonial.getIsVideo());
     result.setCaptainName(testimonial.getRoadCaptain().getName());
     result.setCaptainPicture(testimonial.getRoadCaptain().getPictureUrl());
+    result.setAlbumId(testimonial.getAlbumId());
     return result;
   }
 
