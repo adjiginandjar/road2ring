@@ -3,12 +3,14 @@ package com.r2r.road2ring.modules.trip;
 import com.r2r.road2ring.modules.TripFacility.TripFacility;
 import com.r2r.road2ring.modules.TripFacility.TripFacilityService;
 import com.r2r.road2ring.modules.common.ResponseMessage;
+import com.r2r.road2ring.modules.hotel.HotelService;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class TripViewService {
   TripPriceRepository tripPriceRepository;
 
   TripFacilityService tripFacilityService;
+
+  @Autowired
+  HotelService hotelService;
 
   @Autowired
   public void setTripService(TripService tripService){
@@ -132,6 +137,7 @@ public class TripViewService {
     tripViewDetail.setFacilityNotIncluded(trip.getFacilityNot());
     tripViewDetail.setFacilities(getTripFacilityView(trip.getId()));
     tripViewDetail.setItineraries(this.getListItineraryTrip(trip.getId()));
+    tripViewDetail.setHotels(hotelService.getDetailTripHotel(trip.getId()));
     return tripViewDetail;
   }
 

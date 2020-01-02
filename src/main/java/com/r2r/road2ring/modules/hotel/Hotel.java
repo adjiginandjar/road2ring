@@ -29,7 +29,7 @@ public class Hotel implements Serializable {
     private String picture;
 
     @Column(name = "hotel_bintang")
-    private Integer Star;
+    private Integer star;
 
     @ManyToOne(fetch = FetchType.LAZY , optional = true)
     @JoinColumn(name = "hotel_trip_id" , nullable = true)

@@ -59,7 +59,7 @@ public class TripMAPIController {
   }
 
   @GetMapping(TRIP + "/{tripId}")
-  public ResponseMessage getAllTrip(
+  public ResponseMessage getDetailTrip(
       @PathVariable("tripId") Integer tripId,
       Principal principal) {
 

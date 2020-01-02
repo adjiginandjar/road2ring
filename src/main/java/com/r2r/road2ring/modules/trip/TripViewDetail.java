@@ -1,6 +1,7 @@
 package com.r2r.road2ring.modules.trip;
 
 import com.r2r.road2ring.modules.TripFacility.TripFacility;
+import com.r2r.road2ring.modules.hotel.HotelDataView;
 import java.util.List;
 import lombok.Data;
 
@@ -19,4 +20,5 @@ public class TripViewDetail extends TripView {
   private List<TripViewFacility> facilities;
   private String meetingPoint;
   private List<TripViewItinerary> itineraries;
+  private List<HotelDataView> hotels;
 }

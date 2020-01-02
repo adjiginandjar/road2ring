@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import com.midtrans.Config;
 import com.midtrans.ConfigFactory;
@@ -23,13 +26,23 @@ import java.util.Map;
 @Service
 public class MidtransService {
 
-  private MidtransSnapApi snapApi = new ConfigFactory(new Config(
-      "SB-Mid-server-SW9Yhr-emRql64WL0lJE3p4m",
-      "SB-Mid-client-doGu2SsjTXESbTS5",false)).getSnapApi();
+
+  @Value("${midtrans.server-key}")
+  String SERVER_KEY;
+
+  @Value("${midtrans.client-key}")
+  String CLIENT_KEY;
+
+  @Value("${midtrans.production-mode}")
+  Boolean IS_PRODUCTION;
+
 
 
   public String checkoutSnapApi(List<String> listPay) throws MidtransError {
 
+    MidtransSnapApi snapApi = new ConfigFactory(new Config(
+        SERVER_KEY,CLIENT_KEY
+        ,IS_PRODUCTION)).getSnapApi();
 
     String clientKey = snapApi.apiConfig().getCLIENT_KEY();
 
@@ -50,6 +63,11 @@ public class MidtransService {
 
   public String checkoutTrip(List<TransactionDetail> accessories, TransactionDetail motor,
       Transaction transaction, TripPrice tripPrice, User user) throws MidtransError{
+
+    MidtransSnapApi snapApi = new ConfigFactory(new Config(
+        SERVER_KEY,CLIENT_KEY
+        ,IS_PRODUCTION)).getSnapApi();
+
     Map<String, Object> requestBody = new HashMap<>();
 
     Map<String,String> transactionDetails = this.buildTransactionDetails(transaction);
