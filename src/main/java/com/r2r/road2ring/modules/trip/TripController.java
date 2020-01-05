@@ -2,6 +2,8 @@ package com.r2r.road2ring.modules.trip;
 
 import com.r2r.road2ring.modules.TripFacility.TripFacilityService;
 import com.r2r.road2ring.modules.common.ResponseMessage;
+import com.r2r.road2ring.modules.config.SystemConfig;
+import com.r2r.road2ring.modules.config.SystemConfigService;
 import com.r2r.road2ring.modules.facility.Facility;
 import com.r2r.road2ring.modules.facility.FacilityService;
 import com.r2r.road2ring.modules.hotel.Hotel;
@@ -42,6 +44,9 @@ public class TripController {
 
   @Autowired
   TripPriceMotorService tripPriceMotorService;
+
+  @Autowired
+  SystemConfigService systemConfigService;
 
   @Autowired
   public void setFacilityService(FacilityService facility) {
@@ -243,6 +248,7 @@ public class TripController {
     model.addAttribute("tripPriceDetail", detail);
     model.addAttribute("action", "/trip/"+id+"/price-list/save");
     model.addAttribute("tripId", id);
+    model.addAttribute("companyCommissionFee",systemConfigService.getSystemConfig().getCompanyFee());
     return "admin/forms/price-list";
   }
 
@@ -274,6 +280,7 @@ public class TripController {
     response.setObject(tripPrice);
     model.addAttribute("response", response);
     model.addAttribute("tripPriceDetail", detail);
+    model.addAttribute("companyCommissionFee",detail.getCompanyCommission());
     model.addAttribute("action", "/trip/"+tripId+"/price-list/save");
     return "admin/forms/price-list";
   }

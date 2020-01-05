@@ -34,6 +34,6 @@ public class TripPriceDetail {
   @Column(name = "trip_price_detail_crew_accommodation")
   private Integer crewAccommodation; //total fee helper / minimum orang
   @Column(name = "trip_price_detail_company_commission")
-  private Integer companyCommission;
+  private Double companyCommission;
 
 }
