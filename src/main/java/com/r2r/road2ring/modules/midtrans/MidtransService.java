@@ -36,6 +36,9 @@ public class MidtransService {
   @Value("${midtrans.production-mode}")
   Boolean IS_PRODUCTION;
 
+  @Value("${midtrans.callbacks-url}")
+  String CALLBACKS;
+
 
 
   public String checkoutSnapApi(List<String> listPay) throws MidtransError {
@@ -77,6 +80,7 @@ public class MidtransService {
     Map<String,String> bcaVA = this.buildBCAVirtualAccount();
     Map<String,String> creditCard = this.buildCreditCard();
     Map<String,String> expiry = this.buildExpire();
+    Map<String,String> callbacks = this.buildCallbacks(transaction.getId());
 
     requestBody.put("transaction_details", transactionDetails);
     requestBody.put("item_details", itemDetails);
@@ -85,10 +89,21 @@ public class MidtransService {
     requestBody.put("bca_va", bcaVA);
     requestBody.put("credit_card", creditCard);
     requestBody.put("expiry", expiry);
+    requestBody.put("callbacks", callbacks);
 
-    System.out.println("requestBody = " + requestBody);
+//    System.out.println("requestBody = " + requestBody);
 
     return snapApi.createTransactionToken(requestBody);
+  }
+
+  private Map<String, String> buildCallbacks(Integer transactionId) {
+    Map<String, String> callbacks = new HashMap<>();
+
+
+    callbacks.put("finish",CALLBACKS+transactionId);
+
+    return callbacks;
+
   }
 
   private Map<String, String> buildExpire() {

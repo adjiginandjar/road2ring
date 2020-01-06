@@ -253,6 +253,16 @@ public class TransactionService {
   }
 
   @Async
+  private void paymentLogMidtrans(Transaction transaction,String status){
+    TransactionLog saved = new TransactionLog();
+    saved.setUsername("Midtrans System");
+    saved.setTransactionId(transaction.getId());
+    saved.setCreator(TransactionCreator.MIDTRANS);
+    saved.setAction(status+" PAYMENT BY ADMIN");
+    transactionLogService.setTransactionLog(saved);
+  }
+
+  @Async
   private void cancelTransactionPayment(Transaction transaction, Consumer consumer){
     TransactionLog saved = new TransactionLog();
     saved.setUsername(consumer.getEmail());
@@ -295,6 +305,44 @@ public class TransactionService {
 
     /*Check All Paid User*/
     this.checkPaidUser(saved);
+  }
+
+  @Transactional
+  public void acceptPaymentMidtrans(String transactionCode){
+    Transaction saved  = transactionRepository.findOneByCode(transactionCode);
+    saved.setPaymentStatus(PaymentStatus.PAID);
+    saved.setCompletePaymentDate(new Date());
+    saved.setUpdatedBy(TransactionCreator.MIDTRANS.name());
+    saved.setUpdated(new Date());
+    saved.setTransactionCreator(TransactionCreator.ADMIN);
+    this.paymentLogMidtrans(saved, "ACCEPT");
+
+    int index = saved.getUser().getEmail().indexOf('@');
+    String username = saved.getUser().getEmail().substring(0,index);
+//    try {
+//      /*change email recipient*/
+//      mailClient.sendPaidEmail(saved.getUser().getEmail(),username,
+//          this.getRidersNeeded(saved, saved.getStartDate()));
+//    } catch (MessagingException e) {
+//      e.printStackTrace();
+//    }
+    transactionRepository.save(saved);
+
+    /*Check All Paid User*/
+    this.checkPaidUser(saved);
+  }
+
+  @Transactional
+  public void failedPaymentMidtrans(String transactionId){
+    Transaction saved  = transactionRepository.findOneByCode(transactionId);
+    saved.setPaymentStatus(PaymentStatus.FAILED);
+    saved.setCompletePaymentDate(new Date());
+    saved.setUpdated(new Date());
+    saved.setUpdatedBy(TransactionCreator.MIDTRANS.name());
+    saved.setTransactionCreator(TransactionCreator.ADMIN);
+    transactionRepository.save(saved);
+    tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    this.paymentLogMidtrans(saved, "FAILED");
   }
 
   @Transactional
@@ -351,6 +399,16 @@ public class TransactionService {
       tripPriceService.minPersonTripPrice(transaction.getTrip().getId(), transaction.getStartDate());
       this.createTransactionLogBySystem(transaction);
     }
+  }
+
+  public void changeStatusLatePayment(String transactionId){
+    Transaction saved  = transactionRepository.findOneByCode(transactionId);
+    saved.setPaymentStatus(PaymentStatus.FAILED);
+    saved.setUpdatedBy(TransactionCreator.SYSTEM.name());
+    saved.setTransactionCreator(TransactionCreator.SYSTEM);
+    transactionRepository.save(saved);
+    tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    this.paymentLogMidtrans(saved,"EXPIRED");
   }
 
   public List<TransactionView> getAllMyTransaction(User user, int pageId, int limit)

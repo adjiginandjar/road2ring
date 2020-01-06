@@ -8,6 +8,7 @@ import com.midtrans.httpclient.error.MidtransError;
 import com.midtrans.service.MidtransSnapApi;
 
 import com.r2r.road2ring.modules.common.ResponseMessage;
+import com.r2r.road2ring.modules.transaction.TransactionService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,9 @@ public class MidtransMAPIController {
 
   @Autowired
   MidtransService midtransService;
+
+  @Autowired
+  TransactionService transactionService;
 
   @RequestMapping(value = "snap/check-out", method = RequestMethod.POST)
   public ResponseMessage checkout(@RequestParam(value = "enablePay", required = false) List<String> listPay) throws MidtransError {
@@ -58,11 +62,20 @@ public class MidtransMAPIController {
         } else if (fraudStatus.equals("accept")){
           // TODO set transaction status on your database to 'success'
           System.out.println("MidtransMAPIController.handleNotification Success");
+          transactionService.acceptPaymentMidtrans(orderId);
         }
-      } else if (transactionStatus.equals("cancel") || transactionStatus.equals("deny") || transactionStatus.equals("expire")) {
-        // TODO set transaction status on your database to 'failure'
+      } else if (transactionStatus.equals("cancel") || transactionStatus.equals("deny")) {
+
+        transactionService.failedPaymentMidtrans(orderId);
         System.out.println("MidtransMAPIController.handleNotification Fail");
+
+      } else if (transactionStatus.equals("expire")) {
+
+        transactionService.acceptPaymentMidtrans(orderId);
+        System.out.println("MidtransMAPIController.handleNotification Expire");
+
       } else if (transactionStatus.equals("pending")) {
+
         // TODO set transaction status on your database to 'pending' / waiting payment
         System.out.println("MidtransMAPIController.handleNotification Pending");
       }
