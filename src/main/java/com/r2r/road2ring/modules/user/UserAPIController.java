@@ -79,6 +79,26 @@ public class UserAPIController {
 
   }
 
+  @RequestMapping(value = "/auth/social", method = RequestMethod.POST)
+  public ResponseMessage loginSocial(
+      @RequestHeader(value = "X-User-Agent", required = false) String userAgent,
+      @ModelAttribute User user, HttpServletRequest request,
+      HttpServletResponse httpResponse) {
+
+    ResponseMessage responseMessage = new ResponseMessage();
+    try {
+      responseMessage.setObject(userService.loginSocial(user.getSocialToken(),userAgent));
+      httpResponse.setStatus(HttpStatus.OK.value());
+    } catch (Exception e) {
+      httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+      responseMessage.setCode(800);
+      responseMessage.setMessage("Email atau Password anda salah");
+    }
+
+    return responseMessage;
+
+  }
+
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
   public ResponseMessage registerRefresh(
       @RequestHeader(value = "X-User-Agent", required = false) String userAgent,

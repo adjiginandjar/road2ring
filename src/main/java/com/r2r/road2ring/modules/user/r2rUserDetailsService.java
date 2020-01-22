@@ -40,6 +40,8 @@ public class r2rUserDetailsService implements UserDetailsService {
     List<GrantedAuthority> authorities;
     UserDetails user;
 
+    System.out.println("username = " + username);
+
     Iterable<String> result = Splitter.on("+via+").trimResults().omitEmptyStrings().split(username);
     for (String s : result) {
       if (i == 0) {
@@ -51,12 +53,20 @@ public class r2rUserDetailsService implements UserDetailsService {
     }
 
     try {
+
       consumer = userRepository.findOneByEmailIgnoreCase(userId);
+
       if(consumer.getRole().getId() == 1){
         return null;
       }
+
       authorities = buildUserAuthority(consumer.getRole());
-      user = new User(consumer.getEmail(), consumer.getPassword(), authorities);
+
+      if(consumer.getSocialProvider() !=null){
+        user = new User(consumer.getEmail(), consumer.getSocialPassword(), authorities);
+      }else{
+        user = new User(consumer.getEmail(), consumer.getPassword(), authorities);
+      }
     } catch (Exception e) {
       e.printStackTrace();
       throw new UsernameNotFoundException("Error in retrieving user");

@@ -85,6 +85,18 @@ public class User implements Serializable {
   @Column(name = "user_verification_code_password_last_send")
   private Date verificationCodePasswordLastSend;
 
+  @Column(name = "user_social_uid")
+  private String socialUid;
+
+  @Column(name = "user_social_provider")
+  private String socialProvider;
+
+  @Column(name = "user_social_password")
+  private String socialPassword;
+
+  @Transient
+  private String socialToken;
+
   //  private String facebookPageID;
   //  private String twitterPageID;
   //  private String facebookPassword;
