@@ -15,17 +15,17 @@ public class ConsumerService {
     this.consumerRepository = consumerRepository;
   }
 
-  public Consumer saveUser(Consumer user){
-    Consumer saved = new Consumer();
-    Role role = new Role();
-    role.setId(user.getRole().getId());
-    saved.setRole(role);
-    saved.setEmail(user.getEmail());
-    saved.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-    saved.setUsername(user.getUsername());
-
-    return consumerRepository.save(saved);
-  }
+//  public Consumer saveUser(Consumer user){
+//    Consumer saved = new Consumer();
+//    Role role = new Role();
+//    role.setId(user.getRole().getId());
+//    saved.setRole(role);
+//    saved.setEmail(user.getEmail());
+//    saved.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+//    saved.setUsername(user.getUsername());
+//
+//    return consumerRepository.save(saved);
+//  }
 
   public Consumer getUserByEmail(String email){
     return consumerRepository.findByEmail(email);

@@ -2,6 +2,9 @@ package com.r2r.road2ring.modules.user;
 
 import static com.r2r.road2ring.modules.common.Static.ROLE_ID;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
+import com.google.firebase.auth.UserRecord;
 import com.r2r.road2ring.modules.common.R2rTools;
 import com.r2r.road2ring.modules.common.Road2RingException;
 import com.r2r.road2ring.modules.common.Static;
@@ -10,6 +13,7 @@ import com.r2r.road2ring.modules.mail.MailClient;
 import com.r2r.road2ring.modules.role.Role;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -279,5 +283,43 @@ public class UserService {
   public User update(User user) {
     user = userRepository.findOne(user.getId());
     return this.changeRole(user, 2);
+  }
+
+
+
+  public AuthToken loginSocial(String idToken,String userAgent) throws Exception {
+    AuthToken token = new AuthToken();
+    User user = null;
+    try {
+      FirebaseToken firebaseToken = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get();
+      UserRecord userSocial = FirebaseAuth.getInstance().getUserAsync(firebaseToken.getUid()).get();
+      user = userRepository.findOneBySocialUid(userSocial.getUid());
+      if(user == null) {
+        user = this.convertUserSocialToUser(userSocial);
+      }
+      user.setPassword(userSocial.getUid()+userSocial.getProviderId());
+      token = this.login(user,userAgent);
+    } catch (InterruptedException | ExecutionException e) {
+      throw new Exception("User Not Authenticated");
+    }
+    return token;
+  }
+
+
+  private User convertUserSocialToUser(UserRecord userSocial) {
+    User user = new User();
+
+    user.setFullName(userSocial.getDisplayName());
+    user.setEmail(userSocial.getEmail());
+    user.setPicture(userSocial.getPhotoUrl());
+    user.setSocialUid(userSocial.getUid());
+    user.setSocialProvider(userSocial.getProviderId());
+    user.setActivation(Static.IS_ACTIVE);
+    user.setSocialUid(userSocial.getUid());
+    user.setSocialPassword(r2rTools.hashingPassword(userSocial.getUid()+userSocial.getProviderId()));
+    user.setRole(new Role(ROLE_ID));
+
+    return userRepository.save(user);
+
   }
 }

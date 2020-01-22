@@ -1,6 +1,13 @@
 package com.r2r.road2ring;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -12,6 +19,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
@@ -23,6 +31,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @EnableAsync
 public class Road2RingApplication extends SpringBootServletInitializer {
+
+  @Value("${firebase.database.url}")
+  private String databaseUrl;
+
+  @Value("${firebase.config.path}")
+  private String configPath;
 
   public static void main(String[] args) {
     SpringApplication.run(Road2RingApplication.class, args);
@@ -58,5 +72,20 @@ public class Road2RingApplication extends SpringBootServletInitializer {
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
     return application.sources(Road2RingApplication.class);
+  }
+
+  @Bean
+  public FirebaseAuth firebaseAuth() throws IOException {
+
+    ClassPathResource serviceAccount = new ClassPathResource(
+        configPath);
+
+    FirebaseOptions options = new FirebaseOptions.Builder()
+        .setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream()))
+        .setDatabaseUrl(databaseUrl).build();
+
+    FirebaseApp.initializeApp(options);
+
+    return FirebaseAuth.getInstance();
   }
 }

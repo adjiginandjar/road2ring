@@ -18,6 +18,14 @@ import lombok.Data;
 @Table(name = "role")
 @Data
 public class Role implements Serializable {
+
+  public Role() {
+  }
+
+  public Role(int id) {
+    this.id = id;
+  }
+
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name = "role_id")
@@ -26,8 +34,8 @@ public class Role implements Serializable {
   @Column(name = "role_name")
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-  private List<Consumer> consumers;
+//  @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+//  private List<Consumer> consumers;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
   private List<User> users;
