@@ -19,13 +19,6 @@ import lombok.Data;
 @Data
 public class Role implements Serializable {
 
-  public Role() {
-  }
-
-  public Role(int id) {
-    this.id = id;
-  }
-
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name = "role_id")

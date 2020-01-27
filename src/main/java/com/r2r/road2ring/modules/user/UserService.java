@@ -313,6 +313,9 @@ public class UserService {
   private User convertUserSocialToUser(UserRecord userSocial) {
     User user = new User();
 
+    Role role = new Role();
+    role.setId(ROLE_ID);
+
     user.setFullName(userSocial.getDisplayName());
     user.setEmail(userSocial.getEmail());
     user.setPicture(userSocial.getPhotoUrl());
@@ -321,7 +324,7 @@ public class UserService {
     user.setActivation(Static.IS_ACTIVE);
     user.setSocialUid(userSocial.getUid());
     user.setSocialPassword(r2rTools.hashingPassword(userSocial.getUid()+userSocial.getProviderId()));
-    user.setRole(new Role(ROLE_ID));
+    user.setRole(role);
 
     return userRepository.save(user);
 
