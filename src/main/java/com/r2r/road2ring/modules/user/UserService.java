@@ -280,6 +280,10 @@ public class UserService {
     return userRepository.findAllByRoleId(3);
   }
 
+  public List<User> getRcAutocomplete(String keyword){
+    return userRepository.findAllByRoleIdAndFullNameIgnoreCaseContaining(3,keyword);
+  }
+
   public User update(User user) {
     user = userRepository.findOne(user.getId());
     return this.changeRole(user, 2);

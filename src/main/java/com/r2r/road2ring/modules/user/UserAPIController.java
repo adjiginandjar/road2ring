@@ -241,6 +241,24 @@ public class UserAPIController {
     return response;
   }
 
+  @RequestMapping(value = "/captain/helper", method = RequestMethod.GET)
+  public ResponseMessage helperPublished(@RequestParam("keyword") String keyword) {
+
+    ResponseMessage responseMessage = new ResponseMessage();
+
+    List<User> user = userService.getRcAutocomplete(keyword);
+    List<UserViewDetail> userViewDetailList = new ArrayList<>();
+
+    for(User u : user){
+      userViewDetailList.add(userViewService.bindUserViewDetail(u));
+    }
+
+    responseMessage.setObject(userViewDetailList);
+
+    return responseMessage;
+
+  }
+
   /**
    * RC Request
    */

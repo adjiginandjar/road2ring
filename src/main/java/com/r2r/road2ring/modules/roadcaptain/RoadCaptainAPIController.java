@@ -3,6 +3,7 @@ package com.r2r.road2ring.modules.roadcaptain;
 import com.r2r.road2ring.modules.common.PublishedStatus;
 import com.r2r.road2ring.modules.common.ResponseMessage;
 import com.r2r.road2ring.modules.common.Road2RingException;
+import com.r2r.road2ring.modules.user.UserService;
 import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoadCaptainAPIController {
 
   RoadCaptainService roadCaptainService;
+
+  @Autowired
+  UserService userService;
 
   @Autowired
   public void setMotorService(RoadCaptainService roadCaptainService) {

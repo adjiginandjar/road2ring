@@ -13,4 +13,5 @@ public interface UserRepository extends DataTablesRepository<User,Integer> {
   User findOneByVerificationCodePassword(String code);
   User findOneBySocialUid(String uid);
   List<User> findAllByRoleId(int id);
+  List<User> findAllByRoleIdAndFullNameIgnoreCaseContaining(int id,String fullname);
 }

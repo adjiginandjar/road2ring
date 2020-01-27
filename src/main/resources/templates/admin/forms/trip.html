@@ -391,7 +391,7 @@ $(function() {
       source: function(request, response) {
       console.log(request.term)
         var arrdata = [];
-        var json_data = $.getJSON(api + '/captain/helper', {
+        var json_data = $.getJSON(api + '/user/captain/helper', {
             keyword: request.term
         });
         json_data.done(function(data) {
@@ -401,7 +401,7 @@ $(function() {
             });
             response($.map(arrdata, function (value, key) {
                 return{
-                    label: value.name,
+                    label: value.fullName,
                     value: value.id
             }
             }));
