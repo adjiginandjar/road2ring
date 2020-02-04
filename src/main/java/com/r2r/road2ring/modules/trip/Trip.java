@@ -6,7 +6,7 @@ import com.r2r.road2ring.modules.common.Language;
 import com.r2r.road2ring.modules.common.ResponseView;
 import com.r2r.road2ring.modules.hotel.Hotel;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
-import com.r2r.road2ring.modules.roadcaptain.RoadCaptain;
+import com.r2r.road2ring.modules.user.User;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -115,7 +115,7 @@ public class Trip implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY , optional = true)
   @JoinColumn(name = "trip_road_captain" , nullable = true)
   @JsonView(ResponseView.DetailedTrip.class)
-  private RoadCaptain roadCaptain;
+  private User roadCaptain;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
   @JsonView(ResponseView.DetailedTrip.class)

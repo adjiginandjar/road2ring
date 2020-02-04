@@ -1,5 +1,7 @@
 package com.r2r.road2ring.modules.user;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.r2r.road2ring.modules.common.ResponseView;
 import com.r2r.road2ring.modules.role.Role;
 import java.io.Serializable;
 import java.util.Date;
@@ -50,6 +52,7 @@ public class User implements Serializable {
   private Date registerDate;
 
   @Column(name = "user_full_name")
+  @JsonView(ResponseView.DetailedTrip.class)
   private String fullName;
 
   @Column(name = "user_picture")
@@ -69,6 +72,9 @@ public class User implements Serializable {
 
   @Column(name = "user_blood_type")
   private String bloodType;
+
+  @Column(name = "user_description")
+  private String description;
 
   @Transient
   private Long userBirthday;

@@ -3,8 +3,7 @@ package com.r2r.road2ring.modules.testimonial;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.r2r.road2ring.modules.common.PublishedStatus;
 import com.r2r.road2ring.modules.common.ResponseView;
-import com.r2r.road2ring.modules.gallery.Gallery;
-import com.r2r.road2ring.modules.roadcaptain.RoadCaptain;
+import com.r2r.road2ring.modules.user.User;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -69,7 +68,7 @@ public class Testimonial implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY , optional = true)
   @JoinColumn(name = "testimonial_trip_road_captain" , nullable = true)
   @JsonView(ResponseView.DefaultTestimonial.class)
-  private RoadCaptain roadCaptain;
+  private User roadCaptain;
 
   @Column(name = "testimonial_trip_distance")
   @JsonView(ResponseView.LimitedTestimonial.class)

@@ -48,8 +48,8 @@ public class TestimonialViewService {
     result.setTags(testimonial.getTag());
     result.setArticle(testimonial.getArticle());
     result.setIsVideo(testimonial.getIsVideo());
-    result.setCaptainName(testimonial.getRoadCaptain().getName());
-    result.setCaptainPicture(testimonial.getRoadCaptain().getPictureUrl());
+    result.setCaptainName(testimonial.getRoadCaptain().getFullName());
+    result.setCaptainPicture(testimonial.getRoadCaptain().getPicture());
     result.setAlbumId(testimonial.getAlbumId());
     return result;
   }

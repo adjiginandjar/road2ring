@@ -132,8 +132,8 @@ public class TripViewService {
     tripViewDetail.setLocation(trip.getLocation());
     tripViewDetail.setMeetingPoint(trip.getMeetingPoint());
     tripViewDetail.setRoadCaptainDescription(trip.getRoadCaptain().getDescription());
-    tripViewDetail.setRoadCaptainName(trip.getRoadCaptain().getName());
-    tripViewDetail.setImageRoadCaptain(trip.getRoadCaptain().getPictureUrl());
+    tripViewDetail.setRoadCaptainName(trip.getRoadCaptain().getFullName());
+    tripViewDetail.setImageRoadCaptain(trip.getRoadCaptain().getPicture());
     tripViewDetail.setFacilityNotIncluded(trip.getFacilityNot());
     tripViewDetail.setFacilities(getTripFacilityView(trip.getId()));
     tripViewDetail.setItineraries(this.getListItineraryTrip(trip.getId()));
