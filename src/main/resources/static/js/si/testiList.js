@@ -18,7 +18,7 @@ $(document).ready( function () {
             "createdCell": function(td, cellData, rowData, row, col) {
                 $(td).attr('data-th', 'Title');
             }},
-			    { "mData": "roadCaptain.name",
+			    { "mData": "roadCaptain.fullName",
             "createdCell": function(td, cellData, rowData, row, col) {
                 $(td).attr('data-th', 'Captain');
             }},

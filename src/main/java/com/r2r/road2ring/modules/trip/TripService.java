@@ -104,7 +104,8 @@ public class TripService {
         tripSaved = tripRepository.findByCreated(saved.getCreated());
       }
       tripFacilityService.saveListOfTripFacilityByInteger(trip.getFacilityInclude(),tripSaved);
-      hotelService.saveListHotel(trip.getHotels(), tripSaved, trip.getDeletedHotel());
+      if(trip.getHotels() != null)
+        hotelService.saveListHotel(trip.getHotels(), tripSaved, trip.getDeletedHotel());
 
     }
     return saved;

@@ -224,7 +224,7 @@
 
         <div class="form-group">
           <label for="captain">Captain</label>
-          <input type="text" class="form-control" id="captain" placeholder="Captain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain != '' ? response.object.roadCaptain.name : ''}" required>
+          <input type="text" class="form-control" id="captain" placeholder="Captain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain != '' ? response.object.roadCaptain.fullName : ''}" required>
           <input type="hidden" class="hidden tournamentId" name="roadCaptain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain.id != 0 ? response.object.roadCaptain.id : 0}">
         </div>
 
