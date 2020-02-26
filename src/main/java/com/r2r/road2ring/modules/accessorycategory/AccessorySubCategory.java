@@ -50,6 +50,6 @@ public class AccessorySubCategory {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "accessory_sub_category_category_id", nullable = false)
-  @JsonView(ResponseView.DetailedSubCategory.class)
+  @JsonView(ResponseView.DefaultCategory.class)
   private AccessoryCategory accessoryCategory;
 }

@@ -65,7 +65,7 @@ $(document).ready( function () {
            "targets": 2,
            "render": function(data, type, row) {
                var base_url = window.location.origin;
-               return '<img src="'+ base_url + data +'" width="40px" height="40px" style="margin-left: auto; margin-right: auto; display:block;">'
+               return '<img src="'+ data +'" width="40px" height="40px" style="margin-left: auto; margin-right: auto; display:block;">'
          }
        },
 			{
