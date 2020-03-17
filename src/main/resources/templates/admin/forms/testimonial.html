@@ -66,7 +66,7 @@ form.form-border .form-group {
 
 
         <div class="form-group">
-          <label for="title">Title</label>
+          <label for="title">* Title</label>
           <input type="text" class="form-control" name="title" id="title" placeholder="Title" th:value="${response.object.title}" required>
         </div>
         <div class="form-group">
@@ -164,7 +164,7 @@ form.form-border .form-group {
         </div>
 
         <div class="form-group">
-          <label for="duration">Duration</label>
+          <label for="duration">* Duration</label>
           <div class="input-group" id="duration">
             <input type="number" min="0" name="duration" class="form-control" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">Days</span>
@@ -172,7 +172,7 @@ form.form-border .form-group {
         </div>
 
         <div class="form-group">
-          <label for="distance">Distance</label>
+          <label for="distance">* Distance</label>
           <div class="input-group" id="distance">
             <input type="number" min="0" name="distance" class="form-control" placeholder="Distance" th:value="${response.object.distance}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">KMs</span>
@@ -180,7 +180,7 @@ form.form-border .form-group {
         </div>
 
         <div class="form-group">
-          <label for="captain">Captain</label>
+          <label for="captain">* Captain</label>
           <input type="text" class="form-control" id="captain" placeholder="Captain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain != '' ? response.object.roadCaptain.fullName : ''}" required>
           <input type="hidden" class="hidden tournamentId" name="roadCaptain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain.id != 0 ? response.object.roadCaptain.id : 0}">
         </div>
@@ -197,7 +197,7 @@ form.form-border .form-group {
 
         <div class="article-list">
           <div class="container-article form-group">
-            <label for="description">Article</label>
+            <label for="description">* Article</label>
             <div class="article-list-0">
               <input type="text" class="form-control subtitle" id="article" placeholder="Enter Sub Title" data-parsley-required="true">
               <textarea class="form-control mce-editor ta_tmce" placeholder="Enter description" th:text="${response.object.article}"></textarea>
@@ -211,7 +211,7 @@ form.form-border .form-group {
         </div>
 
         <div class="form-group">
-        <label for="tag">Tag</label>
+        <label for="tag">* Tag (use comma (,) to input tag)</label>
         <input type="text" name="tag" class="form-control" th:value="${response.object.tag}" id="tag" placeholder="Tag" required>
       </div>
 
