@@ -40,7 +40,7 @@
         <div class="form-group">
           <label for="price">Fuel Price</label>
           <div class="input-group" id="tripPriceDetail.fuelPrice">
-            <input type="number" min="0" id="fuel" name="tripPriceDetail.fuelPrice" class="form-control" placeholder="Fuel Price" th:value="${tripPriceDetail.fuelPrice}" onblur="findTotal()"  required>
+            <input type="number" min="0" id="fuel" name="tripPriceDetail.fuelPrice" class="form-control" placeholder="Fuel Price" th:value="${tripPriceDetail.fuelPrice}" onblur="findTotal()" >
             <span class="input-group-addon">(total distance / 20) * pertamax price </span>
           </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="form-group">
           <label for="price">Hotel Price</label>
           <div class="input-group" id="tripPriceDetail.hotelPrice">
-            <input type="number" min="0" id="hotel" name="tripPriceDetail.hotelPrice" class="form-control" placeholder="Hotel Price" th:value="${tripPriceDetail.hotelPrice}" onblur="findTotal()" required>
+            <input type="number" min="0" id="hotel" name="tripPriceDetail.hotelPrice" class="form-control" placeholder="Hotel Price" th:value="${tripPriceDetail.hotelPrice}" onblur="findTotal()">
             <span class="input-group-addon">all Hotel Price / person / bed </span>
           </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="form-group">
           <label for="price">Road Captain Price</label>
           <div class="input-group" id="tripPriceDetail.roadCaptainPrice">
-            <input type="number" min="0" id="rc" name="tripPriceDetail.roadCaptainPrice" class="form-control" placeholder="Road Captain Price" th:value="${tripPriceDetail.roadCaptainPrice}" onblur="findTotal()" required>
+            <input type="number" min="0" id="rc" name="tripPriceDetail.roadCaptainPrice" class="form-control" placeholder="Road Captain Price" th:value="${tripPriceDetail.roadCaptainPrice}" onblur="findTotal()">
             <span class="input-group-addon">fee RC / minimum riders </span>
           </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
           <label for="price">Towing Price</label>
           <div class="input-group" id="tripPriceDetail.toweingPrice">
-            <input type="number" min="0" id="towing" name="tripPriceDetail.towingPrice" class="form-control" placeholder="Towing Price" th:value="${tripPriceDetail.towingPrice}" onblur="findTotal()" required>
+            <input type="number" min="0" id="towing" name="tripPriceDetail.towingPrice" class="form-control" placeholder="Towing Price" th:value="${tripPriceDetail.towingPrice}" onblur="findTotal()">
             <span class="input-group-addon">Towing Price / minimum riders </span>
           </div>
         </div>
@@ -72,7 +72,7 @@
         <div class="form-group">
           <label for="price">Food Price</label>
           <div class="input-group" id="tripPriceDetail.foodPrice">
-            <input type="number" min="0" id="food" name="tripPriceDetail.foodPrice" class="form-control" placeholder="Food Price" th:value="${tripPriceDetail.foodPrice}" onblur="findTotal()" required>
+            <input type="number" min="0" id="food" name="tripPriceDetail.foodPrice" class="form-control" placeholder="Food Price" th:value="${tripPriceDetail.foodPrice}" onblur="findTotal()">
             <span class="input-group-addon">person</span>
           </div>
         </div>
@@ -80,7 +80,7 @@
         <div class="form-group">
           <label for="price">Helper Fee</label>
           <div class="input-group" id="tripPriceDetail.helper">
-            <input type="number" min="0" id="helper" name="tripPriceDetail.helper" class="form-control" placeholder="Helper Fee" th:value="${tripPriceDetail.helper}" onblur="findTotal()" required>
+            <input type="number" min="0" id="helper" name="tripPriceDetail.helper" class="form-control" placeholder="Helper Fee" th:value="${tripPriceDetail.helper}" onblur="findTotal()">
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -88,7 +88,7 @@
         <div class="form-group">
           <label for="price">Documentation Fee</label>
           <div class="input-group" id="tripPriceDetail.documentation">
-            <input type="number" min="0" id="documentation" name="tripPriceDetail.documentation" class="form-control" placeholder="Documentation Fee" th:value="${tripPriceDetail.documentation}" onblur="findTotal()" required>
+            <input type="number" min="0" id="documentation" name="tripPriceDetail.documentation" class="form-control" placeholder="Documentation Fee" th:value="${tripPriceDetail.documentation}" onblur="findTotal()">
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="form-group">
           <label for="price">Crew Accommodation</label>
           <div class="input-group" id="tripPriceDetail.crewAccommodation">
-            <input type="number" min="0" id="crewAccommodation" name="tripPriceDetail.crewAccommodation" class="form-control" placeholder="Crew Accommodation Fee" th:value="${tripPriceDetail.crewAccommodation}" onblur="findTotal()" required>
+            <input type="number" min="0" id="crewAccommodation" name="tripPriceDetail.crewAccommodation" class="form-control" placeholder="Crew Accommodation Fee" th:value="${tripPriceDetail.crewAccommodation}" onblur="findTotal()">
             <span class="input-group-addon">Trip</span>
           </div>
         </div>
@@ -104,7 +104,7 @@
         <div class="form-group">
           <label for="price">Company Commission </label>
           <div class="input-group" id="tripPriceDetail.companyCommission">
-            <input type="hidden" min="0" id="companyCommission" name="tripPriceDetail.companyCommission" class="form-control" placeholder="Company Commission Fee" th:value="${companyCommissionFee}" onchange="findTotal()" required>
+            <input type="hidden" min="0" id="companyCommission" name="tripPriceDetail.companyCommission" class="form-control" placeholder="Company Commission Fee" th:value="${companyCommissionFee}" onchange="findTotal()">
             <input type="number" step="0.01" disabled min="0" id="companyCommissionFee"  class="form-control" placeholder="Company Commission Fee" >
             <span class="input-group-addon">Trip</span>
           </div>
@@ -120,7 +120,7 @@
 
         <div class="form-group">
           <label>Status</label>
-          <select class="form-control" name="status" th:value="${response.object.status}" required>
+          <select class="form-control" name="status" th:value="${response.object.status}" >
             <option value="">--- Select Status ---</option>
             <option th:each="status : ${T(com.r2r.road2ring.modules.trip.TripPriceStatus).values()}" th:selected="${status == response.object.status}" th:value="${status}" th:text="${status}">
             </option>

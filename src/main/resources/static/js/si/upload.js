@@ -70,7 +70,7 @@ function upload_trip(url_upload, section,image_field, hidden_field,width,height,
             if(isValidImg)
               $(hidden_field).val(hidden_val);
             else
-              alert("Size Image kebesaran, tidak boleh lebih dari 100Kb")
+              alert("Size Image kebesaran, tidak boleh lebih dari 300Kb")
 
         }
     });

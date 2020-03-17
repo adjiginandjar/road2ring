@@ -1,7 +1,7 @@
 package com.r2r.road2ring.modules.common;
 
 import static com.r2r.road2ring.modules.common.Static.IMAGE_ASSETS;
-import static com.r2r.road2ring.modules.common.Static.SIZE_100KB;
+import static com.r2r.road2ring.modules.common.Static.SIZE_300KB;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -76,8 +76,8 @@ public class UploadService {
     String type = file.getContentType().split("/")[1];
     Long date = new Date().getTime();
 
-    if (file.getSize() > SIZE_100KB) {
-      throw new FileSizeLimitExceededException("File is too Big", file.getSize(), SIZE_100KB);
+    if (file.getSize() > SIZE_300KB) {
+      throw new FileSizeLimitExceededException("File is too Big", file.getSize(), SIZE_300KB);
     }
     try {
       String picName = date + r2rTools.generateRandomCode(8);

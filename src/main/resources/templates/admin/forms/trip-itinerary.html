@@ -20,7 +20,7 @@
           </div>
 
           <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">* Title</label>
             <input type="text" class="form-control" id="title" placeholder="Title ex: Day 1" th:value="${#lists.size(response.object) != 0 ? response.object[0].groupTitle : ''}" required>
           </div>
 
@@ -40,7 +40,7 @@
                 <input type="hidden" th:id="id[+${iterStat.index}+]" th:name="itineraries[+${iterStat.index}+].id" th:value="${response.object[iterStat.index].id}" th:if="${itineraries.id != 0}">
 
                 <div class="form-group">
-                  <label th:for="picture-+${iterStat.index}">Picture</label>
+                  <label th:for="picture-+${iterStat.index}">* Picture</label>
                   <div class="wrap-file">
                     <input type="file" th:id="picture-+${iterStat.index}">
                   </div>
@@ -65,13 +65,13 @@
                 </div>
 
                 <div class="form-group">
-                <label th:for="event-+${iterStat.index}">Event</label>
+                <label th:for="event-+${iterStat.index}">* Event</label>
                 <input type="text" class="form-control" th:id="event-+${iterStat.index}" th:name="itineraries[+${iterStat.index}+].title" placeholder="Enter Event Title"
                        th:value="${response.object[iterStat.index].title}" required>
                 </div>
 
                 <div class="form-group">
-                  <label th:for="description-+${iterStat.index}">Description</label>
+                  <label th:for="description-+${iterStat.index}">* Description</label>
                   <textarea class="form-control mce-general" th:id="description-+${iterStat.index}" th:name="itineraries[+${iterStat.index}+].description" th:text="${response.object[iterStat.index].description}" placeholder="Enter Description" required></textarea>
                 </div>
 

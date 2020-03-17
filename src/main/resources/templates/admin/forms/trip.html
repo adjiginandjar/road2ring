@@ -66,12 +66,12 @@
       <div class="box-body">
         <input id="object_id" type="hidden" name="id" th:if="${response.object.id != 0}" th:value="${response.object.id != null && response.object.id != 0 ? response.object.id : 0}">
         <div class="form-group">
-          <label for="title">Title</label>
+          <label for="title">* Title</label>
           <input type="text" class="form-control" name="title" id="title" placeholder="Title" th:value="${response.object.title}" data-parsley-required="true" data-beautify="false">
         </div>
 
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">* Description</label>
           <textarea class="form-control mce-general" name="description" id="description" placeholder="Enter description" th:text="${response.object.description}"></textarea>
         </div>
 
@@ -102,7 +102,7 @@
         </div>
 
         <div class="form-group">
-          <label for="icon_publisher">Icon Publisher</label>
+          <label for="icon_publisher">Icon ATPM / Sponsor</label>
           <div class="wrap-file">
             <input type="file" id="icon_publisher" data-parsley-required="false">
           </div>
@@ -128,7 +128,7 @@
         </div>
 
         <div class="form-group">
-          <label for="cover_trip">Cover Landscape <span class="sub-label">(ukuran gambar 600x400, maksimum 100kb)</span></label>
+          <label for="cover_trip">* Cover Landscape <span class="sub-label">(ukuran gambar 600x400, maksimum 300kb)</span></label>
           <div class="wrap-file">
             <input type="file" id="cover_trip" data-parsley-required="false">
           </div>
@@ -154,7 +154,7 @@
         </div>
 
         <div class="form-group">
-          <label for="cover_trips">Cover Potrait <span class="sub-label">(ukuran gambar 400x600, maksimum 100kb)</span></label>
+          <label for="cover_trips">* Cover Potrait <span class="sub-label">(ukuran gambar 400x600, maksimum 300kb)</span></label>
           <div class="wrap-file">
             <input type="file" id="cover_trips" data-parsley-required="false">
           </div>
@@ -180,12 +180,12 @@
         </div>
 
         <div class="form-group">
-          <label for="max-rider">Max Rider</label>
+          <label for="max-rider">* Max Rider</label>
           <input type="number" min="0" name="maxRider" id="max-rider" class="form-control" placeholder="Max Rider" th:value="${response.object.maxRider}" data-parsley-required="true" data-beautify="false">
         </div>
 
         <div class="form-group">
-          <label for="duration">Duration</label>
+          <label for="duration">* Duration</label>
           <div class="input-group" id="duration">
             <input type="number" min="0" name="duration" class="form-control durations" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">Days</span>
@@ -193,7 +193,7 @@
         </div>
 
         <div class="form-group">
-          <label for="distance">Distance</label>
+          <label for="distance">* Distance</label>
           <div class="input-group" id="distance">
             <input type="number" min="0" name="distance" class="form-control" placeholder="Distance" th:value="${response.object.distance}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">KMs</span>
@@ -201,7 +201,7 @@
         </div>
 
         <div class="form-group">
-          <label for="input-list-tab">Facility(include)</label>
+          <label for="input-list-tab">* Facility(include)</label>
           <div id="input-list-tab" class="m-top-xs form-group" style="display: flow-root" th:value="${facilities}">
             <div class="m-bottom-xs warpers">
               <th:block th:each="facility, iterStat:${facilities}">
@@ -218,12 +218,12 @@
         </div>
 
         <div class="form-group">
-          <label for="tag">Tag</label>
+          <label for="tag">* Tag</label>
           <input type="text" name="tag" class="form-control" th:value="${response.object.tag}" id="tag" placeholder="Tag" autocomplete="off" data-parsley-required="true" data-beautify="false">
         </div>
 
         <div class="form-group">
-          <label for="captain">Captain</label>
+          <label for="captain">* Captain</label>
           <input type="text" class="form-control" id="captain" placeholder="Captain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain != '' ? response.object.roadCaptain.fullName : ''}" required>
           <input type="hidden" class="hidden tournamentId" name="roadCaptain" th:value="${response.object.roadCaptain != null && response.object.roadCaptain.id != 0 ? response.object.roadCaptain.id : 0}">
         </div>
@@ -234,12 +234,12 @@
         </div>
 
         <div class="form-group">
-          <label for="terran">Terrain</label>
+          <label for="terran">* Terrain</label>
           <input type="text" class="form-control" name="terrain" id="terran" placeholder="Terrain" th:value="${response.object.terrain}" required>
         </div>
 
         <div class="form-group">
-          <label for="location">Location</label>
+          <label for="location">* Location</label>
           <input type="text" class="form-control" name="location" id="location" placeholder="Location" th:value="${response.object.location}" required>
         </div>
 
