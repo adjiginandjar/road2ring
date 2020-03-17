@@ -1,4 +1,4 @@
-var index = $('.itinerary-event').length != 0 ? $('.itinerary-event').length : 0;
+index = $('.itinerary-event').length != 0 ? $('.itinerary-event').length : 0;
 //var groupOnLoad = $("#group").val()
 
 var previous = 0;
@@ -28,6 +28,7 @@ $(document).on("change", "#group", function(event) {
     setInputHidden()
     var uri = window.location.pathname.split('/');
     if($("#itineraryForm").parsley().validate() === true){
+      $('#itinerarySaveBtn').prop('disabled', true);
       $.post( "/trip/"+uri[2]+ '/itinerary/save', $("#itineraryForm").serialize()).done(function(data) {
         window.location.href = "/trip/"+uri[2]+ '/itinerary';
       })
