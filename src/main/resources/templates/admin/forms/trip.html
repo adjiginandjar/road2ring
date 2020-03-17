@@ -181,13 +181,13 @@
 
         <div class="form-group">
           <label for="max-rider">* Max Rider</label>
-          <input type="number" min="0" name="maxRider" id="max-rider" class="form-control" placeholder="Max Rider" th:value="${response.object.maxRider}" data-parsley-required="true" data-beautify="false">
+          <input type="number" min="1" name="maxRider" id="max-rider" class="form-control" placeholder="Max Rider" th:value="${response.object.maxRider}" data-parsley-required="true" data-beautify="false">
         </div>
 
         <div class="form-group">
           <label for="duration">* Duration</label>
           <div class="input-group" id="duration">
-            <input type="number" min="0" name="duration" class="form-control durations" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
+            <input type="number" min="1" name="duration" class="form-control durations" placeholder="Duration" th:value="${response.object.duration}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">Days</span>
           </div>
         </div>
@@ -195,7 +195,7 @@
         <div class="form-group">
           <label for="distance">* Distance</label>
           <div class="input-group" id="distance">
-            <input type="number" min="0" name="distance" class="form-control" placeholder="Distance" th:value="${response.object.distance}" data-parsley-required="true" data-beautify="false">
+            <input type="number" min="1" name="distance" class="form-control" placeholder="Distance" th:value="${response.object.distance}" data-parsley-required="true" data-beautify="false">
             <span class="input-group-addon">KMs</span>
           </div>
         </div>
@@ -229,8 +229,8 @@
         </div>
 
         <div class="form-group">
-          <label for="meeting">Meeting Point</label>
-          <textarea class="form-control mce-general" id="meeting" name="meetingPoint" th:text="${response.object.meetingPoint}"></textarea>
+          <label for="meeting">* Meeting Point</label>
+          <textarea class="form-control mce-general" id="meeting" name="meetingPoint" th:text="${response.object.meetingPoint}" data-parsley-required="true" required></textarea>
         </div>
 
         <div class="form-group">
