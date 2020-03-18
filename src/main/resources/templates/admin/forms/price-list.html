@@ -119,8 +119,8 @@
         </div>
 
         <div class="form-group">
-          <label>Status</label>
-          <select class="form-control" name="status" th:value="${response.object.status}" >
+          <label>* Status</label>
+          <select class="form-control" name="status" th:value="${response.object.status}"  data-parsley-required="true" >
             <option value="">--- Select Status ---</option>
             <option th:each="status : ${T(com.r2r.road2ring.modules.trip.TripPriceStatus).values()}" th:selected="${status == response.object.status}" th:value="${status}" th:text="${status}">
             </option>

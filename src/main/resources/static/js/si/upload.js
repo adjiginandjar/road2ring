@@ -137,7 +137,7 @@ function upload_gallery(url_upload, image_field, page) {
               });
             }
             else{
-               alert("Size Image kebesaran, tidak boleh lebih dari 100Kb")
+               alert("Size Image kebesaran, tidak boleh lebih dari 300Kb")
                $('#'+slugify(i.name)).remove();
             }
               $('#up2').prop('disabled', false);

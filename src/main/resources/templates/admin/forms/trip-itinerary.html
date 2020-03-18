@@ -12,8 +12,8 @@
     <form role="form" id="itineraryForm" th:action="${action}" th:object="${response}" method="POST" data-parsley-validate>
       <div class="box-body">
           <div class="form-group">
-            <label>Day</label>
-            <select class="form-control" id="group">
+            <label>* Day</label>
+            <select class="form-control" id="group" data-parsley-required="true">
               <option>Select</option>
               <option th:each="n : ${#numbers.sequence(1, trip.duration)}" th:value="${n}" th:text="${n}" th:selected="${#lists.size(response.object) != 0 ? n == response.object[0].group : false}"/>
             </select>
