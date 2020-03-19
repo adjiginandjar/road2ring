@@ -17,7 +17,8 @@ public interface ItineraryRepository extends DataTablesRepository<Itinerary, Int
 
   @Query(value = "SELECT DISTINCT itinerary_group "
       + "FROM itinerary "
-      + "WHERE itinerary_trip_id = :tripId",
+      + "WHERE itinerary_trip_id = :tripId "
+      + "GROUP BY itinerary_group",
       nativeQuery = true
   )
   List<Integer> findAllItineraryGroup(@Param("tripId") Integer tripId);
