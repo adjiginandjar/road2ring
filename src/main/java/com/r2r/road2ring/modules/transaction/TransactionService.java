@@ -132,6 +132,7 @@ public class TransactionService {
     Date created  = new Date();
     String midtransToken ="";
     TransactionCreateView view = new TransactionCreateView();
+    List<TransactionDetail> detailAccessories = null;
 
     Calendar cal = Calendar.getInstance();
     cal.setTime(created);
@@ -173,9 +174,12 @@ public class TransactionService {
         Transaction transactionSaved = transactionRepository.findOneByCode(result.getCode());
         TransactionDetail detailMotor = transactionDetailService.saveMotor(transaction.getMotor(),
             transactionSaved, transaction.getBringOwnMotor());
-        List<TransactionDetail> detailAccessories = transactionDetailService
-            .saveListTransactionalAccessory(transaction.getAccessories(), transactionSaved,
-                transaction.getBringOwnHelm());
+
+        if(transaction.getAccessories() != null) {
+         detailAccessories = transactionDetailService
+              .saveListTransactionalAccessory(transaction.getAccessories(), transactionSaved,
+                  transaction.getBringOwnHelm());
+        }
         try {
           midtransToken = midtransService
               .checkoutTrip(detailAccessories, detailMotor, transactionSaved, tripPrice, user);

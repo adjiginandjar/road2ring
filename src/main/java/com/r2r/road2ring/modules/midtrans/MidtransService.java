@@ -177,10 +177,11 @@ public class MidtransService {
     if(motor != null){
       itemDetails.add(this.buildItem(motor));
     }
-
-    for (TransactionDetail accesorry: accessories
-    ) {
-      itemDetails.add(this.buildItem(accesorry));
+    if(accessories != null) {
+      for (TransactionDetail accesorry : accessories
+      ) {
+        itemDetails.add(this.buildItem(accesorry));
+      }
     }
 
     return itemDetails;
