@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -77,7 +78,7 @@ public class MidtransService {
     List<Map<String, String>> itemDetails = this.buildItemDetails(motor,accessories,tripPrice,transaction);
     Map<String,Object> customerDetails = this.buildCustomerDetails(user);
     List<String> listedPayment = this.buildListPayment();
-    Map<String,String> bcaVA = this.buildBCAVirtualAccount();
+//    Map<String,String> bcaVA = this.buildBCAVirtualAccount();
     Map<String,String> creditCard = this.buildCreditCard();
     Map<String,String> expiry = this.buildExpire();
     Map<String,String> callbacks = this.buildCallbacks(transaction.getId());
@@ -86,7 +87,7 @@ public class MidtransService {
     requestBody.put("item_details", itemDetails);
     requestBody.put("customer_details", customerDetails);
     requestBody.put("enabled_payments", listedPayment);
-    requestBody.put("bca_va", bcaVA);
+//    requestBody.put("bca_va", bcaVA);
     requestBody.put("credit_card", creditCard);
     requestBody.put("expiry", expiry);
     requestBody.put("callbacks", callbacks);
@@ -130,7 +131,7 @@ public class MidtransService {
   private Map<String, String> buildBCAVirtualAccount() {
     Map<String, String> bcaVirtualAccount = new HashMap<>();
 
-    bcaVirtualAccount.put("va_number","085220200540");
+    bcaVirtualAccount.put("va_number",this.generateRandomVACode(11));
     bcaVirtualAccount.put("sub_company_code","39465");
 
     return bcaVirtualAccount;
@@ -263,6 +264,13 @@ public class MidtransService {
     params.put("credit_card", creditCard);
 
     return params;
+  }
+
+  private String generateRandomVACode(int length) {
+    String key = RandomStringUtils
+        .random(length, "1205914478272463760852021448462".toCharArray());
+
+    return key;
   }
 
 
