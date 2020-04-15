@@ -6,6 +6,7 @@ import com.r2r.road2ring.modules.trip.TripPrice;
 import com.r2r.road2ring.modules.user.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.TimeZone;
 import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -72,13 +73,13 @@ public class MidtransService {
         SERVER_KEY,CLIENT_KEY
         ,IS_PRODUCTION)).getSnapApi();
 
-    Map<String, Object> requestBody = new HashMap<>();
+    Map<String, Object> requestBody = new LinkedHashMap<>();
 
     Map<String,String> transactionDetails = this.buildTransactionDetails(transaction);
     List<Map<String, String>> itemDetails = this.buildItemDetails(motor,accessories,tripPrice,transaction);
     Map<String,Object> customerDetails = this.buildCustomerDetails(user);
     List<String> listedPayment = this.buildListPayment();
-//    Map<String,String> bcaVA = this.buildBCAVirtualAccount();
+    Map<String,String> bcaVA = this.buildBCAVirtualAccount();
     Map<String,String> creditCard = this.buildCreditCard();
     Map<String,String> expiry = this.buildExpire();
     Map<String,String> callbacks = this.buildCallbacks(transaction.getId());
@@ -87,12 +88,12 @@ public class MidtransService {
     requestBody.put("item_details", itemDetails);
     requestBody.put("customer_details", customerDetails);
     requestBody.put("enabled_payments", listedPayment);
-//    requestBody.put("bca_va", bcaVA);
     requestBody.put("credit_card", creditCard);
+//    requestBody.put("bca_va", bcaVA);
     requestBody.put("expiry", expiry);
     requestBody.put("callbacks", callbacks);
 
-//    System.out.println("requestBody = " + requestBody);
+    System.out.println("requestBody = " + requestBody);
 
     return snapApi.createTransactionToken(requestBody);
   }
@@ -141,6 +142,8 @@ public class MidtransService {
     List<String> listPayment = new ArrayList<>();
     listPayment.add("credit_card");
     listPayment.add("bca_va");
+    listPayment.add("bank_transfer");
+    listPayment.add("gopay");
 
     return listPayment;
   }
