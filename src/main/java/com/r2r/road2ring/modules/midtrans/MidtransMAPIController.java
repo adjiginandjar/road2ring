@@ -55,7 +55,7 @@ public class MidtransMAPIController {
       notifResponse = "Transaction notification received. Order ID: "+orderId+". Transaction status: "+transactionStatus+". Fraud status: "+fraudStatus;
       System.out.println(notifResponse);
 
-      if (transactionStatus.equals("capture")) {
+      if (transactionStatus.equals("capture") || transactionStatus.equals("settlement")  ) {
         if (fraudStatus.equals("challenge")) {
           // TODO set transaction status on your database to 'challenge'
           System.out.println("MidtransMAPIController.handleNotification Challenge");
@@ -66,12 +66,12 @@ public class MidtransMAPIController {
         }
       } else if (transactionStatus.equals("cancel") || transactionStatus.equals("deny")) {
 
-//        transactionService.failedPaymentMidtrans(orderId);
-//        System.out.println("MidtransMAPIController.handleNotification Fail");
+        transactionService.failedPaymentMidtrans(orderId);
+        System.out.println("MidtransMAPIController.handleNotification Fail");
 
       } else if (transactionStatus.equals("expire")) {
 
-        transactionService.acceptPaymentMidtrans(orderId);
+        transactionService.expirePaymentMidtrans(orderId);
         System.out.println("MidtransMAPIController.handleNotification Expire");
 
       } else if (transactionStatus.equals("pending")) {

@@ -1,13 +1,12 @@
 package com.r2r.road2ring.modules.mail;
 
-import static com.r2r.road2ring.modules.common.Static.BASE_URL;
 
 import com.r2r.road2ring.modules.accessory.Accessory;
 import com.r2r.road2ring.modules.accessory.AccessoryRepository;
-import com.r2r.road2ring.modules.motor.Motor;
 import com.r2r.road2ring.modules.transaction.Transaction;
 import com.r2r.road2ring.modules.transaction.TransactionRepository;
 import com.r2r.road2ring.modules.trip.TripPrice;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +61,7 @@ public class MailClient {
     context.setVariables(model);
     String html = templateEngine.process("admin/email/checkout", context);
 
-    helper.setFrom("bolalobintern@gmail.com");
+    helper.setFrom("admin@road2ring.com");
     helper.setText(html, true);
     helper.setSubject("Sample mail subject");
     helper.setTo("paulmartensimanjuntak19@gmail.com");
@@ -80,7 +79,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
       message.setSubject("Paid Transaction Road2Ring");
 
       Map model = new HashMap();
@@ -101,7 +100,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
       message.setSubject("Paid Transaction Road2Ring");
 
       Map model = new HashMap();
@@ -127,7 +126,7 @@ public class MailClient {
   }
 
   public void sendCheckoutEmail(String recipient, String consumerName, Transaction transaction,
-      Motor motor, List<Accessory> accessories, TripPrice tripPrice,
+      TripPriceMotor motor, List<Accessory> accessories, TripPrice tripPrice,
       boolean bringOwnHelm, boolean bringOwnMotor) {
 
     Transaction resultTransaction = transactionRepository.findOne(transaction.getTrip().getId());
@@ -135,19 +134,19 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
 
       message.setSubject("Congratulation for your transaction");
       Map model = new HashMap();
       model.put("username", consumerName);
-      model.put("image", BASE_URL + resultTransaction.getTrip().getCoverLandscape());
-      model.put("iconCover", BASE_URL + resultTransaction.getTrip().getIconCover());
+      model.put("image",  resultTransaction.getTrip().getCoverLandscape());
+      model.put("iconCover", resultTransaction.getTrip().getIconCover());
       model.put("startDate", tripPrice.getStartTrip());
       model.put("endDate", tripPrice.getFinishTrip());
       model.put("meetingPoint", resultTransaction.getTrip().getMeetingPoint());
       if(!bringOwnHelm) {
-        model.put("motorName", motor.getTitle());
-        model.put("motorImage", BASE_URL + motor.getPicture());
+        model.put("motorName", motor.getBike().getTitle());
+        model.put("motorImage", motor.getBike().getPicture());
       } else if(bringOwnHelm){
         model.put("motorName", "Bring Own Motor");
         model.put("motorImage", "");
@@ -163,7 +162,7 @@ public class MailClient {
           Accessory accessory = accessoryRepository.findOne(accessories.get(i).getId());
           if (accessory.getAccessoryCategory().getTitle().toLowerCase().equalsIgnoreCase("helm")) {
             model.put("accossoriesTitle", accessory.getTitle());
-            model.put("accossoriesImage", BASE_URL + accessory.getPicture());
+            model.put("accossoriesImage",  accessory.getPicture());
             model.put("accessoriesSize", accessories.get(0).getSize());
           }
         }
@@ -194,7 +193,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
       message.setSubject("Welcome to Road2Ring");
 
       Map model = new HashMap();
@@ -219,7 +218,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
       message.setSubject("Reset Password On Road2Ring");
 
       Map model = new HashMap();
@@ -242,7 +241,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("bolalobintern@gmail.com"));
+      message.setFrom(new InternetAddress("admin@road2ring.com"));
       message.setSubject("Be Ready For Your Touring");
 
       Map model = new HashMap();

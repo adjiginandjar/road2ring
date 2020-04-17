@@ -160,7 +160,7 @@ public class UserService {
     int index = saved.getEmail().indexOf('@');
     String username = saved.getEmail().substring(0,index);
 
-    //mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
+    mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
 
     return saved;
   }

@@ -203,12 +203,12 @@ public class TransactionService {
 
       /*CREATE EMAIL DATA INVOICE*/
 
-//      int index = result.getUser().getEmail().indexOf('@');
-//      String username = result.getUser().getEmail().substring(0,index);
+      int index = result.getUser().getEmail().indexOf('@');
+      String username = result.getUser().getEmail().substring(0,index);
 
-//      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
-//          transaction.getMotor(), transaction.getAccessories(), tripPrice,
-//          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
+      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
+          transaction.getMotor(), transaction.getAccessories(), tripPrice,
+          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
       return view;
     } else {
       throw new Road2RingException("CAN NOT CREATE TRANSACTION, ALREADY FULL", 705);
@@ -322,14 +322,14 @@ public class TransactionService {
     this.paymentLogMidtrans(saved, "ACCEPT");
 
     int index = saved.getUser().getEmail().indexOf('@');
-    String username = saved.getUser().getEmail().substring(0,index);
-//    try {
-//      /*change email recipient*/
-//      mailClient.sendPaidEmail(saved.getUser().getEmail(),username,
-//          this.getRidersNeeded(saved, saved.getStartDate()));
-//    } catch (MessagingException e) {
-//      e.printStackTrace();
-//    }
+    String username = saved.getUser().getEmail(). substring(0,index);
+    try {
+      /*change email recipient*/
+      mailClient.sendPaidEmail(saved.getUser().getEmail(),username,
+          this.getRidersNeeded(saved, saved.getStartDate()));
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
     transactionRepository.save(saved);
 
     /*Check All Paid User*/
@@ -350,6 +350,17 @@ public class TransactionService {
   }
 
   @Transactional
+  public void expirePaymentMidtrans(String transactionId){
+    Transaction saved  = transactionRepository.findOneByCode(transactionId);
+    saved.setPaymentStatus(PaymentStatus.FAILED);
+    saved.setUpdatedBy(TransactionCreator.SYSTEM.name());
+    saved.setTransactionCreator(TransactionCreator.SYSTEM);
+    transactionRepository.save(saved);
+    tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    this.paymentLogMidtrans(saved,"EXPIRED");
+  }
+
+  @Transactional
   public void checkPaidUser(Transaction transaction){
     int maxRider = transaction.getTrip().getMaxRider();
     TripPrice tripPrice = tripPriceService.getTripPrice(transaction.getTrip().getId(),transaction.getStartDate());
@@ -358,11 +369,11 @@ public class TransactionService {
       tripPrice.setStatus(TripPriceStatus.COMPLETE);
       tripPriceRepository.save(tripPrice);
 
-      /*SENT EMAIL*/
-      for(Transaction result : transactions){
-        mailClient.sentEmailCompleteTrip(result.getUser().getEmail(),
-            result.getTrip().getMeetingPoint());
-      }
+//      /*SENT EMAIL*/
+//      for(Transaction result : transactions){
+//        mailClient.sentEmailCompleteTrip(result.getUser().getEmail(),
+//            result.getTrip().getMeetingPoint());
+//      }
     }
   }
 
