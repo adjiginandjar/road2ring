@@ -50,10 +50,10 @@ public class TripPriceService {
     return saved;
   }
 
-  public void minPersonTripPrice(Integer tripId, Date startDate){
+  public TripPrice minPersonTripPrice(Integer tripId, Date startDate){
     TripPrice saved = tripPriceRepository.findOneByTripIdAndStartTrip(tripId,startDate);
     saved.setPersonPaid(saved.getPersonPaid()-1);
-    tripPriceRepository.save(saved);
+    return tripPriceRepository.save(saved);
   }
 
   public TripPrice getTripPrice(Integer tripId, Date startDate){

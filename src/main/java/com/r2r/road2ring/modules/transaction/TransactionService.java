@@ -16,6 +16,8 @@ import com.r2r.road2ring.modules.transactionlog.TransactionCreator;
 import com.r2r.road2ring.modules.transactionlog.TransactionLog;
 import com.r2r.road2ring.modules.transactionlog.TransactionLogService;
 import com.r2r.road2ring.modules.trip.TripPrice;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
+import com.r2r.road2ring.modules.trip.TripPriceMotorService;
 import com.r2r.road2ring.modules.trip.TripPriceRepository;
 import com.r2r.road2ring.modules.trip.TripPriceService;
 import com.r2r.road2ring.modules.trip.TripPriceStatus;
@@ -66,6 +68,9 @@ public class TransactionService {
 
   @Autowired
   MidtransService midtransService;
+
+  @Autowired
+  TripPriceMotorService tripPriceMotorService;
 
   @Autowired
   public void setTransactionRepository(TransactionRepository transactionRepository){
@@ -350,6 +355,7 @@ public class TransactionService {
     saved.setTransactionCreator(TransactionCreator.ADMIN);
     transactionRepository.save(saved);
     tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    tripPriceMotorService.reverseStock(saved.getMotor().getId());
     this.paymentLogMidtrans(saved, "FAILED");
   }
 
@@ -361,6 +367,7 @@ public class TransactionService {
     saved.setTransactionCreator(TransactionCreator.SYSTEM);
     transactionRepository.save(saved);
     tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    tripPriceMotorService.reverseStock(saved.getMotor().getId());
     this.paymentLogMidtrans(saved,"EXPIRED");
   }
 
