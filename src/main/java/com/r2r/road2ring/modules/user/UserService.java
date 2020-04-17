@@ -157,10 +157,10 @@ public class UserService {
     saved = userRepository.save(saved);
 
     /*ADD SERVICE EMAIL VERIFICATION*/
-    int index = saved.getEmail().indexOf('@');
-    String username = saved.getEmail().substring(0,index);
-
-    mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
+//    int index = saved.getEmail().indexOf('@');
+//    String username = saved.getEmail().substring(0,index);
+//
+//    mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
 
     return saved;
   }
@@ -240,11 +240,11 @@ public class UserService {
         userRepository.save(user);
 
         /*SEND EMAIL*/
-        int index = user.getEmail().indexOf('@');
-        String username = user.getEmail().substring(0,index);
-
-        mailClient.sendForgotPassword(user.getEmail(),username,
-            user.getVerificationCodePassword());
+//        int index = user.getEmail().indexOf('@');
+//        String username = user.getEmail().substring(0,index);
+//
+//        mailClient.sendForgotPassword(user.getEmail(),username,
+//            user.getVerificationCodePassword());
       }
 
     } else {
