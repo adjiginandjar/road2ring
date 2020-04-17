@@ -128,6 +128,7 @@ public class TransactionService {
       throws Road2RingException, MidtransError {
 
     Transaction result = new Transaction();
+    Transaction saved;
     TripPrice tripPrice = null;
     Date created  = new Date();
     String midtransToken ="";
@@ -169,7 +170,8 @@ public class TransactionService {
       if(transaction.getBringOwnMotor() == null){
         transaction.setBringOwnMotor(false);
       }
-      if (transactionRepository.save(result) != null) {
+      saved = transactionRepository.save(result);
+      if ( saved != null) {
         tripPrice = tripPriceService.addPersonTripPrice(transaction.getTrip().getId(), result.getStartDate());
         Transaction transactionSaved = transactionRepository.findOneByCode(result.getCode());
         TransactionDetail detailMotor = transactionDetailService.saveMotor(transaction.getMotor(),
@@ -183,6 +185,8 @@ public class TransactionService {
         try {
           midtransToken = midtransService
               .checkoutTrip(detailAccessories, detailMotor, transactionSaved, tripPrice, user);
+          saved.setMidtransToken(midtransToken);
+          transactionRepository.save(saved);
         }catch (MidtransError e){
           throw new Road2RingException(e.getMessage(),705);
         }

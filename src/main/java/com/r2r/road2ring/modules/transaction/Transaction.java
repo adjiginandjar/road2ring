@@ -115,6 +115,10 @@ public class Transaction implements Serializable {
   @Column(name = "transaction_pillion")
   private Boolean pillion;
 
+  @Column(name = "transaction_midtrans_token")
+  private String midtransToken;
+
+
   @Transient
   private TripPriceMotor motor;
 
