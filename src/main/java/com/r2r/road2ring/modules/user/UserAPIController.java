@@ -187,7 +187,7 @@ public class UserAPIController {
     ResponseMessage response = new ResponseMessage();
     try {
       response.setMessage("Yey, Your account has been verified");
-      userService.verificationEmail(user);
+      userService.verificationEmail(user.getVerificationCode());
       httpStatus.setStatus(HttpStatus.OK.value());
     } catch (Road2RingException e) {
       response.setCode(e.getCode());

@@ -157,10 +157,10 @@ public class UserService {
     saved = userRepository.save(saved);
 
     /*ADD SERVICE EMAIL VERIFICATION*/
-//    int index = saved.getEmail().indexOf('@');
-//    String username = saved.getEmail().substring(0,index);
-//
-//    mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
+    int index = saved.getEmail().indexOf('@');
+    String username = saved.getEmail().substring(0,index);
+
+    mailClient.sendRegistrationEmail(saved.getEmail(),username,saved.getVerificationCode());
 
     return saved;
   }
@@ -217,8 +217,9 @@ public class UserService {
     return userRepository.save(saved);
   }
 
-  public User verificationEmail(User user) throws Exception {
-    User saved = userRepository.findOneByVerificationCode(user.getVerificationCode());
+  public User verificationEmail(String verificationCode) throws Exception {
+    System.out.println("verificationCode = " + verificationCode);
+    User saved = userRepository.findOneByVerificationCode(verificationCode);
     if (saved == null) {
       throw new Road2RingException("Invalid verification code", 800);
     }
@@ -240,11 +241,11 @@ public class UserService {
         userRepository.save(user);
 
         /*SEND EMAIL*/
-//        int index = user.getEmail().indexOf('@');
-//        String username = user.getEmail().substring(0,index);
-//
-//        mailClient.sendForgotPassword(user.getEmail(),username,
-//            user.getVerificationCodePassword());
+        int index = user.getEmail().indexOf('@');
+        String username = user.getEmail().substring(0,index);
+
+        mailClient.sendForgotPassword(user.getEmail(),username,
+            user.getVerificationCodePassword());
       }
 
     } else {

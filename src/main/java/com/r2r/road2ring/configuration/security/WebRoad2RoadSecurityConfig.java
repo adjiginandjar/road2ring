@@ -26,6 +26,7 @@ public class WebRoad2RoadSecurityConfig extends WebSecurityConfigurerAdapter {
         .addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy","script-src 'self'"))
         .and()
         .antMatcher("/**").authorizeRequests()
+        .antMatchers("/user/email-verification").permitAll()
           .antMatchers("/assets/**").permitAll()
           .antMatchers("/css/**").permitAll()
           .antMatchers("/script/**").permitAll()
@@ -35,6 +36,7 @@ public class WebRoad2RoadSecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatchers("/img/**").permitAll()
           .antMatchers("/**").hasAnyAuthority("ROLE_ADMINISTRATOR", "ROLE_ROAD_CAPTAIN")
           .and()
+
         .formLogin()
           .loginPage("/login")
           .defaultSuccessUrl("/trip")

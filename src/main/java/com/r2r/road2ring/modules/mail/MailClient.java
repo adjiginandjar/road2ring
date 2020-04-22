@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -33,6 +34,9 @@ public class MailClient {
 
   @Autowired
   private TemplateEngine templateEngine;
+
+  @Autowired
+  public Environment env;
 
   @Autowired
   public MailClient(JavaMailSender mailSender) {
@@ -201,7 +205,8 @@ public class MailClient {
 
       /*CODE VERIFYNYA HARUS DIUBAH LINK*/
       /*CHANGE LINK FOR REAL LINK SOON*/
-      model.put("codeVerify", "http://road2ring.com/preview");
+      model.put("codeVerify",env.getProperty("application.base-url")
+          +"user/email-verification?verificationCode="+codeVerify);
 
       Context context = new Context();
       context.setVariables(model);
@@ -225,7 +230,8 @@ public class MailClient {
       model.put("consumerName", consumerName);
 
       /*CODE VERIFYNYA HARUS DIUBAH LINK*/
-      model.put("codeResetPassword", "http://road2ring.com/reset-password?code="+codeResetPassword);
+      model.put("codeResetPassword", env.getProperty("application.base-url")
+          +"reset-password?code="+codeResetPassword);
 
       Context context = new Context();
       context.setVariables(model);

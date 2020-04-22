@@ -402,11 +402,11 @@ public class TransactionService {
       tripPrice.setStatus(TripPriceStatus.COMPLETE);
       tripPriceRepository.save(tripPrice);
 
-//      /*SENT EMAIL*/
-//      for(Transaction result : transactions){
-//        mailClient.sentEmailCompleteTrip(result.getUser().getEmail(),
-//            result.getTrip().getMeetingPoint());
-//      }
+      /*SENT EMAIL*/
+      for(Transaction result : transactions){
+        mailClient.sentEmailCompleteTrip(result.getUser().getEmail(),
+            result.getTrip().getMeetingPoint());
+      }
     }
   }
 

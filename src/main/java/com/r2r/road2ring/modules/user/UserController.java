@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = USER)
 public class UserController {
 
   UserRequestRoleService userRequestRoleService;
+
+  @Autowired
+  UserService userService;
 
   @Autowired
   public void setUserRequestRoleService(
@@ -28,5 +32,16 @@ public class UserController {
   @RequestMapping(value = "/captain-list", method = RequestMethod.GET)
   public String captainList (Model model){
     return "admin/page/roadCaptain";
+  }
+
+  @RequestMapping(value = "/email-verification", method = RequestMethod.GET)
+  public String emailVerification (@RequestParam("verificationCode") String verificationCode,
+      Model model){
+    try {
+      userService.verificationEmail(verificationCode);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "redirect:https://road2ring.com";
   }
 }
