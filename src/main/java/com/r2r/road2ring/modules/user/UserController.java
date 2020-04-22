@@ -37,11 +37,13 @@ public class UserController {
   @RequestMapping(value = "/email-verification", method = RequestMethod.GET)
   public String emailVerification (@RequestParam("verificationCode") String verificationCode,
       Model model){
+    String status = "success";
     try {
       userService.verificationEmail(verificationCode);
+
     } catch (Exception e) {
-      e.printStackTrace();
+      status = "failed";
     }
-    return "redirect:https://road2ring.com";
+    return "redirect:https://road2ring.com?verificationStatus="+status;
   }
 }
