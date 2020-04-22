@@ -53,6 +53,10 @@ public class TripPriceMotorService {
     return tripPriceMotorRepository.findOne(id);
   }
 
+  public TripPriceMotor getOneTripPriceMotorByMotorIdAndPriceId(Integer motorId,Integer tripPriceId){
+    return tripPriceMotorRepository.findAllByBikeIdAndTripPriceId(motorId,tripPriceId).get(0);
+  }
+
 
   public List<TripPriceMotor> saveList(List<TripPriceMotor> listTripPriceMotor){
     List<TripPriceMotor> result = new ArrayList<TripPriceMotor>();

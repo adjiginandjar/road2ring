@@ -86,9 +86,8 @@ public class TransactionViewService {
     result.setMotor(this.bindMotor(transactionDetails));
     result.setTripPrice(tripPriceRepository.findOneByTripIdAndStartTrip(transaction.getTrip().getId(),
         transaction.getStartDate()).getPrice());
-    if(result.getPaymentStatus().equals(PaymentStatus.WAITING)){
-      result.setExpiredDate(transaction.getExpiredPaymentDate());
-    }
+    result.setExpiredDate(transaction.getExpiredPaymentDate());
+    result.setMidtransToken(transaction.getMidtransToken());
 
     return result;
   }

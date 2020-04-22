@@ -56,6 +56,11 @@ public class MotorService {
     return motorRepository.findOne(id);
   }
 
+  public Motor getMotorByTilte(String title){
+    return motorRepository.findOneByTitle(title);
+  }
+
+
   public List<Motor> getListMotor(Integer page, Integer limit){
     Pageable pageable = new PageRequest(page, limit);
     List<Motor> result = motorRepository.findAllByOrderByIdDesc(pageable);

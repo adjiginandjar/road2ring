@@ -54,6 +54,7 @@ public class TransactionDetailService {
       transactionDetail.setTitle(accessory.getTitle());
       transactionDetail.setType(accessory.getAccessorySubCategory().getTitle());
       transactionDetail.setPrice(accessory.getPrice());
+      transactionDetail.setItemId(accessory.getId());
       transactionDetail.setDiscount(accessory.getDiscount());
       transactionDetail.setPicture(accessory.getPicture());
       transactionDetail.setSize(accessory.getSize());
@@ -93,6 +94,7 @@ public class TransactionDetailService {
       transactionDetail.setTitle(saved.getBike().getTitle());
       transactionDetail.setType("Motor");
       transactionDetail.setPrice(saved.getPrice());
+      transactionDetail.setItemId(motor.getId());
       transactionDetail.setDiscount(saved.getBike().getDiscount());
       transactionDetail.setPicture(saved.getBike().getPicture());
       transactionDetail.setCapacity(saved.getBike().getCapacity());

@@ -12,6 +12,8 @@ import com.r2r.road2ring.modules.confirmation.ConfirmationService;
 import com.r2r.road2ring.modules.consumer.Consumer;
 import com.r2r.road2ring.modules.mail.MailClient;
 import com.r2r.road2ring.modules.midtrans.MidtransService;
+import com.r2r.road2ring.modules.motor.Motor;
+import com.r2r.road2ring.modules.motor.MotorService;
 import com.r2r.road2ring.modules.transactionlog.TransactionCreator;
 import com.r2r.road2ring.modules.transactionlog.TransactionLog;
 import com.r2r.road2ring.modules.transactionlog.TransactionLogService;
@@ -71,6 +73,9 @@ public class TransactionService {
 
   @Autowired
   TripPriceMotorService tripPriceMotorService;
+
+  @Autowired
+  MotorService motorService;
 
   @Autowired
   public void setTransactionRepository(TransactionRepository transactionRepository){
@@ -142,7 +147,7 @@ public class TransactionService {
 
     Calendar cal = Calendar.getInstance();
     cal.setTime(created);
-    cal.add(Calendar.HOUR_OF_DAY, 1);
+    cal.add(Calendar.HOUR_OF_DAY, 2);
     Date newDate = cal.getTime();
 
     Timestamp code = new Timestamp(created.getTime());
@@ -215,9 +220,9 @@ public class TransactionService {
       int index = result.getUser().getEmail().indexOf('@');
       String username = result.getUser().getEmail().substring(0,index);
 
-//      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
-//          transaction.getMotor(), transaction.getAccessories(), tripPrice,
-//          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
+      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
+          transaction.getMotor(), transaction.getAccessories(), tripPrice,
+          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
       return view;
     } else {
       throw new Road2RingException("CAN NOT CREATE TRANSACTION, ALREADY FULL", 705);
@@ -361,13 +366,30 @@ public class TransactionService {
 
   @Transactional
   public void expirePaymentMidtrans(String transactionId){
+    System.out.println("transactionId = " + transactionId);
     Transaction saved  = transactionRepository.findOneByCode(transactionId);
     saved.setPaymentStatus(PaymentStatus.FAILED);
     saved.setUpdatedBy(TransactionCreator.SYSTEM.name());
     saved.setTransactionCreator(TransactionCreator.SYSTEM);
     transactionRepository.save(saved);
-    tripPriceService.minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
-    tripPriceMotorService.reverseStock(saved.getMotor().getId());
+    TripPrice tripPrice = tripPriceService
+        .minPersonTripPrice(saved.getTrip().getId(), saved.getStartDate());
+    List<TransactionDetail> details = transactionDetailRepository
+        .findAllByTransactionIdOrderByIdDesc(saved.getId());
+    for (TransactionDetail item:details
+    ) {
+      if(item.getType().toLowerCase().equals("motor"))
+        if(item.getItemId() != null)
+          tripPriceMotorService.reverseStock(item.getItemId());
+        else{
+          Motor motor = motorService.getMotorByTilte(item.getTitle());
+          TripPriceMotor tripPriceMotor = tripPriceMotorService
+              .getOneTripPriceMotorByMotorIdAndPriceId(motor.getId(),tripPrice.getId());
+
+          tripPriceMotorService.reverseStock(tripPriceMotor.getId());
+
+        }
+    }
     this.paymentLogMidtrans(saved,"EXPIRED");
   }
 

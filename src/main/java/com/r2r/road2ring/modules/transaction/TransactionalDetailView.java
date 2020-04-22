@@ -1,5 +1,6 @@
 package com.r2r.road2ring.modules.transaction;
 
+import com.r2r.road2ring.modules.common.PaymentStatus;
 import com.r2r.road2ring.modules.motor.Motor;
 import java.util.Date;
 import java.util.List;
@@ -17,5 +18,6 @@ public class TransactionalDetailView extends TransactionView{
   private String meetingPoint;
   private List<TransactionDetailAccessoryView> accessories;
   private Motor motor;
+  private String midtransToken;
 
 }

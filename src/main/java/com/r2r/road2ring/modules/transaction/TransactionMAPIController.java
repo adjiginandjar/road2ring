@@ -121,4 +121,25 @@ public class TransactionMAPIController {
     }
     return responseMessage;
   }
+
+  @PostMapping("/transaction/expired")
+  public ResponseMessage setExpiredStatus(
+      @ModelAttribute Transaction transaction,Principal principal,
+      HttpServletResponse httpStatus){
+    ResponseMessage responseMessage = new ResponseMessage();
+    if(principal != null){
+      Authentication auth = (Authentication) principal;
+      UserDetails currentConsumer = (UserDetails) auth.getPrincipal();
+      User user = userService.findUserByEmail(currentConsumer.getUsername());
+      responseMessage.setCode(200);
+      transactionService.expirePaymentMidtrans(transaction.getCode());
+      responseMessage.setObject("ok");
+      httpStatus.setStatus(HttpStatus.OK.value());
+    } else {
+      httpStatus.setStatus(HttpStatus.BAD_REQUEST.value());
+      responseMessage.setCode(703);
+      responseMessage.setMessage("Please login first");
+    }
+    return responseMessage;
+  }
 }

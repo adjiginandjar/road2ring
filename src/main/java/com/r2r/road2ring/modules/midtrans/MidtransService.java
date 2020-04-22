@@ -1,5 +1,6 @@
 package com.r2r.road2ring.modules.midtrans;
 
+import com.midtrans.service.MidtransCoreApi;
 import com.r2r.road2ring.modules.transaction.Transaction;
 import com.r2r.road2ring.modules.transaction.TransactionDetail;
 import com.r2r.road2ring.modules.trip.TripPrice;
@@ -49,6 +50,7 @@ public class MidtransService {
         SERVER_KEY,CLIENT_KEY
         ,IS_PRODUCTION)).getSnapApi();
 
+
     String clientKey = snapApi.apiConfig().getCLIENT_KEY();
 
     // New Map Object for JSON raw request body
@@ -73,6 +75,10 @@ public class MidtransService {
         SERVER_KEY,CLIENT_KEY
         ,IS_PRODUCTION)).getSnapApi();
 
+    MidtransCoreApi coreApi = new ConfigFactory(new Config(
+        SERVER_KEY,CLIENT_KEY
+        ,IS_PRODUCTION)).getCoreApi();
+
     Map<String, Object> requestBody = new LinkedHashMap<>();
 
     Map<String,String> transactionDetails = this.buildTransactionDetails(transaction);
@@ -94,6 +100,8 @@ public class MidtransService {
     requestBody.put("callbacks", callbacks);
 
     System.out.println("requestBody = " + requestBody);
+
+    System.out.println("coreApi = " + coreApi.chargeTransaction(requestBody));
 
     return snapApi.createTransactionToken(requestBody);
   }

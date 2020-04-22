@@ -144,10 +144,10 @@ public class MailClient {
       model.put("startDate", tripPrice.getStartTrip());
       model.put("endDate", tripPrice.getFinishTrip());
       model.put("meetingPoint", resultTransaction.getTrip().getMeetingPoint());
-      if(!bringOwnHelm) {
+      if(!bringOwnMotor) {
         model.put("motorName", motor.getBike().getTitle());
         model.put("motorImage", motor.getBike().getPicture());
-      } else if(bringOwnHelm){
+      } else if(bringOwnMotor){
         model.put("motorName", "Bring Own Motor");
         model.put("motorImage", "");
       }
@@ -157,20 +157,20 @@ public class MailClient {
       model.put("invoiceId", transaction.getCode().toUpperCase());
       model.put("expiredPaymentDate", transaction.getExpiredPaymentDate());
 
-      if(!bringOwnHelm) {
-        for (int i = 0; i < accessories.size(); i++) {
-          Accessory accessory = accessoryRepository.findOne(accessories.get(i).getId());
-          if (accessory.getAccessoryCategory().getTitle().toLowerCase().equalsIgnoreCase("helm")) {
-            model.put("accossoriesTitle", accessory.getTitle());
-            model.put("accossoriesImage",  accessory.getPicture());
-            model.put("accessoriesSize", accessories.get(0).getSize());
-          }
-        }
-      } else if(bringOwnHelm){
-        model.put("accossoriesTitle", "Bring Own Helm");
-        model.put("accossoriesImage", "");
-        model.put("accessoriesSize", "-");
-      }
+//      if(!bringOwnHelm) {
+//        for (int i = 0; i < accessories.size(); i++) {
+//          Accessory accessory = accessoryRepository.findOne(accessories.get(i).getId());
+//          if (accessory.getAccessoryCategory().getTitle().toLowerCase().equalsIgnoreCase("helm")) {
+//            model.put("accossoriesTitle", accessory.getTitle());
+//            model.put("accossoriesImage",  accessory.getPicture());
+//            model.put("accessoriesSize", accessories.get(0).getSize());
+//          }
+//        }
+//      } else if(bringOwnHelm){
+//        model.put("accossoriesTitle", "Bring Own Helm");
+//        model.put("accossoriesImage", "");
+//        model.put("accessoriesSize", "-");
+//      }
       Context context = new Context();
       context.setVariables(model);
       String html = templateEngine.process("admin/email/checkout", context);
