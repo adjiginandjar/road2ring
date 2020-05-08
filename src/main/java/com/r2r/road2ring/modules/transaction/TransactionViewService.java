@@ -5,6 +5,8 @@ import com.r2r.road2ring.modules.common.TripStatus;
 import com.r2r.road2ring.modules.motor.Motor;
 import com.r2r.road2ring.modules.motor.MotorRepository;
 import com.r2r.road2ring.modules.trip.Trip;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
+import com.r2r.road2ring.modules.trip.TripPriceMotorService;
 import com.r2r.road2ring.modules.trip.TripPriceRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +22,9 @@ public class TransactionViewService {
   TripPriceRepository tripPriceRepository;
 
   MotorRepository motorRepository;
+
+  @Autowired
+  TripPriceMotorService tripPriceMotorService;
 
   @Autowired
   public void setTripPriceRepository(TripPriceRepository tripPriceRepository){
@@ -112,11 +117,14 @@ public class TransactionViewService {
   }
 
   private Motor bindMotor(List<TransactionDetail> transactionDetails){
+    TripPriceMotor tripPriceMotor = new TripPriceMotor();
     Motor motor = new Motor();
     for(TransactionDetail transaction : transactionDetails){
       if(transaction.getType().equalsIgnoreCase("motor")){
         if(!transaction.getTitle().equalsIgnoreCase("bring own motor")) {
-          motor = motorRepository.findOneByTitle(transaction.getTitle());
+          tripPriceMotor = tripPriceMotorService.getOneTripPriceMotor(transaction.getItemId());
+          motor = tripPriceMotor.getBike();
+          motor.setPrice(tripPriceMotor.getPrice());
         }else{
           motor.setId(transaction.getId());
           motor.setTitle("Bring Own Motor");

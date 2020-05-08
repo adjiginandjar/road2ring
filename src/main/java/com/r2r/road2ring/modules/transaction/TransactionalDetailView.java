@@ -2,6 +2,7 @@ package com.r2r.road2ring.modules.transaction;
 
 import com.r2r.road2ring.modules.common.PaymentStatus;
 import com.r2r.road2ring.modules.motor.Motor;
+import com.r2r.road2ring.modules.trip.TripPriceMotor;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
