@@ -206,7 +206,7 @@ public class MailClient {
       /*CODE VERIFYNYA HARUS DIUBAH LINK*/
       /*CHANGE LINK FOR REAL LINK SOON*/
       model.put("codeVerify",env.getProperty("application.base-url")
-          +"verification/verificationCode/"+codeVerify);
+          +"verification/"+codeVerify);
 
       Context context = new Context();
       context.setVariables(model);
