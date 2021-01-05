@@ -198,7 +198,7 @@ public class MailClient {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
       message.setFrom(new InternetAddress("admin@road2ring.com"));
-      message.setSubject("Welcome to Road2Ring");
+      message.setSubject("Welcome to RANSTOURING");
 
       Map model = new HashMap();
       model.put("consumerName", consumerName);
@@ -206,7 +206,7 @@ public class MailClient {
       /*CODE VERIFYNYA HARUS DIUBAH LINK*/
       /*CHANGE LINK FOR REAL LINK SOON*/
       model.put("codeVerify",env.getProperty("application.base-url")
-          +"user/email-verification?verificationCode="+codeVerify);
+          +"verification/verificationCode/"+codeVerify);
 
       Context context = new Context();
       context.setVariables(model);

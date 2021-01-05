@@ -7,6 +7,8 @@ import com.r2r.road2ring.modules.hotel.HotelService;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +87,7 @@ public class TripViewService {
   }
 
   public TripView getTripView(Trip trip){
+    System.out.println("trip.getTripPrices() = " + trip.getTripPrices());
     TripView tripView = new TripView();
     tripView.setId(trip.getId());
     tripView.setTitle(trip.getTitle());
@@ -96,7 +99,10 @@ public class TripViewService {
     tripView.setCoverPortrait(trip.getCoverPotrait());
     tripView.setIconCover(trip.getIconCover());
     // TODO: CHANGE ID TRIP
-    tripView.setTripPrice(this.bindTripPrice(trip.getId()));
+//    tripView.setTripPrice(this.bindTripPrice(trip.getId()));
+    trip.getTripPrices().sort(
+        (TripPrice price1,TripPrice price2)-> price1.getPrice().compareTo(price2.getPrice()));
+    tripView.setTripPrice(trip.getTripPrices().get(0).getPrice());
     return tripView;
   }
 

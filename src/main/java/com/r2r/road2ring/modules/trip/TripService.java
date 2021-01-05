@@ -154,7 +154,9 @@ public class TripService {
 
   public Page<Trip> findTripPageablePage(Integer page, Integer limit) {
     Pageable pageable = new PageRequest(page, limit);
-    Page<Trip> result = tripRepository.findAllByPublishedStatusOrderByIdDesc(pageable, TripPublishedStatus.PUBLISHED);
+    Page<Trip> result = tripRepository
+        .findAllByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusOrderByIdDesc(
+            pageable, TripPublishedStatus.PUBLISHED,new Date(),TripPriceStatus.WAITING);
     return result;
   }
 
