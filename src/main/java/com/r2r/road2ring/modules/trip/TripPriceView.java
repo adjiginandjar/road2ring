@@ -10,6 +10,7 @@ public class TripPriceView{
   private Date startTrip;
   private Date finishTrip;
   private Integer personPaid;
+  private Integer maxRiders;
   private Integer price;
   private Integer discount;
 }

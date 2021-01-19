@@ -152,12 +152,14 @@ public class TripService {
 //    return result;
 //  }
 
-  public Page<Trip> findTripPageablePage(Integer page, Integer limit) {
-    Pageable pageable = new PageRequest(page, limit);
-    Page<Trip> result = tripRepository
-        .findAllByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusOrderByIdDesc(
-            pageable, TripPublishedStatus.PUBLISHED,new Date(),TripPriceStatus.WAITING);
+  public List<Trip> findTripPageablePage(Integer page, Integer limit) {
+    int offset = page * limit;
+    List<Trip> result = tripRepository .findAllPublishTripAndTripPriceStatusIsWaiting(limit,offset);
     return result;
+  }
+
+  public int getcountTotalPublishTrip(){
+    return tripRepository.countTotalPublishTrip();
   }
 
   public TripPrice saveTripPrice(int tripId, TripPrice tripPrice){

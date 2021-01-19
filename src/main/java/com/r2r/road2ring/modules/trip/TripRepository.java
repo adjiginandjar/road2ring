@@ -26,8 +26,33 @@ public interface TripRepository extends DataTablesRepository<Trip,Integer> {
 
 //  Page<Trip> findAllByOrderByIdAsc(Pageable pageable);
 
-  Page<Trip> findAllByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusOrderByIdDesc(Pageable pageable,
+  Page<Trip> findByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusOrderByIdDesc(Pageable pageable,
       TripPublishedStatus tripPublishedStatus,Date startDate,TripPriceStatus tripPriceStatus);
+
+  @Query(value="select "
+      + "trip.* "
+      + "from trip "
+      + "left outer join trip_price tripprices on trip.trip_id=tripprices.trip_price_trip_id "
+      + "where trip.trip_published_status=0 "
+      + "and tripprices.trip_price_start_trip> now() "
+      + "and tripprices.trip_price_status= 0 "
+      + "group by trip.trip_id "
+      + "order by trip.trip_id desc "
+      + "limit :limit "
+      + "offset :offset ",nativeQuery = true)
+  List<Trip> findAllPublishTripAndTripPriceStatusIsWaiting(@Param("limit")int limit,@Param("offset")int offset);
+
+
+  @Query(value=  "select count(total) from ( "
+      + "select "
+      + "trip.* "
+      + "from trip "
+      + "left outer join trip_price tripprices on trip.trip_id=tripprices.trip_price_trip_id "
+      + "where trip.trip_published_status=0 "
+      + "and tripprices.trip_price_start_trip> now() "
+      + "and tripprices.trip_price_status= 0 "
+      + "group by trip.trip_id ) total",nativeQuery = true)
+  int countTotalPublishTrip();
 
   @Query(value = "SELECT * " +
       "FROM trip " +

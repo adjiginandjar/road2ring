@@ -21,6 +21,7 @@ public class TripPriceService {
     TripPriceView tripPriceView = new TripPriceView();
     tripPriceView.setId(tripPrice.getId());
     tripPriceView.setPersonPaid(tripPrice.getPersonPaid());
+    tripPriceView.setMaxRiders(tripPrice.getTrip().getMaxRider());
     tripPriceView.setStartTrip(tripPrice.getStartTrip());
     tripPriceView.setFinishTrip(tripPrice.getFinishTrip());
     tripPriceView.setDiscount(tripPrice.getDiscount());
@@ -35,7 +36,8 @@ public class TripPriceService {
             tripId, TripPriceStatus.WAITING, new Date());
     if(tripPrices.size() != 0){
       for(TripPrice tripPrice : tripPrices){
-        tripPriceViews.add(this.bindTripPriceView(tripPrice));
+        if(tripPrice.getPersonPaid() < tripPrice.getTrip().getMaxRider())
+          tripPriceViews.add(this.bindTripPriceView(tripPrice));
       }
     } else {
       throw new Road2RingException("not found", 200);

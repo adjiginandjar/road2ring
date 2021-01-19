@@ -63,15 +63,31 @@ public class TripViewService {
     ResponseMessage responseMessage = new ResponseMessage();
     List<TripView> result = new ArrayList<>();
     TripView item = new TripView();
-    Page<Trip> trips = tripService.findTripPageablePage(page,limit);
+    int totalPage,totalRow;
+
+    List<Trip> trips = tripService.findTripPageablePage(page,limit);
     for(Trip trip : trips){
       item = this.getTripView(trip);
       if(item.getTripPrice() > 0) {
         result.add(item);
       }
     }
+
+    totalRow = tripService.getcountTotalPublishTrip();
+    totalPage = totalRow / limit;
+
+    if(totalRow % limit != 0 ){
+      totalPage +=1;
+    }
+
+    if(totalPage == 0){
+      totalPage = 1;
+    }
+
+
     responseMessage.setObject(result);
-    responseMessage.setTotalPage(trips.getTotalPages());
+    responseMessage.setTotalPage(totalPage);
+
     return responseMessage;
   }
 
@@ -87,7 +103,6 @@ public class TripViewService {
   }
 
   public TripView getTripView(Trip trip){
-    System.out.println("trip.getTripPrices() = " + trip.getTripPrices());
     TripView tripView = new TripView();
     tripView.setId(trip.getId());
     tripView.setTitle(trip.getTitle());
