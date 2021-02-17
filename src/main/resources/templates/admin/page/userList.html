@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorator="admin/layout">
 <head>
-  <title>R2R-Captain</title>
+  <title>R2R-User</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.css" />
   <style>
     span a {
@@ -46,7 +46,7 @@
 <div layout:fragment="content">
   <div class="box">
     <div class="box-header">
-      <h3 class="box-title">Captain List</h3>
+      <h3 class="box-title">User List</h3>
     </div>
     <div class="box-body">
         <div class="mobile-tbl">
@@ -68,7 +68,7 @@
   </div>
   <div class="custom-popup collapse" id="publishConfirm">
     <div class="popup-body text-center">
-      <h5>Are you sure to make this <i>RC</i> as <i>User</i>?</h5>
+      <h5>Are you sure to make this <i>User</i> as <i>RC</i>?</h5>
       <strong class="block m-top-xs"><i class="fa fa-exclamation-circle m-right-xs text-danger"></i>This action cannot be undone</strong>
       <input type="hidden" name="api_id" value="">
       <div class="text-center m-top-lg">
@@ -94,7 +94,7 @@
   <!--<script type="text/javascript" src="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.js"></script>-->
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-  <script src="../../js/si/roadCaptainList.js"></script>
+  <script src="../../js/si/userList.js"></script>
   <script src="../../js/si/jquery.popupoverlay.min.js"></script>
 </th:block>
 </body>

@@ -79,6 +79,11 @@ $(document).ready( function () {
                $(td).attr('data-th', 'Action');
 
            }
+         },{ "mData": "roadCaptain.email",
+              "visible": false,
+              "createdCell": function(td, cellData, rowData, row, col) {
+              $(td).attr('data-th', 'Email');
+           }
          },
 			],
 			"columnDefs": [ {
@@ -109,6 +114,14 @@ $(document).ready( function () {
 //           cell.innerHTML = cell.innerHTML == 0 ? "<span style='color:red;'>Uncomplete</span>" : "Completed";
 //        } );
       });
+
+  var remoteUser = $('.remote-user').text()
+  console.log(remoteUser); //col 8
+  var remoteRoleIsAdmin = $('.remote-role').val()
+    console.log(remoteRoleIsAdmin); //col 8
+  if(remoteRoleIsAdmin=='false'){
+    table.columns(8).search(remoteUser).draw();
+  }
 
   var btnNew = '<a href="/trip/add" class="btn btn-default btn-sm"><span class="fa fa-plus-circle fa-lg"></span> Add New Record</a>';
   var filterStatus = 'Filter by : <select class="form-control isPublished"><option value="">--- All Status ---</option><option value="UNPUBLISHED">Unpublish Content</option><option value="PUBLISHED">Published Content</option></select>';

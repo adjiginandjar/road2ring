@@ -24,6 +24,11 @@ public class UserController {
     this.userRequestRoleService = userRequestRoleService;
   }
 
+  @RequestMapping(value = "/list-all", method = RequestMethod.GET)
+  public String listUser (Model model){
+    return "admin/page/userList";
+  }
+
   @RequestMapping(value = "/request-role", method = RequestMethod.GET)
   public String requestRCList (Model model){
     return "admin/page/userRequestRole";

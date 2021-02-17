@@ -281,6 +281,10 @@ public class UserService {
     return userRepository.findAllByRoleId(3);
   }
 
+  public List<User> getAllUser(){
+    return userRepository.findAllByRoleId(2);
+  }
+
   public List<User> getRcAutocomplete(String keyword){
     return userRepository.findAllByRoleIdAndFullNameIgnoreCaseContaining(3,keyword);
   }

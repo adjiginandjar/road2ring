@@ -37,6 +37,7 @@ public final class Static {
   public static final String HEADLINE = "/headline";
 
   public static final Integer ROLE_ID = 2;
+  public static final Integer ROLE_ROAD_CAPTAIN = 3;
 
   public static final Integer IS_NOT_ACTIVE = 0;
   public static final Integer IS_ACTIVE = 1;

@@ -2,6 +2,7 @@ package com.r2r.road2ring.modules.user;
 
 import static com.r2r.road2ring.modules.common.Static.API;
 import static com.r2r.road2ring.modules.common.Static.M_API;
+import static com.r2r.road2ring.modules.common.Static.ROLE_ROAD_CAPTAIN;
 import static com.r2r.road2ring.modules.common.Static.USER;
 
 import com.r2r.road2ring.modules.common.ResponseMessage;
@@ -302,6 +303,20 @@ public class UserAPIController {
     return response;
   }
 
+  @PostMapping(value="/change-to-rc")
+  public ResponseMessage changeToRC(@ModelAttribute User user,
+      HttpServletResponse httpStatus){
+    ResponseMessage response = new ResponseMessage();
+    try{
+      userService.changeRole(user, ROLE_ROAD_CAPTAIN);
+    }catch (Exception e){
+      response.setCode(800);
+      response.setMessage(e.getMessage());
+      httpStatus.setStatus(HttpStatus.BAD_REQUEST.value());
+    }
+    return response;
+  }
+
   @PostMapping(value="/remove-rc")
   public ResponseMessage removeRoadCaptain(@ModelAttribute User user,
       HttpServletResponse httpStatus){
@@ -328,6 +343,20 @@ public class UserAPIController {
       HttpServletRequest request) {
 
     List<User> user = userService.rcList();
+    List<UserViewDetail> userViewDetailList = new ArrayList<>();
+
+    for(User u : user){
+      userViewDetailList.add(userViewService.bindUserViewDetail(u));
+    }
+
+    return userViewDetailList;
+  }
+
+  @RequestMapping(value = "/list-all", method = RequestMethod.GET)
+  public List<UserViewDetail> dataUser(
+      HttpServletRequest request) {
+
+    List<User> user = userService.getAllUser();
     List<UserViewDetail> userViewDetailList = new ArrayList<>();
 
     for(User u : user){

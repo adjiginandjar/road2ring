@@ -40,6 +40,7 @@ public class User implements Serializable {
   private Role role;
 
   @Column(name = "user_email")
+  @JsonView(ResponseView.DetailedTrip.class)
   private String email;
 
   @Column(name = "user_driving_license_number")

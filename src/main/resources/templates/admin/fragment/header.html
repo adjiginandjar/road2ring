@@ -3,7 +3,7 @@
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini">R2R</span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg">Road2Ring</span>
+  <span class="logo-lg">RansTouring</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top">
@@ -18,7 +18,8 @@
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="/dist/img/default_profile.png" class="user-image" alt="User Image" />
-          <span class="hidden-xs" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
+          <span class="hidden-xs remote-user" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
+          <input type="hidden" class="remote-role" th:value="${#httpServletRequest.isUserInRole('ROLE_ADMINISTRATOR')}"/>
         </a>
         <ul class="dropdown-menu">
           <!-- User image -->
