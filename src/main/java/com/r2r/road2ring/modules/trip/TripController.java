@@ -73,6 +73,13 @@ public class TripController {
     this.tripFacilityService = tripFacility;
   }
 
+  @RequestMapping(value = "/rtms", method = RequestMethod.GET)
+  public String indexRtms(Model model) {
+    ResponseMessage response = new ResponseMessage();
+    model.addAttribute("response", response);
+    return "rtms/page/trip";
+  }
+
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String index(Model model) {
     ResponseMessage response = new ResponseMessage();
