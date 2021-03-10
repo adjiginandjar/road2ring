@@ -1,0 +1,103 @@
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/*  Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .main-header .logo {
+    padding: 0;
+    background-color: transparent !important;
+  }
+  .main-header .logo img {
+    height: 1.5em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+  }
+  .main-header .logo .logo-lg {
+    font-size: 15px !important;
+    line-height: 16px;
+  }
+  .main-header .breadcrumb-wrap {
+    position: absolute;
+    left: 1.2em;
+    bottom: -3em;
+  }
+  .main-header .navbar {
+    position: unset;
+    justify-content: flex-end;
+    background-color: transparent !important;
+  }
+  .main-header .navbar .sidebar-toggle {
+    display: block;
+  }
+  .sidebar-open .main-header .navbar .sidebar-toggle{
+    background-image: url("/rtms/assets/014_icon_close.svg") !important;
+    background-color: transparent !important;
+  }
+  .sidebar-open .main-header .logo img{
+      visibility: hidden;
+  }
+  .sidebar-open .main-header .logo .logo-lg::after{
+    content: '';
+    background-image: url(/rtms/assets/logogram_r2r_white.svg);
+    position: absolute;
+    left: -45px;
+    width: 34.5px;
+    height: 100%;
+    top: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .sidebar-open .main-header .logo .logo-lg{
+      color: var(--white) !important;
+      position: relative;
+  }
+  .sidebar-open .breadcrumb-wrap {
+    display: none;
+  }
+  .sidebar-open .main-sidebar {
+    width: 100%;
+    background-color: var(--cobalt) !important;
+  }
+  .sidebar-open .main-sidebar a {
+    color: var(--white);
+    padding: 18px !important;
+  }
+  .main-sidebar .sidebar-menu li::after{
+      display: none;
+  }
+  .content-wrapper{
+      border-radius: 0 !important;
+      border-top: 1px solid var(--white-five);
+      border-bottom: 1px solid var(--white-five);
+  }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+}

@@ -351,4 +351,11 @@ public class TripController {
     }
 
   }
+
+  @RequestMapping(value = "/rtms/form",method = RequestMethod.GET)
+  public String addTripTitleBody(Model model) {
+
+    ResponseMessage response = new ResponseMessage();
+    return "rtms/form/tripTitleBody";
+  }
 }

@@ -42,6 +42,9 @@ dependencies {
 	compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
 	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version:'1.9.21'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'1.4.0.RELEASE'
+	compile "org.thymeleaf:thymeleaf:3.0.0.RELEASE"
+	compile "org.thymeleaf:thymeleaf-spring4:3.0.0.RELEASE"
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.3"
 	compile group: 'org.hibernate', name: 'hibernate-core', version:'5.0.4.Final'
 	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version:'2.0.7.RELEASE'
 	compile group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version:'1.2'

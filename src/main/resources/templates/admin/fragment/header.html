@@ -1,9 +1,10 @@
+<div th:fragment="test (onevar)">
 <!-- Logo -->
 <a href="/" class="logo">
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini">R2R</span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg">RansTouring</span>
+  <span class="logo-lg">[[${onevar}]]</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top">
@@ -26,7 +27,7 @@
           <li class="user-header">
             <img src="/dist/img/default_profile.png" class="img-circle" alt="User Image" />
 
-            <p th:inline="text">[[${#httpServletRequest.remoteUser}]]
+            <p>[[${#httpServletRequest.remoteUser}]]
             </p>
           </li>
           <!-- Menu Footer-->
@@ -44,3 +45,4 @@
     </ul>
   </div>
 </nav>
+</div>

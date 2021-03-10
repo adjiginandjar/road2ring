@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="39.159"
+   height="34"
+   viewBox="0 0 39.159 34"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="logogram_r2r.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata32">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs30" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview28"
+     showgrid="false"
+     inkscape:zoom="16.058824"
+     inkscape:cx="18.801112"
+     inkscape:cy="23.690279"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg26" />
+  <g
+     id="Symbol_3_1"
+     data-name="Symbol 3 – 1"
+     transform="translate(-24 -44.381)">
+    <g
+       id="Group_519052"
+       data-name="Group 519052"
+       transform="translate(24 44.381)">
+      <path
+         id="Path_146"
+         data-name="Path 146"
+         d="M20.432,14.5V8.545L11.886,0H0L11.523,11.523,1.75,21.3v5.932L8.523,34H20.386l-9.727-9.727Z"
+         fill="#fff"
+         style="fill:#1c3d8d;fill-opacity:1" />
+      <path
+         id="Path_147"
+         data-name="Path 147"
+         d="M28.672,14.5V8.545L20.1,0H8.24L19.763,11.523,9.99,21.3v5.932L16.74,34H28.626L18.9,24.273Z"
+         transform="translate(10.487)"
+         fill="#fff"
+         style="fill:#1c3d8d;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
