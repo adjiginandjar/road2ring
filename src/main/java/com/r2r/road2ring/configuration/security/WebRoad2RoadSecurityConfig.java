@@ -34,6 +34,9 @@ public class WebRoad2RoadSecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatchers("/dist/**").permitAll()
           .antMatchers("/plugins/**").permitAll()
           .antMatchers("/img/**").permitAll()
+          .antMatchers("/rtms/assets/**").permitAll()
+          .antMatchers("/rtms/css/**").permitAll()
+          .antMatchers("/rtms/js/**").permitAll()
           .antMatchers("/**").hasAnyAuthority("ROLE_ADMINISTRATOR", "ROLE_ROAD_CAPTAIN")
           .and()
 

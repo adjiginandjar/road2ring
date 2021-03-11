@@ -16,7 +16,11 @@ body {
   --soft-green: #75cc8f;
   --dark-indigo: #0e2458;
   --warm-grey-two: #707070;
-  --ice-blue: #edf7ff;
+  --ice-blue: #edf7ff;  
+  --ice-blue-two: #f9fbff;
+  --pale-blue: #e5eefd;
+  --pinkish-grey: #cccccc;
+  --faded-blue: #5e79bc;
 }
 .main-header .logo-wrap {
   height: 80px;
@@ -270,15 +274,10 @@ table#rsp-tbl .dropdown .dropdown-menu li {
   background-color: #f8f8f8;
 }
 
-@media (max-width: 767px) {
-  .content-wrapper {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
 
 .trip-card-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+

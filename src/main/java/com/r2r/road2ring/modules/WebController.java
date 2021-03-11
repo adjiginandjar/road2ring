@@ -18,6 +18,7 @@ public class WebController {
   public String login(Model model){
     Consumer consumer = new Consumer();
 
-    return "admin/page/login";
+    //return "admin/page/login";
+    return "rtms/form/login";
   }
 }

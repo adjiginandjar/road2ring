@@ -1,0 +1,77 @@
+/* Form Element */
+form .btn {
+  border-radius: 4px !important;
+  border-color: var(--cobalt);
+  padding: 8px 0 7px;
+}
+form .btn.w-100 {
+  width: 100%;
+}
+form .btn-primary {
+  background-color: var(--cobalt);
+  color: var(--white-four);
+}
+form .btn-primary:hover,
+form .btn-primary:active{
+    color: var(--faded-blue) !important;
+    background-color: var(--dark-indigo) !important;
+}
+form .form-group label {
+  font-weight: normal;
+  color: var(--warm-grey);
+}
+form .form-group input[type="email"],
+form .form-group input[type="password"],
+form .form-group input[type="text"] {
+  border-radius: 4px;
+  border: solid 1px var(--pale-blue);
+  background-color: var(--ice-blue-two);
+  height: auto;
+  padding-top: 11px;
+  padding-bottom: 10px;
+}
+form .form-group input::placeholder {
+  color: var(--pinkish-grey);
+  opacity: 1;
+}
+
+form .form-group input:-ms-input-placeholder {
+  color: var(--pinkish-grey);
+}
+
+form .form-group input::-ms-input-placeholder {
+  color: var(--pinkish-grey);
+}
+/* Form Layout */
+form .form-group{
+    margin-bottom: 2em;
+}
+form .box-body,
+form .box-footer {
+  padding: 0;
+}
+form .box-footer {
+  margin-top: 2em;
+  border: none;
+}
+/* Specific Form */
+.login-form .navbar,
+.login-form .main-sidebar,
+.login-form .content-header {
+  display: none;
+}
+.login-form .main-header .logo-wrap {
+  float: none;
+}
+.login-form .content-wrapper {
+  border: none;
+  background: none;
+  margin: 0;
+}
+.login-form .login-box {
+  max-width: 480px;
+  width: 100%;
+}
+.login-form .login-box-body {
+  padding: 0;
+}

@@ -91,6 +91,8 @@
       border-radius: 0 !important;
       border-top: 1px solid var(--white-five);
       border-bottom: 1px solid var(--white-five);
+      margin-left: 0;
+      margin-right: 0;
   }
 }
 
