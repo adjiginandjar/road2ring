@@ -12,9 +12,9 @@ form .btn-primary {
   color: var(--white-four);
 }
 form .btn-primary:hover,
-form .btn-primary:active{
-    color: var(--faded-blue) !important;
-    background-color: var(--dark-indigo) !important;
+form .btn-primary:active {
+  color: var(--faded-blue) !important;
+  background-color: var(--dark-indigo) !important;
 }
 form .form-group label {
   font-weight: normal;
@@ -42,9 +42,35 @@ form .form-group input:-ms-input-placeholder {
 form .form-group input::-ms-input-placeholder {
   color: var(--pinkish-grey);
 }
+.callout {
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: none;
+}
+.callout p{
+    color: var(--black) !important;
+    font-size: small;
+
+}
+.callout.callout-danger {
+  background-color: var(--very-light-pink) !important;
+}
+.callout.callout-danger p.with-icon{
+    position: relative;
+    padding-left: 2em;
+}
+.callout.callout-danger p::after{
+    background-image: url('/rtms/assets/009_icon_alert_grape.svg');
+    background-repeat: no-repeat;
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 /* Form Layout */
-form .form-group{
-    margin-bottom: 2em;
+form .form-group {
+  margin-bottom: 2em;
 }
 form .box-body,
 form .box-footer {

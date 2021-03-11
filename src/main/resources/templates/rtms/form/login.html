@@ -17,7 +17,7 @@
 
                 <div th:if="${param.error}">
                     <div class="callout callout-danger">
-                        <p>Username or password invalid!</p>
+                        <p class="with-icon">Username or password invalid!</p>
                     </div>
                 </div>
                 <form role="form" th:action="@{/login}" method="post">
