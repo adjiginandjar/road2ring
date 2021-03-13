@@ -23,6 +23,10 @@ body {
   --faded-blue: #5e79bc;
   --very-light-pink: #ffe8e8;
 }
+/* COMMON Class */
+.bg-white{
+  background-color: var(--white);
+}
 .main-header .logo-wrap {
   height: 80px;
   display: flex;

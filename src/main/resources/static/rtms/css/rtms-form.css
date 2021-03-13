@@ -16,13 +16,17 @@ form .btn-primary:active {
   color: var(--faded-blue) !important;
   background-color: var(--dark-indigo) !important;
 }
+form .form-group{
+  position: relative;
+}
 form .form-group label {
   font-weight: normal;
   color: var(--warm-grey);
 }
 form .form-group input[type="email"],
 form .form-group input[type="password"],
-form .form-group input[type="text"] {
+form .form-group input[type="text"],
+form .form-group textarea {
   border-radius: 4px;
   border: solid 1px var(--pale-blue);
   background-color: var(--ice-blue-two);
@@ -30,43 +34,56 @@ form .form-group input[type="text"] {
   padding-top: 11px;
   padding-bottom: 10px;
 }
-form .form-group input::placeholder {
+form .form-group input::placeholder,
+form .form-group textarea::placeholder {
   color: var(--pinkish-grey);
   opacity: 1;
 }
 
-form .form-group input:-ms-input-placeholder {
+form .form-group input:-ms-input-placeholder,
+form .form-group textarea:-ms-input-placeholder {
   color: var(--pinkish-grey);
 }
 
-form .form-group input::-ms-input-placeholder {
+form .form-group input::-ms-input-placeholder,
+form .form-group textarea::-ms-input-placeholder {
   color: var(--pinkish-grey);
+}
+form .form-group .help-block{
+  font-size: small;
+  color: var(--warm-grey);
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
 }
 .callout {
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border: none;
 }
-.callout p{
-    color: var(--black) !important;
-    font-size: small;
-
+.callout p {
+  color: var(--black) !important;
+  font-size: small;
 }
 .callout.callout-danger {
   background-color: var(--very-light-pink) !important;
 }
-.callout.callout-danger p.with-icon{
-    position: relative;
-    padding-left: 2em;
+.callout.callout-danger p.with-icon {
+  position: relative;
+  padding-left: 2em;
 }
-.callout.callout-danger p::after{
-    background-image: url('/rtms/assets/009_icon_alert_grape.svg');
-    background-repeat: no-repeat;
-    content: '';
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
+.callout.callout-danger p::after {
+  background-image: url("/rtms/assets/009_icon_alert_grape.svg");
+  background-repeat: no-repeat;
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.main-form .form-group label {
+  font-size: small;
 }
 /* Form Layout */
 form .form-group {
@@ -79,6 +96,10 @@ form .box-footer {
 form .box-footer {
   margin-top: 2em;
   border: none;
+}
+
+.main-form .box-body {
+  padding: 15px;
 }
 /* Specific Form */
 .login-form .navbar,

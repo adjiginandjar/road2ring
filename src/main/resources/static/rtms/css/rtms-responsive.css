@@ -94,6 +94,10 @@
       margin-left: 0;
       margin-right: 0;
   }
+  .content-wrapper .content{
+    padding: 0;
+    margin-top: 2.5em;
+  }
 }
 
 /* Medium devices (tablets, less than 992px) */

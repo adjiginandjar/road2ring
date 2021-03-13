@@ -5,12 +5,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
 </head>
 
 <body>
     <div layout:fragment="content">
-        <h1>Trip Form</h1>
+        <div class="content-inner">
+            <div
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi','/trip-title', 'active'},{'2. Jadwal Perjalanan','/trip-schedule', ''}} } )">
+            </div>
+            <div class="bg-white">
+                <form class="main-form" role="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Judul</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
+                            <span class="help-block">100/100</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" rows="6" placeholder="Masukkan deskripsi singkat"></textarea>
+                            <span class="help-block">240/240</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Durasi Perjalanan</label>
+                            <input type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Max Rider</label>
+                            <input type="text" class="form-control" name="day" placeholder="Maksimum Rider" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Titik kumpul</label>
+                            <textarea class="form-control" rows="4" placeholder="Masukkan titik kumpul"></textarea>
+                            <span class="help-block">160/160</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Tag</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan Tag, diakhiri koma" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 
