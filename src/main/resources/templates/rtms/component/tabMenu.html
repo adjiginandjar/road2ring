@@ -1,0 +1,9 @@
+<div class="tab-menu" th:fragment="template (data)">
+    <ul>
+        <li th:each="result : ${data}" th:attrappend="class = ${result[2]}">
+            <a th:href="${result[1]}">
+                [[${result[0]}]]
+            </a>
+        </li>
+    </ul>
+</div>
