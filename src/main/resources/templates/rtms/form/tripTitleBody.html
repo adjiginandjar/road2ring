@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="rtms/layout">
+<html layout:decorate="~{rtms/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
     <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <title>Buat Perjalanan</title>
 </head>
 
 <body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', ''},{' Buat Perjalanan','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
     <div layout:fragment="content">
         <div class="content-inner">
             <div
@@ -33,18 +39,87 @@
                             <input type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
                         </div>
                         <div class="form-group">
+                            <label>Thumbnail Landscape Perjalanan</label>
+                            <input type="file" style="display: none;" name="day" required>
+                            <div class="input-icon">
+                                <input type="text" class="form-control mask-file" value="Upload Gambar"
+                                    disabled="disabled" required>
+                            </div>
+                            <span class="help-block">Maks. 150kb</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Thumbnail Potrait Perjalanan</label>
+                            <input type="file" style="display: none;" name="day" required>
+                            <div class="input-icon">
+                                <input type="text" class="form-control  mask-file" value="Upload Gambar"
+                                    disabled="disabled" required>
+                            </div>
+                            <span class="help-block">Maks. 150kb</span>
+                        </div>
+                        <div class="form-group">
                             <label>Max Rider</label>
                             <input type="text" class="form-control" name="day" placeholder="Maksimum Rider" required>
                         </div>
                         <div class="form-group">
-                            <label>Titik kumpul</label>
+                            <label>Medan Jalan</label>
+                            <select class="form-control" name="" id="">
+                                <option value="">Aspal</option>
+                                <option value="">Tanah</option>
+                                <option value="">Batu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Lokasi</label>
+                            <input type="text" class="form-control" name="day" placeholder="Masukkan lokasi" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Titik Kumpul</label>
                             <textarea class="form-control" rows="4" placeholder="Masukkan titik kumpul"></textarea>
                             <span class="help-block">160/160</span>
                         </div>
                         <div class="form-group">
-                            <label>Tag</label>
-                            <input type="text" class="form-control" name="title" placeholder="Masukkan Tag, diakhiri koma" required>
+                            <label>Peta Perjalanan</label>
+                            <input type="text" class="form-control" name="day" placeholder="Melekatkan peta Google maps"
+                                required>
                         </div>
+                        <div class="form-group">
+                            <label>Tag</label>
+                            <input type="text" class="form-control" name="title"
+                                placeholder="Masukkan Tag, diakhiri koma" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fasilitas</label>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox">
+                                Towing
+                              </label>
+                            </div>
+          
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox">
+                                Makanan
+                              </label>
+                            </div>
+          
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox">
+                                Tiket Pesawat
+                              </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox">
+                                  Tiket kunjungan wisata
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                    <div class="box-footer btn-multi">
+                        <button class="btn btn-default">Kembali ke List</button>
+                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
                     </div>
                 </form>
             </div>

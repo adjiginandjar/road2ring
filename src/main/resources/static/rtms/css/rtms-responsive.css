@@ -4,10 +4,28 @@
 
 /*  Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .content-header {
+    position: absolute;
+    left: 15.5em;
+    top: 1em;
+    z-index: 1100;
+  }
+  form .box-footer{
+    position: absolute !important;
+    top: .5em;
+    bottom: auto !important;
+    z-index: 1100;
+    max-width: 255px;
+    right: .5em;
+    border: none !important;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  form .box-footer{
+    max-width: 375px;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
@@ -37,11 +55,6 @@
   .main-header .logo .logo-lg {
     font-size: 15px !important;
     line-height: 16px;
-  }
-  .main-header .breadcrumb-wrap {
-    position: absolute;
-    left: 1.2em;
-    bottom: -3em;
   }
   .main-header .navbar {
     position: unset;
@@ -73,9 +86,6 @@
       color: var(--white) !important;
       position: relative;
   }
-  .sidebar-open .breadcrumb-wrap {
-    display: none;
-  }
   .sidebar-open .main-sidebar {
     width: 100%;
     background-color: var(--cobalt) !important;
@@ -90,13 +100,12 @@
   .content-wrapper{
       border-radius: 0 !important;
       border-top: 1px solid var(--white-five);
-      border-bottom: 1px solid var(--white-five);
       margin-left: 0;
       margin-right: 0;
   }
   .content-wrapper .content{
     padding: 0;
-    margin-top: 2.5em;
+    margin-top: 1.5em;
   }
 }
 

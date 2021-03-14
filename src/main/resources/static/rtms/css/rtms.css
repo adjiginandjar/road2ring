@@ -90,7 +90,7 @@ body {
 .breadcrumb {
   margin: 0;
   background: none;
-  font-size: small;
+  font-size: 11px;
   padding: 8px 0;
 }
 .breadcrumb > li + li:before {
@@ -277,6 +277,10 @@ table#rsp-tbl .dropdown .dropdown-menu li {
   margin-right: 25px;
   margin-bottom: 25px;
   background-color: #f8f8f8;
+}
+.content-inner .bg-white{
+  border-radius: 10px;
+  border-top-left-radius: 0;
 }
 
 

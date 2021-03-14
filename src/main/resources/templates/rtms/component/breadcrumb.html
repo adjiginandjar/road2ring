@@ -1,0 +1,9 @@
+<div class="breadcrumb-wrap" th:fragment="template (data)">
+    <ol class="breadcrumb">
+        <li th:each="result : ${data}" th:class = "${result[2]}">
+            <a th:href="${result[1]}">
+                [[${result[0]}]]
+            </a>
+        </li>
+    </ol>
+</div>
