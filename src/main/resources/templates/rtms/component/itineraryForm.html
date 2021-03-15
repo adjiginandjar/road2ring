@@ -1,0 +1,39 @@
+<div class="itinerary-form" th:fragment="template (totalDay)">
+    <div class="tab-day">
+        <div th:class="${i == 1 ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalDay)}">Hari [[${i}]]</div>
+    </div>
+    <div class="main">
+        <div th:class="${i == 1 ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalDay)}">
+            <div class="form-group">
+                <label>Judul hari [[${i}]]</label>
+                <input type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
+                <span class="help-block">100/100</span>
+            </div>
+            <section>
+                <div class="form-group">
+                    <label>Foto</label>
+                    <input type="file" style="display: none;" name="day" required>
+                    <div class="input-icon">
+                        <input type="text" class="form-control mask-file" value="Upload Gambar" disabled="disabled"
+                            required>
+                    </div>
+                    <span class="help-block">Maks. 150kb</span>
+                </div>
+                <div class="form-group">
+                    <label>Tujuan</label>
+                    <textarea class="form-control" rows="2" placeholder="Masukkan Tujuan"></textarea>
+                    <span class="help-block">100/100</span>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea class="form-control" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>
+                    <span class="help-block">100/100</span>
+                </div>
+                
+                <button class="btn btn-danger pull-right" disabled>Hapus</button>
+                <div style="clear: both;"></div>
+            </section>
+            <button type="button" class="btn btn-default">+ Tambah Tujuan</button>
+        </div>
+    </div>
+</div>

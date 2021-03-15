@@ -21,6 +21,11 @@ form .btn-default{
   border-color: var(--white-four);
   background-color: var(--white);
 }
+form .btn-danger{
+  border: solid 1px var(--grapefruit);
+  background-color: var(--white);
+  color: var(--grapefruit);
+}
 form .form-group{
   position: relative;
 }
@@ -163,6 +168,7 @@ form .box-footer.btn-multi .btn{
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 10000;
 }
 /* Specific Form */
 .login-form .navbar,
@@ -184,4 +190,90 @@ form .box-footer.btn-multi .btn{
 }
 .login-form .login-box-body {
   padding: 0;
+}
+.itinerary-form .tab-day {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.itinerary-form .tab-day > div{
+  margin-right: 1em;
+  margin-bottom: 1em;
+  opacity: 0.3;
+  border-radius: 18px;
+  border: solid 1px var(--cobalt);
+  color: var(--cobalt);
+  padding: .5em 1.8em;
+  font-size: small;
+  cursor: pointer;
+}
+.itinerary-form .tab-day > div.active{
+  opacity: 1;
+}
+.itinerary-form .main > div{
+  display: none;
+}
+.itinerary-form .main > div.active{
+  display: block;
+}
+.itinerary-form .main section{
+  border-radius: 10px;
+  border: solid 1px var(--white-four);
+  padding: 1.2em;
+  margin-left: 2em;
+  margin-bottom: 2em;
+  position: relative;
+}
+.itinerary-form .main section::after{
+  content: '';
+  width: 1px;
+  height: 110%;
+  background-color: var(--pinkish-grey);
+  position: absolute;
+  top: 4em;
+  left: -1.5em;
+
+}
+.itinerary-form .main section::before{
+  content: '';
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    top: 50px;
+    left: -25px;
+    border: solid 1px var(--cobalt);
+    border-radius: 50%;
+    background-color: var(--white);
+    z-index: 1;
+}
+.itinerary-form .main section:last-of-type{
+  margin-bottom: 0;
+}
+.itinerary-form .main section:last-of-type::after{
+  height: 97%;
+}
+.itinerary-form .main .btn-default{
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin-left: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 2em;
+  position: relative;
+}
+.itinerary-form .main .btn-default::before{
+  content: '';
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  bottom: 15px;
+  left: -25px;
+  border: solid 1px var(--cobalt);
+  border-radius: 50%;
+  background-color: var(--white);
+  z-index: 1;
+}
+.itinerary-form .main .btn-danger{
+  padding-left: 2em;
+  padding-right: 2em;
 }

@@ -12,9 +12,13 @@
     color: var(--pinkish-grey);
     background-color: var(--white-two); 
     padding: 13px 15px;
-    border-radius: 8px 8px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 .tab-menu li.active a{    
     color: var(--cobalt);
     background-color: var(--white); 
+}
+.tab-menu li.visited a{    
+    color: var(--cobalt);
+    background-color: var(--ice-blue);
 }

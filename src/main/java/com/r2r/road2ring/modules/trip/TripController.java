@@ -358,4 +358,11 @@ public class TripController {
     ResponseMessage response = new ResponseMessage();
     return "rtms/form/tripTitleBody";
   }
+
+  @RequestMapping(value = "/rtms/form/itinerary",method = RequestMethod.GET)
+  public String addTripItinerary(Model model) {
+
+    ResponseMessage response = new ResponseMessage();
+    return "rtms/form/tripItinerary";
+  }
 }

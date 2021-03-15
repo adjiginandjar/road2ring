@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <title>Buat Perjalanan</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', ''},{' Buat Perjalanan','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+            <div
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi','/trip-title', 'visited'},{'2. Jadwal Perjalanan','/trip-schedule', 'active'}} } )">
+            </div>
+            <div class="bg-white">
+                <form class="main-form" role="form">
+                    <div class="box-body">
+                        <div th:replace="rtms/component/itineraryForm::template (totalDay=${3})"></div>
+                    </div>
+                    <div class="box-footer btn-multi">
+                        <button class="btn btn-default">Kembali ke List</button>
+                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script>
+            $(function () {
+
+                $('.itinerary-form .main .btn-default').click(function(){
+                    var elDummy = $(this).prev().clone();
+                    $(this).prev().after(elDummy);
+                })
+
+            });
+        </script>
+    </div>
+</body>
+
+</html>
