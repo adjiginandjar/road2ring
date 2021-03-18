@@ -365,4 +365,18 @@ public class TripController {
     ResponseMessage response = new ResponseMessage();
     return "rtms/form/tripItinerary";
   }
+
+  @RequestMapping(value = "/rtms/form/price-date",method = RequestMethod.GET)
+  public String addPriceDate(Model model) {
+
+    ResponseMessage response = new ResponseMessage();
+    return "rtms/form/priceDate";
+  }
+
+  @RequestMapping(value = "/rtms/form/price-motor",method = RequestMethod.GET)
+  public String addPriceMotor(Model model) {
+
+    ResponseMessage response = new ResponseMessage();
+    return "rtms/form/priceMotor";
+  }
 }

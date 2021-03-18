@@ -1,7 +1,3 @@
-html,
-body {
-  font-family: "Open Sans", sans-serif;
-}
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -23,10 +19,23 @@ body {
   --faded-blue: #5e79bc;
   --very-light-pink: #ffe8e8;
 }
+/* element style */
+html,
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Open Sans", sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 700;
+  margin: 0;
+}
 /* COMMON Class */
 .bg-white{
   background-color: var(--white);
 }
+.modal{
+  z-index: 20000;
+}
+.m-0{margin-bottom: 0 !important; margin-top: 0; margin-left: 0; margin-right: 0;}
 .main-header .logo-wrap {
   height: 80px;
   display: flex;

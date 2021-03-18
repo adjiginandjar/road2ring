@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <title>Buat Jadwal</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{'Rencana Perjalanan','/trip-schedule', ''},{'Jadwal','/trip-schedule', ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+            <div
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'active'},{'2. List Motor','/trip-schedule', ''}} } )">
+            </div>
+            <div class="bg-white">
+                <form class="main-form" role="form">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label>Tanggal berangkat</label>
+                            <input type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Harga Bensin</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">(Jarak /20)* Harga Pertamax</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Harga Hotel</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">Semua hotel/orang/kamar</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Towing Price</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">Minimum riders</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Food Price</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">/Orang</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Helper Fee</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">/Perjalanan</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Documentation Fee</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">/Perjalanan</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Documentation Fee</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">/Perjalanan</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Crew Accomodation</label>
+                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <span class="help-block">/Perjalanan</span>
+                        </div>
+
+                        <div class="form-group flex-line">
+                            <div>
+                                <label>Ranstouring service fee</label>
+                            </div>
+                            <div>
+                                <h5>Rp 10.000.000</h5>
+                            </div>
+                        </div>
+                        <div class="form-group flex-line total">
+                            <div>
+                                <label>Total Price</label>
+                            </div>
+                            <div>
+                                <h4>Rp 0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer btn-multi">
+                        <button class="btn btn-default">Kembali ke List</button>
+                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script>
+            $(function () {
+            });
+        </script>
+    </div>
+</body>
+
+</html>

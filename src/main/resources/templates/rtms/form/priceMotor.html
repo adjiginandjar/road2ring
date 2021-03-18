@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <title>Buat Jadwal</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{'Rencana Perjalanan','/trip-schedule', ''},{'Jadwal','/trip-schedule', ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+            <div
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'visited'},{'2. List Motor','/trip-schedule', 'active'}} } )">
+            </div>
+            <div class="bg-white">
+                <form class="main-form" role="form">
+                    <div class="box-body" style="min-height: 80vh;">
+                        <button type="button" class="btn btn-success w-100" data-toggle="modal"
+                            data-target="#modal-default">+ Motor</button>
+                    </div>
+                    <div>
+                        <div class="modal modal-pick-motor fade" id="modal-default" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span></button>
+                                        <div class="form-group m-0">
+                                            <label>Pilih Motor</label>
+                                            <input type="text" class="form-control" placeholder="Filter" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-body-inner">
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Honda CBX Tahun 2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Royal Enfield
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Honda CBX Tahun 2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Royal Enfield
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Honda CBX Tahun 2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Royal Enfield
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Honda CBX Tahun 2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Royal Enfield
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Honda CBX Tahun 2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Royal Enfield
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary w-100">Simpan</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </div>
+                    <div class="box-footer btn-multi">
+                        <button class="btn btn-default">Kembali ke List</button>
+                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script>
+            $(function () {
+            });
+        </script>
+    </div>
+</body>
+
+</html>
