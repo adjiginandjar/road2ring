@@ -366,7 +366,7 @@ public class TripController {
   }
 
   @RequestMapping(value = "/rtms/form",method = RequestMethod.GET)
-  public String addTripTitleBody(@RequestParam(value = "id",required = false)Integer tripId,
+  public String addTripTitleBody(@RequestParam(value = "tripId",required = false)Integer tripId,
       Principal principal,Model model,HttpServletRequest request) {
 
     String baseUrl = request.getRequestURL().toString()
