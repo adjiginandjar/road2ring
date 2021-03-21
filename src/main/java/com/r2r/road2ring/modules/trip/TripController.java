@@ -416,7 +416,7 @@ public class TripController {
     return "rtms/form/priceMotor";
   }
 
-  @RequestMapping(value = "/rtms/form/submit", method = RequestMethod.POST)
+  @RequestMapping(value = "/rtms/form/trip/submit", method = RequestMethod.POST)
   public String rtmsSave(@ModelAttribute Trip trip, Model model, Principal principal) {
     ResponseMessage response = new ResponseMessage();
     if(trip.getDeletedHotel()!= null) {
