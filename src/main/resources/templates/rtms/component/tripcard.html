@@ -1,40 +1,46 @@
-<div class="trip-card">
+<div th:each="trip : ${data}" class="trip-card" th:fragment="template (data)">
 	<div class="card-body">
 		<div class="card-header">
-			<span class="badge btn-success"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Terpublikasi</span> <i
+			<span class="badge" th:classappend="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'badge-publish'  : 'badge-draft'}"><i th:if="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED')}" class="fa fa-check" aria-hidden="true"></i>
+				<span th:utext="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? '&nbsp;Terpublikasi' : 'Draft'}"></span>
+			</span> <i
 				class="trip-option fa fa-ellipsis-v fa-lg"></i>
 		</div>
-		<h4>Belitong (Half Ride)</h4>
+		<h4 class="card-title" th:text="${trip.title}">Belitong (Half Ride)</h4>
 		<div class="trip-info">
 			<div class="trip-info-item">
-				<h6>Lama</h6>
-				<h6>12 Hari</h6>
+				<h6 class="trip-info-item-static">Lama</h6>
+				<h6 th:text="${trip.duration} +' Hari'">12 Hari</h6>
 			</div>
 			<div class="trip-info-item">
-				<h6>Jadwal</h6>
-				<h6>10 Paket</h6>
+				<h6 class="trip-info-item-static">Jadwal</h6>
+				<h6 th:text="${#lists.size(trip.tripPrices) +' Paket'}">10 Paket</h6>
 			</div>
 			<div class="trip-info-item">
-				<h6>Rencana Perjalanan</h6>
-				<h6>Lengkap</h6>
+				<h6 class="trip-info-item-static">Rencana Perjalanan</h6>
+				<h6 th:text="${ #lists.size(trip.itineraries)== trip.duration } ? 'Lengkap' : 'Kurang'">Lengkap</h6>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="alert alert-warning" role="alert"><small>Jadwal kamu sedikit, tambah perjalanan agar lebih banyak
-						variasi jadwal</small></div>
+			<div th:if="${ #lists.size(trip.itineraries)!= trip.duration OR #lists.size(trip.tripPrices)< 1 }"class="col-xs-12">
+				<div class="alert alert-warning" role="alert">
+					<small th:text="${ #lists.size(trip.itineraries)!= trip.duration ? 
+						'Rencana perjalanan kamu belum lengkap' : 'adwal kamu sedikit, tambah perjalanan agar lebih banyak variasi jadwal'}">
+					Jadwal kamu sedikit, tambah perjalanan agar lebih banyak variasi jadwal</small></div>
 			</div>
 
 		</div>
 		<div class="trip-info">
 			<div class="trip-info-item">
-				<button type="submit" class="btn btn-default">Edit</button>
+				<a  th:href="@{'/trip/rtms/form?id='+${trip.id}}" class="btn w-100 btn-default">Edit</a>
 			</div>
 			<div class="trip-info-item">
-				<button type="submit" class="btn btn-primary">Jadwal</button>
+				<a type="button" class="btn w-100 btn-primary-blank">Jadwal</a>
 			</div>
 			<div class="trip-info-item">
-				<button type="submit" class="btn btn-danger">Turunkan</button>
+				<a type="button" class="btn w-100" 
+				th:classappend="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'btn-danger'  : 'btn-primary'}"
+				th:text="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'Turunkan'  : 'Tayangkan'}">Turunkan</a>
 			</div>
 		</div>
 	</div>

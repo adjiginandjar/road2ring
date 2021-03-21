@@ -26,17 +26,17 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Judul</label>
-                            <input type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
+                            <input th:value="${response.object.title}" type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
                             <span class="help-block">100/100</span>
                         </div>
                         <div class="form-group">
                             <label>Deskripsi</label>
-                            <textarea class="form-control" rows="6" placeholder="Masukkan deskripsi singkat"></textarea>
+                            <textarea th:text="${response.object.description}" class="form-control" rows="6" placeholder="Masukkan deskripsi singkat"></textarea>
                             <span class="help-block">240/240</span>
                         </div>
                         <div class="form-group">
                             <label>Durasi Perjalanan</label>
-                            <input type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
+                            <input th:value="${response.object.duration}" type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Landscape Perjalanan</label>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label>Max Rider</label>
-                            <input type="text" class="form-control" name="day" placeholder="Maksimum Rider" required>
+                            <input th:value="${response.object.maxRider}" type="text" class="form-control" name="day" placeholder="Maksimum Rider" required>
                         </div>
                         <div class="form-group">
                             <label>Medan Jalan</label>
@@ -70,21 +70,21 @@
                         </div>
                         <div class="form-group">
                             <label>Lokasi</label>
-                            <input type="text" class="form-control" name="day" placeholder="Masukkan lokasi" required>
+                            <input th:value="${response.object.location}" type="text" class="form-control" name="day" placeholder="Masukkan lokasi" required>
                         </div>
                         <div class="form-group">
                             <label>Titik Kumpul</label>
-                            <textarea class="form-control" rows="4" placeholder="Masukkan titik kumpul"></textarea>
+                            <textarea th:text="${response.object.meetingPoint}" class="form-control" rows="4" placeholder="Masukkan titik kumpul"></textarea>
                             <span class="help-block">160/160</span>
                         </div>
                         <div class="form-group">
                             <label>Peta Perjalanan</label>
-                            <input type="text" class="form-control" name="day" placeholder="Melekatkan peta Google maps"
+                            <input th:value="${response.object.map}" type="text" class="form-control" name="day" placeholder="Melekatkan peta Google maps"
                                 required>
                         </div>
                         <div class="form-group">
                             <label>Tag</label>
-                            <input type="text" class="form-control" name="title"
+                            <input th:value="${response.object.tag}" type="text" class="form-control" name="title"
                                 placeholder="Masukkan Tag, diakhiri koma" required>
                         </div>
                         <div class="form-group">

@@ -205,7 +205,7 @@
           <div id="input-list-tab" class="m-top-xs form-group" style="display: flow-root" th:value="${facilities}">
             <div class="m-bottom-xs warpers">
               <th:block th:each="facility, iterStat:${facilities}">
-                <input type="checkbox" class="check-facility" name="facilities[]" th:value="${facility.id}" th:text="' ' + ${facility.name}" th:checked="${response.object.facilityInclude != udefined ? #lists.contains(response.object.facilityInclude, facility.id) : false}" data-parsley-required="true" data-parsley-mincheck=1"> <br>
+                <input type="checkbox" class="check-facility" name="facilities[]" th:value="${facility.id}" th:text="' ' + ${facility.name}" th:checked="${response.object.facilityInclude != udefined ? #lists.contains(response.object.facilityInclude, facility.id) : false}" data-parsley-required="true" data-parsley-mincheck="1"> <br>
               </th:block>
             </div>
             <input type="hidden" name="facilityInclude" id="trip-facility" th:value="${response.object.facilityInclude}">

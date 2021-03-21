@@ -11,6 +11,8 @@ import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
 import com.r2r.road2ring.modules.motor.Motor;
 import com.r2r.road2ring.modules.motor.MotorService;
+import com.r2r.road2ring.modules.user.User;
+import com.r2r.road2ring.modules.user.UserService;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,6 +52,9 @@ public class TripController {
   SystemConfigService systemConfigService;
 
   @Autowired
+  UserService userService;
+
+  @Autowired
   public void setFacilityService(FacilityService facility) {
     this.facilityService = facility;
   }
@@ -71,13 +77,6 @@ public class TripController {
   @Autowired
   public void setTripFacilityService(TripFacilityService tripFacility) {
     this.tripFacilityService = tripFacility;
-  }
-
-  @RequestMapping(value = "/rtms", method = RequestMethod.GET)
-  public String indexRtms(Model model) {
-    ResponseMessage response = new ResponseMessage();
-    model.addAttribute("response", response);
-    return "rtms/page/trip";
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
@@ -352,17 +351,54 @@ public class TripController {
 
   }
 
-  @RequestMapping(value = "/rtms/form",method = RequestMethod.GET)
-  public String addTripTitleBody(Model model) {
+  @RequestMapping(value = "/rtms", method = RequestMethod.GET)
+  public String indexRtms(Model model,Principal principal) {
+
+    Authentication auth = (Authentication) principal;
+    User user = userService.findUserByEmail(auth.getName());
+
+    List<Trip> trips = tripService.getAllTripByCaptain(user);
 
     ResponseMessage response = new ResponseMessage();
+    response.setObject(trips);
+    model.addAttribute("response", response);
+    return "rtms/page/trip";
+  }
+
+  @RequestMapping(value = "/rtms/form",method = RequestMethod.GET)
+  public String addTripTitleBody(@RequestParam(value = "id",required = false)Integer tripId,
+      Principal principal,Model model,HttpServletRequest request) {
+
+    String baseUrl = request.getRequestURL().toString()
+        .replace(request.getRequestURI().substring(1), request.getContextPath());
+
+    ResponseMessage response = new ResponseMessage();
+    Trip trip = new Trip();
+    Authentication auth = (Authentication) principal;
+    User user = userService.findUserByEmail(auth.getName());
+
+    if(tripId != null && tripId != 0){
+      trip = tripService.getTripById(tripId);
+    }
+    response.setObject(trip);
+    List<Facility> facilityList = facilityService.getAllFacilityPublished();
+    model.addAttribute("response", response);
+
+
+    model.addAttribute("facilities", facilityList);
+    model.addAttribute("baseUrl", baseUrl);
     return "rtms/form/tripTitleBody";
   }
 
   @RequestMapping(value = "/rtms/form/itinerary",method = RequestMethod.GET)
-  public String addTripItinerary(Model model) {
+  public String addTripItinerary(@RequestParam(value = "tripId")Integer tripId,
+      Principal principal,Model model,HttpServletRequest request) {
 
     ResponseMessage response = new ResponseMessage();
+
+    Trip trip = tripService.getTripById(tripId);
+
+    model.addAttribute("response", response);
     return "rtms/form/tripItinerary";
   }
 
@@ -378,5 +414,34 @@ public class TripController {
 
     ResponseMessage response = new ResponseMessage();
     return "rtms/form/priceMotor";
+  }
+
+  @RequestMapping(value = "/rtms/form/submit", method = RequestMethod.POST)
+  public String rtmsSave(@ModelAttribute Trip trip, Model model, Principal principal) {
+    ResponseMessage response = new ResponseMessage();
+    if(trip.getDeletedHotel()!= null) {
+      for (Iterator<Hotel> iter = trip.getDeletedHotel().listIterator();
+          iter.hasNext(); ) {
+        Hotel deleted = iter.next();
+        if (deleted.getId() == 0) {
+          iter.remove();
+        }
+      }
+    }
+
+    if(trip.getDeletedHotel()!= null) {
+      for (Iterator<Hotel> iter = trip.getHotels().listIterator();
+          iter.hasNext(); ) {
+        Hotel deleted = iter.next();
+        if (deleted.getId() == null) {
+          iter.remove();
+        }
+      }
+    }
+    Trip saved = tripService.saveTrip(trip);
+    response.setObject(saved);
+    model.addAttribute("response", response);
+
+    return "redirect:/rtms/form/itinerary?tripId="+saved.getId();
   }
 }

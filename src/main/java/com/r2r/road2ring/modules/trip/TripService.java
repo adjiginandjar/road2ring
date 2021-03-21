@@ -6,6 +6,7 @@ import com.r2r.road2ring.modules.common.Road2RingException;
 import com.r2r.road2ring.modules.hotel.HotelService;
 import com.r2r.road2ring.modules.itinerary.Itinerary;
 import com.r2r.road2ring.modules.itinerary.ItineraryService;
+import com.r2r.road2ring.modules.user.User;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,6 +114,10 @@ public class TripService {
 
   public List<Trip> getAllTrip(){
     return tripRepository.findAll();
+  }
+
+  public List<Trip> getAllTripByCaptain(User roadCaptain){
+    return tripRepository.findAllByRoadCaptain(roadCaptain);
   }
 
   public DataTablesOutput<Trip> getDatatableContents(DataTablesInput input) {

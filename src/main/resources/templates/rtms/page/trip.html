@@ -2,10 +2,12 @@
 <html layout:decorator="rtms/layout">
 
 <head>
+	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>R2R-Trip</title>
 	<link rel="stylesheet" type="text/css"
 		href="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.css" />
-	<link rel="stylesheet" href="/rtms/css/fragment/trip-card.css" />
+	<link rel="stylesheet" href="/rtms/css/component/trip-card.css" />
 	<style>
 		span a {
 			color: #000 !important;
@@ -51,18 +53,17 @@
 </head>
 
 <body>
+	<div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
 	<div layout:fragment="content">
 
 		<div class="trip-card-container">
 			
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
-			<div th:replace="rtms/component/tripcard"></div>
+		<div th:replace="rtms/component/tripcard::template (data = ${response.object} )"></div>
+			
 
 		</div>
 		<div class="custom-popup collapse" id="publishConfirm">
