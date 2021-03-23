@@ -178,4 +178,28 @@ public class TripAPIController {
 
     return responseMessage;
   }
+
+  @PostMapping("rtms/form/price-motor/{tripPriceId}/submit")
+  public ResponseMessage rtmsSaveTripPriceMotor(@PathVariable("tripPriceId") int tripPriceId,
+      @RequestParam Integer[] id, @RequestParam Integer[] price,
+      @RequestParam Integer[] stock){
+
+    ResponseMessage responseMessage = new ResponseMessage();
+    int failure = 0;
+    for(int i = 0; i<id.length; i++){
+      if(!tripPriceMotorService.ifExists(id[i], tripPriceId)) {
+        tripPriceMotorService.saveTripPriceMotors(id[i], tripPriceId, stock[i], price[i]);
+      }else{
+        failure+=1;
+      }
+    }
+    if(failure > 0){
+      responseMessage.setMessage(failure+" data anda tidak berhasil disimpan karena list ini sudah memiliki motor yang anda masukkan.");
+    }else{
+      responseMessage.setMessage("sukses");
+    }
+
+    return responseMessage;
+
+  }
 }
