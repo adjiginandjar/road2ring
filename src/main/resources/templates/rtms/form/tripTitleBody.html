@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/bootstrap-tokenfield.min.css">
     <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
     <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
     <title>Buat Perjalanan</title>
@@ -22,108 +23,166 @@
                 th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi','/trip-title', 'active'},{'2. Jadwal Perjalanan','/trip-schedule', ''}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form">
+                <form class="main-form" method="POST" action="/trip/rtms/form/trip/submit" role="form">
+                    <input type="hidden" name="id"
+                        th:value="${response.object.id != null && response.object.id != 0 ? response.object.id : 0}">
                     <div class="box-body">
                         <div class="form-group">
                             <label>Judul</label>
-                            <input th:value="${response.object.title}" type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
+                            <input th:value="${response.object.title}" type="text" class="form-control" name="title"
+                                placeholder="Masukkan Judul" required>
                             <span class="help-block">100/100</span>
                         </div>
                         <div class="form-group">
                             <label>Deskripsi</label>
-                            <textarea th:text="${response.object.description}" class="form-control" rows="6" placeholder="Masukkan deskripsi singkat"></textarea>
+                            <textarea th:text="${response.object.description}" name="description"
+                                class="form-control mce-editor" rows="6" placeholder="Masukkan deskripsi singkat"
+                                required></textarea>
                             <span class="help-block">240/240</span>
                         </div>
                         <div class="form-group">
                             <label>Durasi Perjalanan</label>
-                            <input th:value="${response.object.duration}" type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
+                            <input th:value="${response.object.duration}" type="number" class="form-control"
+                                name="duration" placeholder="Masukkan hari" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jarak Tempuh</label>
+                            <input th:value="${response.object.distance}" type="number" class="form-control"
+                                name="distance" placeholder="Masukkan jarak tempuh (km)" required>
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Landscape Perjalanan</label>
-                            <input type="file" style="display: none;" name="day" required>
+                            <input type="url" id="hidden-cover-landscape" class="collapse" name="coverLandscape"
+                                th:value="${response.object.coverLandscape}" required />
+                            <input type="file" id="cover-landscape" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control mask-file" value="Upload Gambar"
-                                    disabled="disabled" required>
+                                <input type="text" class="form-control mask-file" value="Upload Gambar" readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
+                            <div
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-landscape'}, urlImageField=${response.object.coverLandscape})">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Potrait Perjalanan</label>
-                            <input type="file" style="display: none;" name="day" required>
+                            <input type="url" id="hidden-cover-potrait" name="coverPotrait"
+                                th:value="${response.object.coverPotrait}" class="collapse" required />
+                            <input type="file" id="cover-potrait" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control  mask-file" value="Upload Gambar"
-                                    disabled="disabled" required>
+                                <input type="text" class="form-control mask-file" value="Upload Gambar" readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
+                            <div
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-potrait'}, urlImageField=${response.object.coverPotrait})">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Max Rider</label>
-                            <input th:value="${response.object.maxRider}" type="text" class="form-control" name="day" placeholder="Maksimum Rider" required>
+                            <input th:value="${response.object.maxRider}" type="number" class="form-control"
+                                name="maxRider" placeholder="Maksimum Rider" required>
                         </div>
                         <div class="form-group">
                             <label>Medan Jalan</label>
-                            <select class="form-control" name="" id="">
-                                <option value="">Aspal</option>
-                                <option value="">Tanah</option>
-                                <option value="">Batu</option>
-                            </select>
+                            <input type="text" th:value="${response.object.terrain}" class="form-control" name="terrain"
+                                placeholder="Masukkan Judul" required>
                         </div>
                         <div class="form-group">
                             <label>Lokasi</label>
-                            <input th:value="${response.object.location}" type="text" class="form-control" name="day" placeholder="Masukkan lokasi" required>
+                            <input th:value="${response.object.location}" type="text" class="form-control"
+                                name="location" placeholder="Masukkan lokasi" required>
                         </div>
                         <div class="form-group">
                             <label>Titik Kumpul</label>
-                            <textarea th:text="${response.object.meetingPoint}" class="form-control" rows="4" placeholder="Masukkan titik kumpul"></textarea>
+                            <textarea th:text="${response.object.meetingPoint}" name="meetingPoint"
+                                class="mce-editor form-control" rows="4" placeholder="Masukkan titik kumpul"
+                                required></textarea>
                             <span class="help-block">160/160</span>
                         </div>
                         <div class="form-group">
                             <label>Peta Perjalanan</label>
-                            <input th:value="${response.object.map}" type="text" class="form-control" name="day" placeholder="Melekatkan peta Google maps"
-                                required>
+                            <input th:value="${response.object.map}" type="text" class="form-control" name="map"
+                                placeholder="Masukkan link embed peta google" required>
                         </div>
                         <div class="form-group">
                             <label>Tag</label>
-                            <input th:value="${response.object.tag}" type="text" class="form-control" name="title"
+                            <input th:value="${response.object.tag}" type="text" class="form-control" name="tag"
                                 placeholder="Masukkan Tag, diakhiri koma" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group facility-group">
                             <label>Fasilitas</label>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox">
-                                Towing
-                              </label>
-                            </div>
-          
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox">
-                                Makanan
-                              </label>
-                            </div>
-          
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox">
-                                Tiket Pesawat
-                              </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                  <input type="checkbox">
-                                  Tiket kunjungan wisata
-                                </label>
-                              </div>
-                          </div>
+                            <th:block th:each="facility, iterStat:${facilities}">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="check-facility" th:value="${facility.id}"
+                                            name="facilities[]"
+                                            th:checked="${response.object.facilityInclude != udefined ? #lists.contains(response.object.facilityInclude, facility.id) : false}"
+                                            th:required="${response.object.facilityInclude != null ? false : true}" />
+                                        [[${facility.name}]]
+                                    </label>
+                                </div>
+                            </th:block>
+                            <input type="hidden" name="facilityInclude" id="trip-facility"
+                                th:value="${response.object.facilityInclude}">
+                        </div>
                     </div>
                     <div class="box-footer btn-multi">
                         <button class="btn btn-default">Kembali ke List</button>
-                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                        <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script src="https://cdn.tiny.cloud/1/h5x6x3ljqgk1t01ru240uzue8tn77zevvojqax6ejrfraog5/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+        <script src="/rtms/js/jquery.html5uploader.min.js"></script>
+        <script src="/rtms/js/bootstrap-tokenfield.min.js"></script>
+        <script src="/rtms/js/upload.js"></script>
+        <script src="/rtms/js/tinymce.js"></script>
+
+        <script>
+            $(function () {
+                editor_textarea();
+                upload_trip("/api/trip/upload_trip", "cover-landscape", "#cover-landscape", "#hidden-cover-landscape", 640, 640, "landscape");
+                upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
+                $('.input-icon').click(function () {
+                    $(this).prev().click();
+                    return false;
+                });
+                $('input[name=tag]').on('tokenfield:initialize', function (e) {
+                    $(".token").wrapAll("<div class='wrap-token' />");
+                }).tokenfield();
+                $('input[name=tag]').on('tokenfield:createdtoken', function (event) {
+                    var existingTokens = $(this).tokenfield('getTokens');
+                    $('.tokenfield > .token').detach().appendTo('.tokenfield .wrap-token');
+                    $.each(existingTokens, function (index, token) {
+                        if (token.value === event.attrs.value) {
+                            event.preventDefault();
+                        }
+                    });
+                });
+                var facility = $('#trip-facility').val();
+                $('#trip-facility').val(facility.replace("[", "").replace("]", ""));
+
+            });
+            var checked = $('#trip-facility').val() != null && $('#trip-facility').val() != "" ? $('#trip-facility').val() : []
+            var array = JSON.parse(checked.length != 0 ? $('#trip-facility').val() : "[]");
+            var requiredCheckboxes = $('.facility-group :checkbox[required]');
+            $('.check-facility').change(function () {
+                var $this = $(this);
+                if ($this.is(":checked")) {
+                    array.push(parseInt($this.val()));
+                    requiredCheckboxes.removeAttr('required');
+                }
+                else {
+                    array = array.filter(x => x != $this.val());
+                    requiredCheckboxes.attr('required', 'required');
+                }
+                $('#trip-facility').val(array)
+            });
+
+        </script>
     </div>
 </body>
 

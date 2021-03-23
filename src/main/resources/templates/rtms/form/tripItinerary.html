@@ -19,7 +19,7 @@
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi','/trip-title', 'visited'},{'2. Jadwal Perjalanan','/trip-schedule', 'active'}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', '/trip/rtms/form?tripId='+param.tripId, 'visited'},{'2. Jadwal Perjalanan','/trip-schedule', 'active'}} } )">
             </div>
             <div class="bg-white">
                 <form class="main-form" role="form">

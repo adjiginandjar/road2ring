@@ -1,0 +1,16 @@
+<div class="upload-box" th:fragment="template(section, urlImageField)">
+    <div th:class="${'wrap_'+section+' collapse'}">
+        <div class="progress">
+            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow=""
+                aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <div class="msg collapse text-info"><i class="fa fa-check"></i> Upload Succeed</div>
+        <div class="pre_img img-wrap">
+            <img src="" class="img-responsive"  alt="">
+        </div>
+    </div>
+    <div th:if="${not #strings.isEmpty(urlImageField)}" th:class="${'wrap-img-'+section+' img-wrap p-top-sm'}">
+        <img class="img-responsive" th:src="${urlImageField}" />
+    </div>
+</div>
