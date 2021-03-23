@@ -413,9 +413,26 @@ public class TripController {
   }
 
   @RequestMapping(value = "/rtms/form/price-date",method = RequestMethod.GET)
-  public String addPriceDate(Model model) {
+  public String addPriceDate(@RequestParam(value = "tripId")Integer tripId,
+      @RequestParam(value = "tripPriceId",required = false)Integer tripPriceId,
+      Principal principal,Model model,HttpServletRequest request) {
+    TripPrice tripPrice = new TripPrice();
+    TripPriceDetail detail  = new TripPriceDetail();
+
+    if(tripPriceId != null && tripPriceId != 0) {
+      tripPrice = tripService.getTripPriceById(tripPriceId);
+      detail = new TripPriceDetail();
+      if (tripPrice.getTripPriceDetail() != null) {
+        detail = tripPrice.getTripPriceDetail();
+      }
+    }
 
     ResponseMessage response = new ResponseMessage();
+    response.setObject(tripPrice);
+    model.addAttribute("response", response);
+    model.addAttribute("tripPriceDetail", detail);
+    model.addAttribute("companyCommissionFee",detail.getCompanyCommission());
+
     return "rtms/form/priceDate";
   }
 
@@ -456,7 +473,8 @@ public class TripController {
   }
 
   @RequestMapping(value = "rtms/form/itinerary/{tripId}/submit")
-  public String rtmsSaveTripItinerary(@PathVariable("tripId") int tripId, @ModelAttribute Trip trip, Model model, Principal principal){
+  public String rtmsSaveTripItinerary(@PathVariable("tripId") int tripId,
+      @ModelAttribute Trip trip, Model model, Principal principal){
     Trip theTrip = tripService.getTripById(tripId);
     List<Itinerary> saved;
     int nextGroup;
@@ -490,5 +508,21 @@ public class TripController {
       redirect =  "redirect:/trip/rtms/form/itinerary?tripId="+tripId+"&itineraryGroupId="+nextGroup;
 
     return redirect;
+  }
+
+  @RequestMapping(value = "rtms/form/price-date/{tripId}/submit")
+  public String rtmsSaveTripPriceList(@PathVariable("tripId") int tripId,
+      @ModelAttribute TripPrice tripPrice, Model model) {
+    ResponseMessage response = new ResponseMessage();
+    model.addAttribute("response", response);
+    Trip trip = tripService.getTripById(tripId);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(tripPrice.getStartTrip());
+    cal.add(Calendar.DAY_OF_MONTH, trip.getDuration());
+    Date newDate = cal.getTime();
+    tripPrice.setFinishTrip(newDate);
+
+    tripService.saveTripPrice(tripId, tripPrice);
+    return "redirect:/trip/rtms/price-date/"+tripId;
   }
 }
