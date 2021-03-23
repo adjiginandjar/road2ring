@@ -1,15 +1,15 @@
-<div class="itinerary-form" th:fragment="template (totalDay)">
+<div class="itinerary-form" th:fragment="template (trip,data)">
     <div class="tab-day">
-        <div th:class="${i == 1 ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalDay)}">Hari [[${i}]]</div>
+        <div th:class="${i == data[0].group ? 'active' : ''}" th:onclick="'window.location.href = \''+@{/trip/rtms/form/itinerary?tripId={tripId}&itineraryGroupId={groupId}(tripId=${trip.id},groupId=${i})}+'\''"th:each="i: ${#numbers.sequence(1, trip.duration)}">Hari [[${i}]]</div>
     </div>
     <div class="main">
-        <div th:class="${i == 1 ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalDay)}">
+        <div th:class="${i == data[0].group ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, trip.duration)}">
             <div class="form-group">
-                <label>Judul hari [[${i}]]</label>
-                <input type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
+                <label >Judul hari [[${i}]]</label>
+                <input th:value="${#lists.size(response.object) != 0 ? response.object[0].groupTitle : ''}" type="text" class="form-control" name="title" placeholder="Masukkan Judul" required>
                 <span class="help-block">100/100</span>
             </div>
-            <section>
+            <section th:each="itinerary, iterStat:${response.object}">
                 <div class="form-group">
                     <label>Foto</label>
                     <input type="file" style="display: none;" name="day" required>
@@ -21,12 +21,12 @@
                 </div>
                 <div class="form-group">
                     <label>Tujuan</label>
-                    <textarea class="form-control" rows="2" placeholder="Masukkan Tujuan"></textarea>
+                    <textarea th:text="${itinerary.title}" class="form-control" rows="2" placeholder="Masukkan Tujuan"></textarea>
                     <span class="help-block">100/100</span>
                 </div>
                 <div class="form-group">
                     <label>Deskripsi</label>
-                    <textarea class="form-control" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>
+                    <textarea th:text="${itinerary.description}"  class="form-control" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>
                     <span class="help-block">100/100</span>
                 </div>
                 

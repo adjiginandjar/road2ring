@@ -24,7 +24,7 @@
             <div class="bg-white">
                 <form class="main-form" role="form">
                     <div class="box-body">
-                        <div th:replace="rtms/component/itineraryForm::template (totalDay=${3})"></div>
+                        <div th:replace="rtms/component/itineraryForm::template (trip=${trip},data=${response.object})"></div>
                     </div>
                     <div class="box-footer btn-multi">
                         <button class="btn btn-default">Kembali ke List</button>

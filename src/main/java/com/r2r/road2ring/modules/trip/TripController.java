@@ -392,13 +392,23 @@ public class TripController {
 
   @RequestMapping(value = "/rtms/form/itinerary",method = RequestMethod.GET)
   public String addTripItinerary(@RequestParam(value = "tripId")Integer tripId,
+      @RequestParam(value = "itineraryGroupId")Integer groupId,
       Principal principal,Model model,HttpServletRequest request) {
 
     ResponseMessage response = new ResponseMessage();
 
     Trip trip = tripService.getTripById(tripId);
+    List<Itinerary> itineraries = itineraryService.getItineraryByGroupAndTrip(groupId,trip.getId());
+    if(itineraries.size() ==0){
+      itineraries = new ArrayList<>();
+      Itinerary itinerary= new Itinerary();
+      itinerary.setGroup(groupId);
+      itineraries.add(itinerary);
+    }
+    response.setObject(itineraries);
 
     model.addAttribute("response", response);
+    model.addAttribute("trip", trip);
     return "rtms/form/tripItinerary";
   }
 
@@ -442,6 +452,43 @@ public class TripController {
     response.setObject(saved);
     model.addAttribute("response", response);
 
-    return "redirect:/rtms/form/itinerary?tripId="+saved.getId();
+    return "redirect:/trip/rtms/form/itinerary?tripId="+saved.getId()+"&itineraryGroupId=1";
+  }
+
+  @RequestMapping(value = "rtms/form/itinerary/{tripId}/submit")
+  public String rtmsSaveTripItinerary(@PathVariable("tripId") int tripId, @ModelAttribute Trip trip, Model model, Principal principal){
+    Trip theTrip = tripService.getTripById(tripId);
+    List<Itinerary> saved;
+    int nextGroup;
+    String redirect = "redirect:/trip/rtms";
+    theTrip.setItineraries(trip.getItineraries());
+    theTrip.setDeletedItinerary(trip.getDeletedItinerary());
+
+    if(theTrip.getDeletedItinerary()!= null) {
+      for (Iterator<Itinerary> iter = theTrip.getDeletedItinerary().listIterator();
+          iter.hasNext(); ) {
+        Itinerary deleted = iter.next();
+        if (deleted.getId() == 0) {
+          iter.remove();
+        }
+      }
+    }
+
+    if(theTrip.getItineraries()!= null) {
+      for (Iterator<Itinerary> iter = theTrip.getItineraries().listIterator();
+          iter.hasNext(); ) {
+        Itinerary deleted = iter.next();
+        if (deleted.getId() == null) {
+          iter.remove();
+        }
+      }
+    }
+
+    saved = itineraryService.saveListOfItinerary(theTrip.getItineraries(), theTrip);
+    nextGroup = saved.get(0).getGroup()+1;
+    if(nextGroup <= theTrip.getDuration())
+      redirect =  "redirect:/trip/rtms/form/itinerary?tripId="+tripId+"&itineraryGroupId="+nextGroup;
+
+    return redirect;
   }
 }
