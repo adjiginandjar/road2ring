@@ -437,9 +437,16 @@ public class TripController {
   }
 
   @RequestMapping(value = "/rtms/form/price-motor",method = RequestMethod.GET)
-  public String addPriceMotor(Model model) {
+  public String addPriceMotor(@RequestParam(value = "tripId")Integer tripId,
+      @RequestParam(value = "tripPriceId")Integer tripPriceId,
+      Principal principal,Model model,HttpServletRequest reques) {
 
     ResponseMessage response = new ResponseMessage();
+    response.setObject(tripPriceMotorService.getDatatable(tripPriceId));
+    model.addAttribute("response", response);
+    model.addAttribute("tripId", tripId);
+    model.addAttribute("priceId", tripPriceId);
+
     return "rtms/form/priceMotor";
   }
 
@@ -522,7 +529,8 @@ public class TripController {
     Date newDate = cal.getTime();
     tripPrice.setFinishTrip(newDate);
 
-    tripService.saveTripPrice(tripId, tripPrice);
-    return "redirect:/trip/rtms/price-date/"+tripId;
+    TripPrice saved = tripService.saveTripPrice(tripId, tripPrice);
+
+    return "redirect:/trip/rtms/form/price-motor?tripId="+tripId+"&tripPriceId="+saved.getId();
   }
 }
