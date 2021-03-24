@@ -92,6 +92,7 @@ public class TripPriceMotorService {
   public TripPriceMotor saveTripPriceMotor(TripPriceMotor motor, Integer tripPriceId){
     TripPriceMotor saved = new TripPriceMotor();
     TripPrice tripPrice = tripPriceService.getOneTripPrice(tripPriceId);
+
     if(motor.getId() != null && motor.getId() != 0){
       saved = tripPriceMotorRepository.findOne(motor.getId());
     }
@@ -99,6 +100,25 @@ public class TripPriceMotorService {
     saved.setStock(motor.getStock());
     saved.setBike(motor.getBike());
     saved.setPrice(motor.getPrice());
+
+    return tripPriceMotorRepository.save(saved);
+  }
+
+  @Transactional
+  public TripPriceMotor saveTripPriceMotorV2(TripPriceMotor tripPriceMotor, Integer tripPriceId){
+    TripPriceMotor saved = new TripPriceMotor();
+    Motor motor = new Motor();
+    if(tripPriceMotor.getId() != 0){
+      saved = tripPriceMotorRepository.findOne(tripPriceMotor.getId());
+    }
+
+    motor = motorService.getMotoyrById(tripPriceMotor.getBike().getId());
+    TripPrice tripPrice = tripPriceService.getOneTripPrice(tripPriceId);
+
+    saved.setTripPrice(tripPrice);
+    saved.setStock(tripPriceMotor.getStock());
+    saved.setBike(motor);
+    saved.setPrice(tripPrice.getPrice());
 
     return tripPriceMotorRepository.save(saved);
   }
@@ -116,6 +136,27 @@ public class TripPriceMotorService {
     saved.setPrice(price);
 
     return tripPriceMotorRepository.save(saved);
+  }
+
+  @Transactional
+  public List<TripPriceMotor> saveListTripPriceMotors(TripPrice tripPrice){
+    List<TripPriceMotor> result = new ArrayList<>();
+    List<TripPriceMotor> deletedTripPriceMotorList = tripPrice.getDeletedTripPriceMotorList();
+
+    if (deletedTripPriceMotorList != null && deletedTripPriceMotorList.size() != 0) {
+      for (TripPriceMotor deletedTripPriceMotor : deletedTripPriceMotorList) {
+        removeTab(deletedTripPriceMotor.getId());
+      }
+    }
+    for (TripPriceMotor saved : tripPrice.getTripPriceMotorList()) {
+      result.add(saveTripPriceMotorV2(saved, tripPrice.getId()));
+    }
+
+    return result;
+  }
+
+  private void removeTab(Integer id) {
+    tripPriceMotorRepository.delete(id);
   }
 
   public boolean ifExist(TripPriceMotor tripPriceMotor, Integer tripPriceId){

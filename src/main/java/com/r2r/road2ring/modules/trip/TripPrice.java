@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -65,6 +66,10 @@ public class TripPrice {
   @JoinColumn(name = "trip_price_trip_price_detail_id" , nullable = true)
   @JsonView(ResponseView.DetailedTripPrice.class)
   private TripPriceDetail tripPriceDetail;
+
+
+  @Transient
+  public List<TripPriceMotor> deletedTripPriceMotorList;
 
   @Override
   public String toString() {

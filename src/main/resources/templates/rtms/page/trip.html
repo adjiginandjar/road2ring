@@ -8,47 +8,55 @@
 	<link rel="stylesheet" type="text/css"
 		href="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.css" />
 	<link rel="stylesheet" href="/rtms/css/component/trip-card.css" />
+	<link rel="stylesheet" href="/rtms/css/fragment/modal.css" />
 	<link rel="stylesheet" href="/rtms/css/rtms-form.css" />
 	<style>
-		span a {
-			color: #000 !important;
+		.trip-zero-state{
+			display:flex;
+			flex-direction: column;
+			align-items: center;
+			padding:16px;
+		
 		}
-
-		table#rsp-tbl .dropdown .dropdown-menu {
-			box-shadow: 2px 3px 10px 0px;
-			margin-left: -1px;
-			margin-top: -2px;
-		}
-
-		table#rsp-tbl .dropdown .dropdown-menu li {
-			margin-top: 8px;
-			margin-bottom: 8px;
-			font-size: 14px;
-			margin-left: 8px;
-			font-weight: 600;
-		}
-
-		.btn-confirmation {
+		.trip-zero-state img{
 			width: 40%;
-			text-align: right;
+			max-width: 180px;
 		}
+		.trip-zero-state h3,.trip-zero-state ol{
+			margin-top : 24px;
 
-		.custom-popup .popup-body {
-			padding: 15px;
 		}
-
-		.text-center {
+		.trip-zero-state h3{
 			text-align: center;
+			font-size: 16px;
+			padding-left: 20px;
 		}
+		.trip-zero-state span{
+			margin-top : 8px;
+			font-size: 12px;
+		}
+		.trip-zero-state ol{
+			counter-reset: my-awesome-counter;
+			list-style: none;
+			padding-left: 40px;
+		}
+		.trip-zero-state li{
+			margin: 0 0 16px 0;
+			font-size: 12px;
+			counter-increment: my-awesome-counter;
+			position: relative;
+		}
+		.trip-zero-state ol li::before {
+			content: counter(my-awesome-counter);
+			color: var(--white);
+			background: var(--black);
+			border-radius: 50%;
+			width: 16px;
+			text-align: center;
+			display: inline-block;
+			font-size: 12px;
+			margin-right: 10px;
 
-		.custom-popup {
-			background-color: #fff;
-			color: #777;
-			text-align: center !important;
-			border-radius: 10px;
-			-moz-border-radius: 10px;
-			-webkit-border-radius: 10px;
-			margin-top: 50px;
 		}
 	</style>
 </head>
@@ -56,48 +64,48 @@
 <body>
 	<div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{' Rencana Perjalanan','/trip/rtms', 'active'}} } )">
         </div>
     </div>
 	<div layout:fragment="content">
 
-		<div class="trip-card-container">
-			
-		<div th:replace="rtms/component/tripcard::template (data = ${response.object} )"></div>
-			
-
-		</div>
+		<div  class="trip-card-container">
+			<div th:if="${#lists.size(response.object)==0}" class="trip-zero-state">
+				<img src="/rtms/assets/img_notrips@2x.png">
+				<h3>Kamu belum mempunyai perjalanan, buat perjalanan kamu!</h3>
+				<span>Cara buat perjalanan di Ranstouring :</span>
+				<ol>
+					<li>‘Buat Baru’ di halaman ‘Perjalanan’</li>
+					<li>Lengkapi seluruh ‘Judul & deskripsi’ dan ‘Jadwal Perjalanan Harian’</li>
+					<li>Setelah lengkap, masukkan ‘Jadwal’ dan ‘Harga’ yang sesuai dengan perjalanan kamu.</li>
+					<li>Pilih motor-motor yang dapat kamu siapkan sesuai tanggal pada jadwal tersebut.</li>
+				</ol>
+			</div>
+			<div th:replace="rtms/component/tripcard::template (data = ${response.object} )"></div>
+				
+			</div>
 		
-		<!-- <form class="main-form" role="form">
-			<div class="box-footer ">
-					<a th:href="@{'/trip/rtms/'}" class="btn btn-success">Kembali ke List</a>
+		<form class="main-form" role="form">
+			<div class="box-footer btn-multi">
+					<a th:href="@{'/trip/rtms/form?tripId=0'}" class="btn btn-success">Buat Baru</a>
 			</div>
-		</form> -->
-		<div class="custom-popup collapse" id="publishConfirm">
-			<div class="popup-body text-center">
-				<h5>Are you sure to <i>publish</i> this <i>Content</i>?</h5>
-				<strong class="block m-top-xs"><i class="fa fa-exclamation-circle m-right-xs text-danger"></i>This action cannot
-					be undone</strong>
-				<input type="hidden" name="api_id" value="">
-				<div class="text-center m-top-lg">
-					<a class="btn btn-info m-right-sm do-it">Yes</a>
-					<a class="btn btn-default cancel">Cancel</a>
+		</form>
+		<div class="modal modal-rtms fade" id="modal-default" style="display: none;">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-body">
+				  <p>Apakah kamu yakin untuk menghapus? kamu tidak dapat mengakses perjalanan ini lagi</p>
 				</div>
-				<br />
-			</div>
-		</div>
-		<div class="custom-popup collapse" id="takeoutConfirm">
-			<div class="popup-body text-center">
-				<h5>Are you sure to <i>take out</i> this <i>Content</i>?</h5>
-				<strong class="block m-top-xs"><i class="fa fa-exclamation-circle m-right-xs text-danger"></i>This action cannot
-					be undone</strong>
-				<input type="hidden" name="api_id" value="">
-				<div class="text-center m-top-lg">
-					<a class="btn btn-info m-right-sm do-it">Yes</a>
-					<a class="btn btn-default cancel">Cancel</a>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
+				  <button type="button" class="btn btn-danger w-100">Hapus</button>
 				</div>
+			  </div>
+			  <!-- /.modal-content -->
 			</div>
-		</div>
+			<!-- /.modal-dialog -->
+		  </div>
+
 	</div>
 	<th:block layout:fragment="footer-js">
 		<!--<script type="text/javascript" src="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.js"></script>-->
