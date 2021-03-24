@@ -1,0 +1,18 @@
+<div th:each="tripprice : ${data}" class="trip-price-card" th:fragment="template (data)">
+    <div class="trip-price-card-date">
+        <span th:text="${#dates.monthNameShort(tripprice.startTrip)}" class="month">FEB</span>
+        <span th:text="${#dates.day(tripprice.startTrip)}" class="date">11</span>
+    </div>
+    <div class="trip-price-card-info">
+        <div class="rider-info">
+        <span th:text="${tripprice.personPaid}"class="person-paid">12</span>
+        <span th:text="${' /'+tripprice.trip.maxRider+' Riders'}"class="max-rider"> /12 Riders</span>
+        </div>
+        <span th:text="${'Rp '+#numbers.formatDecimal(tripprice.price,3,'POINT',0,'COMMA')}"class="price">Rp 20.000.000</span>
+        <span class="rider">/Rider</span>
+    </div>
+    <div class="trip-price-card-button-info">
+        <a th:href="@{'/trip/rtms/form/price-date?tripId='+${tripprice.trip.id}+'&tripPriceId='+${tripprice.id}}"  class="btn btn-default">Edit</a>
+        <a class="btn btn-danger">Hapus</a>
+    </div>
+</div>

@@ -117,7 +117,9 @@ public class TripService {
   }
 
   public List<Trip> getAllTripByCaptain(User roadCaptain){
-    return tripRepository.findAllByRoadCaptain(roadCaptain);
+    List<Trip> trips = tripRepository.findAllByRoadCaptain(roadCaptain);
+    trips = buildTotalItineraryGroup(trips);
+    return trips;
   }
 
   public DataTablesOutput<Trip> getDatatableContents(DataTablesInput input) {
@@ -240,5 +242,15 @@ public class TripService {
     } else {
       throw new Road2RingException("cannot set value", 900);
     }
+  }
+
+  private List<Trip> buildTotalItineraryGroup(List<Trip> trips){
+    List<Trip> result = new ArrayList<>();
+    for (Trip trip :
+        trips) {
+      trip.setGroupedItinerary(itineraryService.getItineraryGroupInTrip(trip.getId()).size());
+      result.add(trip);
+    }
+    return result;
   }
 }

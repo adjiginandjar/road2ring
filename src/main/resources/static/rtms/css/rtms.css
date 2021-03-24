@@ -293,9 +293,3 @@ table#rsp-tbl .dropdown .dropdown-menu li {
 }
 
 
-.trip-card-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-

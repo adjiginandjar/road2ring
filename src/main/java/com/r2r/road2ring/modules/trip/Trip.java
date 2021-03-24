@@ -148,6 +148,9 @@ public class Trip implements Serializable {
   public List<Itinerary> deletedItinerary;
 
   @Transient
+  public Integer groupedItinerary;
+
+  @Transient
   public List<Hotel> deletedHotel;
   
   @Transient

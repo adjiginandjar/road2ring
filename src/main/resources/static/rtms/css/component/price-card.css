@@ -1,0 +1,156 @@
+.trip-price-container{
+	margin: 20px;
+}
+
+.trip-title{
+	margin-bottom: 16px;
+}
+.trip-info{
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	margin-bottom: 12px;
+	width:40%;
+}
+.trip-info .trip-info-item{
+	width: 33.333%;
+	margin: 0px 8px;
+}
+.trip-info .trip-info-item-static{
+	font-size: 10px !important;
+	margin-bottom: 8px;
+	color: #999999;
+}
+.trip-info .trip-info-item h6{
+	font-size: 12px;
+	font-weight: normal;
+}
+.trip-info .trip-info-item:first-child{
+	margin-left: 0px;
+}
+.trip-info .trip-info-item:last-child{
+	margin-right: 0px;
+}
+
+.trip-price-card-container{
+	padding: 16px 20px;
+	margin-top:15px;
+}
+.trip-price-card-container .zero-state{
+	margin-top:16px;
+	font-size: 12px;
+  font-weight: normal
+	
+}
+
+.trip-price-card-container .btn{
+	margin: 15px 0px ;
+	width:100%;
+}
+
+.trip-price-card-container .btn-success{
+	background-color: var(--light-sea-green);
+  border: 1px solid var(--light-sea-green);
+  color: var(--black);
+}
+
+.trip-price-card-container .btn-default{
+	color: var(--black);
+  border-color: var(--white-four);
+  background-color: var(--white);
+}
+.trip-price-card-container .btn-danger{
+	border: solid 1px var(--grapefruit);
+  background-color: var(--white);
+  color: var(--grapefruit);
+}
+
+.trip-price-card{
+	display: flex;
+	flex-direction: row;
+	padding:12px;
+	border-radius: 4px;
+	border: solid 1px var(--white-four);
+	width: 48%;
+	margin:7px;
+}
+
+.trip-price-card-inner-container{
+	display: flex;
+  flex-flow: row wrap;
+	flex: 1 1 auto;
+}
+
+.trip-price-card-date,
+.trip-price-card-info,
+.trip-price-card-button-info{
+	display: flex;
+	flex-direction: column;
+}
+.trip-price-card-date{
+	width: 45px;
+	border-radius: 4px;
+  border: solid 1px var(--white-four);
+  background-color: var(--white);
+	text-align: center;
+}
+.trip-price-card-date .month{
+	font-size: 10px;
+	background-color: var(--cobalt);
+	color: var(--white);
+}
+
+.trip-price-card-date .date{
+	font-size: 24px;
+	color: var(--cobalt);
+}
+
+.trip-price-card-info{
+	margin-left:13px;
+}
+.trip-price-card-info .rider-info{
+	flex-direction: row;
+}
+.trip-price-card-info .person-paid{ 
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.trip-price-card-info .rider,.max-rider{
+	font-size: 10px;
+	color: var(--warm-grey);
+}
+
+.trip-price-card-info .price{
+	font-size: 14px;
+	font-weight: bold;
+	color: var(--black);
+	margin-top:3px;
+}
+.trip-price-card-button-info{
+	margin-left: auto;
+  order: 2;
+}
+
+.trip-price-card-button-info .btn{
+	margin: 3px 0px;
+	font-size: 10px;
+	padding: 3px 12px;
+	width:66px;
+}
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+	.trip-price-card{
+		width: 47%;
+	}
+}
+@media (max-width: 991.98px) {
+	/* .trip-price-card-inner-container{
+		flex-wrap: nowrap;
+	} */
+	.trip-price-card{
+		width: 100%;
+	}
+	
+}
