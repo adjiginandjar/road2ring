@@ -13,7 +13,7 @@
 <body>
     <div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{'Rencana Perjalanan','/trip-schedule', ''},{'Jadwal','/trip-schedule', ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Rencana Perjalanan','/trip/rtms', ''},{'Jadwal','/trip/rtms/trip-schedule?tripId='+tripId, ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
         </div>
     </div>
     <div layout:fragment="content">
@@ -22,60 +22,56 @@
                 th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'active'},{'2. List Motor','/trip-schedule', ''}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form">
+                <form class="main-form"  th:action="@{'/trip/rtms/form/price-date/'+${tripId}+'/submit'}" role="form">
                     <div class="box-body">
-
+                        <input id="object_id" type="hidden" name="id" th:if="${response.object.id != 0}" th:value="${response.object.id != null && response.object.id != 0 ? response.object.id : 0}">
+                        <input type="hidden" min="0" name="tripPriceDetail.id" class="form-control" placeholder="" th:value="${tripPriceDetail.id}"  >
                         <div class="form-group">
                             <label>Tanggal berangkat</label>
-                            <input th:value="${response.object.startTrip != null && response.object.startTrip != '' ? #dates.format(response.object.startTrip, 'MM/dd/yyyy') : ''}" type="text" class="form-control" name="day" placeholder="Masukkan hari" required>
+                            <div class="input-date">
+                                <input th:value="${response.object.startTrip != null && response.object.startTrip != '' ? #dates.format(response.object.startTrip, 'MM/dd/yyyy') : ''}" type="text" class="form-control" id="datepicker" name="startTrip" placeholder="Masukkan hari" required>
+                            </div>
                         </div>
-
 
                         <div class="form-group">
                             <label>Harga Bensin</label>
-                            <input th:value="${tripPriceDetail.fuelPrice}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.fuelPrice}" id="fuel" name="tripPriceDetail.fuelPrice"  type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">(Jarak /20)* Harga Pertamax</span>
                         </div>
 
                         <div class="form-group">
                             <label>Harga Hotel</label>
-                            <input th:value="${tripPriceDetail.hotelPrice}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.hotelPrice}" id="hotel" name="tripPriceDetail.hotelPrice" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">Semua hotel/orang/kamar</span>
                         </div>
 
                         <div class="form-group">
                             <label>Towing Price</label>
-                            <input th:value="${tripPriceDetail.towingPrice}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.towingPrice}" id="towing" name="tripPriceDetail.towingPrice" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">Minimum riders</span>
                         </div>
 
                         <div class="form-group">
                             <label>Food Price</label>
-                            <input th:value="${tripPriceDetail.foodPrice}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.foodPrice}" id="food" name="tripPriceDetail.foodPrice" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">/Orang</span>
                         </div>
 
                         <div class="form-group">
                             <label>Helper Fee</label>
-                            <input th:value="${tripPriceDetail.helper}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.helper}" id="helper" name="tripPriceDetail.helper" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">/Perjalanan</span>
                         </div>
 
                         <div class="form-group">
                             <label>Documentation Fee</label>
-                            <input th:value="${tripPriceDetail.documentation}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
-                            <span class="help-block">/Perjalanan</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Documentation Fee</label>
-                            <input type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.documentation}" id="documentation" name="tripPriceDetail.documentation" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()" required>
                             <span class="help-block">/Perjalanan</span>
                         </div>
 
                         <div class="form-group">
                             <label>Crew Accomodation</label>
-                            <input th:value="${tripPriceDetail.crewAccommodation}" type="text" class="form-control" name="title" placeholder="Masukkan harga" required>
+                            <input th:value="${tripPriceDetail.crewAccommodation}" id="crewAccommodation" name="tripPriceDetail.crewAccommodation" type="text" class="form-control" placeholder="Masukkan harga" onblur="findTotal()"required>
                             <span class="help-block">/Perjalanan</span>
                         </div>
 
@@ -84,7 +80,8 @@
                                 <label>Ranstouring service fee</label>
                             </div>
                             <div>
-                                <h5 th:text="${companyCommissionFee}">Rp 10.000.000</h5>
+                                <input type="hidden" min="0" id="companyCommission" name="tripPriceDetail.companyCommission" class="form-control" placeholder="Company Commission Fee" th:value="${companyCommissionFee}" onchange="findTotal()">
+                                <h5 id="companyCommissionFee" >Rp 10.000.000</h5>
                             </div>
                         </div>
                         <div class="form-group flex-line total">
@@ -92,13 +89,14 @@
                                 <label>Total Price</label>
                             </div>
                             <div>
-                                <h4 th:text="${response.object.price}">Rp 0</h4>
+                                <input type="hidden" readonly min="0" id="price" name="price" class="form-control" placeholder="Price" th:value="${response.object.price}"  >
+                                <h4 id="priceTotal" th:text="'Rp '+${response.object.price}">Rp 0</h4>
                             </div>
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
-                        <button class="btn btn-default">Kembali ke List</button>
-                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                        <a th:href="@{'/trip/rtms/trip-schedule?tripId='+${tripId}}" class="btn btn-default">Kembali ke List</a>
+                        <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
             </div>
@@ -106,9 +104,33 @@
     </div>
     <div layout:fragment="footer-js">
         <script>
+             $('#datepicker').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(),
+            });
             $(function () {
             });
         </script>
+        <script type="text/javascript">
+            function findTotal(){
+              var fuel = parseInt(document.getElementById('fuel').value)?parseInt(document.getElementById('fuel').value):0;
+              var hotel = parseInt(document.getElementById('hotel').value)?parseInt(document.getElementById('hotel').value):0;
+            //   var rc = parseInt(document.getElementById('rc').value)?parseInt(document.getElementById('rc').value):0;
+              var towing = parseInt(document.getElementById('towing').value)?parseInt(document.getElementById('towing').value):0;
+              var food = parseInt(document.getElementById('food').value)?parseInt(document.getElementById('food').value):0;
+              var helper = parseInt(document.getElementById('helper').value)?parseInt(document.getElementById('helper').value):0;
+              var documentation = parseInt(document.getElementById('documentation').value)?parseInt(document.getElementById('documentation').value):0;
+              var crewAccommodation = parseInt(document.getElementById('crewAccommodation').value)?parseInt(document.getElementById('crewAccommodation').value):0;
+              var total = parseInt(document.getElementById('price').value)?parseInt(document.getElementById('price').value):0;
+              total = fuel + hotel  + towing + food + helper + documentation + crewAccommodation;
+              var companyCommission = total * (parseFloat(document.getElementById('companyCommission').value)/100);
+              total = Math.round(total + companyCommission);
+
+              document.getElementById('companyCommissionFee').innerText = 'Rp '+companyCommission;
+              document.getElementById('price').value = total;
+              document.getElementById('priceTotal').innerText = 'Rp '+total;
+            }
+          </script>
     </div>
 </body>
 

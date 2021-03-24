@@ -1,0 +1,47 @@
+.modal-rtms .modal-content{
+    padding: 20px 16px 16px;
+    border-radius: 8px;
+    border: solid 1px var(--white-four);
+    background-color: var(--white);
+    height: auto !important;
+}
+.modal-rtms .modal-body{
+    overflow-y: unset;
+}
+
+.modal-rtms .btn.w-100 {
+    width: 100%;
+  }
+.modal-rtms .btn{
+    padding: 8px 0 7px;
+}
+
+.modal-rtms .btn-default{
+    color: var(--black);
+    border-color: var(--white-four);
+    background-color: var(--white);
+}
+
+.modal-rtms .btn-danger {
+	border: solid 1px var(--grapefruit);
+  background-color: var(--white);
+	color:var(--grapefruit);
+  }
+.modal-rtmsd .btn-danger:hover,
+.modal-rtms .btn-danger:active {
+  border: solid 1px var(--grapefruit);
+  background-color: var(--grapefruit);
+	color: var(--white);
+}
+
+.modal-rtms .modal-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 767.98px) {
+	.modal-rtms .modal-dialog{
+		margin: 100px 30px 30px 30px;
+	}
+
+}

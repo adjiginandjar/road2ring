@@ -434,20 +434,23 @@ public class TripController {
       Principal principal,Model model,HttpServletRequest request) {
     TripPrice tripPrice = new TripPrice();
     TripPriceDetail detail  = new TripPriceDetail();
+    Double companyComission = systemConfigService.getSystemConfig().getCompanyFee();
 
     if(tripPriceId != null && tripPriceId != 0) {
       tripPrice = tripService.getTripPriceById(tripPriceId);
       detail = new TripPriceDetail();
       if (tripPrice.getTripPriceDetail() != null) {
         detail = tripPrice.getTripPriceDetail();
+        companyComission = detail.getCompanyCommission();
       }
     }
 
     ResponseMessage response = new ResponseMessage();
     response.setObject(tripPrice);
     model.addAttribute("response", response);
+    model.addAttribute("tripId", tripId);
     model.addAttribute("tripPriceDetail", detail);
-    model.addAttribute("companyCommissionFee",detail.getCompanyCommission());
+    model.addAttribute("companyCommissionFee",companyComission);
 
     return "rtms/form/priceDate";
   }
@@ -461,7 +464,7 @@ public class TripController {
     response.setObject(tripPriceMotorService.getDatatable(tripPriceId));
     model.addAttribute("response", response);
     model.addAttribute("tripId", tripId);
-    model.addAttribute("priceId", tripPriceId);
+    model.addAttribute("tripPriceId", tripPriceId);
 
     return "rtms/form/priceMotor";
   }
@@ -549,4 +552,43 @@ public class TripController {
 
     return "redirect:/trip/rtms/form/price-motor?tripId="+tripId+"&tripPriceId="+saved.getId();
   }
+
+  @RequestMapping(value = "rtms/form/price-motor/{tripPriceId}/submit")
+  public String rtmsSaveTripPriceMotorList(@PathVariable("tripPriceId") int tripPriceId,
+      @ModelAttribute TripPrice tripPrice, Model model) {
+    ResponseMessage response = new ResponseMessage();
+    TripPrice pricedate = tripService.getTripPriceById(tripPriceId);
+
+    pricedate.setTripPriceMotorList(tripPrice.getTripPriceMotorList());
+    pricedate.setDeletedTripPriceMotorList(tripPrice.getDeletedTripPriceMotorList());
+
+    if(pricedate.getDeletedTripPriceMotorList()!= null) {
+      for (Iterator<TripPriceMotor> iter = pricedate.getDeletedTripPriceMotorList().listIterator();
+          iter.hasNext(); ) {
+        TripPriceMotor deleted = iter.next();
+        if (deleted.getId() == 0) {
+          iter.remove();
+        }
+      }
+    }
+
+    if(pricedate.getTripPriceMotorList()!= null) {
+      for (Iterator<TripPriceMotor> iter = pricedate.getTripPriceMotorList().listIterator();
+          iter.hasNext(); ) {
+        TripPriceMotor deleted = iter.next();
+        if (deleted.getId() == null) {
+          iter.remove();
+        }
+      }
+    }
+
+
+    tripPriceMotorService.saveListTripPriceMotors(pricedate);
+
+    model.addAttribute("response", response);
+
+    return "redirect:/trip/rtms/trip-schedule?tripId="+pricedate.getTrip().getId();
+  }
+
+
 }

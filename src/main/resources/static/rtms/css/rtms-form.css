@@ -69,7 +69,8 @@ form .form-group .mask-file {
 form .form-group .upload-box {
   margin-top: 1em;
 }
-form .form-group .input-icon {
+form .form-group .input-icon,
+form .form-group .input-date {
   position: relative;
 }
 form .form-group .input-icon::before {
@@ -87,6 +88,21 @@ form .form-group .input-icon::before {
   right: 0;
   bottom: 0;
 }
+
+form .form-group .input-date::before {
+  content: "";
+  background-image: url("/rtms/assets/006_icon_calendar_today-24px.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 1em;
+  bottom: 0;
+}
 form .form-group input::placeholder,
 form .form-group textarea::placeholder {
   color: var(--pinkish-grey);
@@ -102,6 +118,7 @@ form .form-group input::-ms-input-placeholder,
 form .form-group textarea::-ms-input-placeholder {
   color: var(--pinkish-grey);
 }
+
 form .form-group .help-block {
   font-size: small;
   color: var(--warm-grey);
