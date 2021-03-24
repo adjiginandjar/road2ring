@@ -6,9 +6,6 @@ function slugify(text) {
 }
 
 function upload_trip(url_upload, section, image_field, hidden_field, width, height, type) {
-    console.log(section);
-    console.log(image_field);
-    console.log(hidden_field);
     $(image_field).html5Uploader({
         name: "file",
         postUrl: url_upload + "/" + type,
@@ -70,14 +67,10 @@ function upload_trip(url_upload, section, image_field, hidden_field, width, heig
                 }
 
             }
-            console.log(isValidImg);
             if (isValidImg)
                 $(hidden_field).val(hidden_val);
             else
                 alert("Size Image kebesaran, tidak boleh lebih dari 300Kb")
-
-
-            console.log($(hidden_field).val());
 
         }
     });

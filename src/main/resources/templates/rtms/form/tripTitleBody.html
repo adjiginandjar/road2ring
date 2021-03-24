@@ -20,7 +20,7 @@
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', param.tripId != 0 && param.tripId != null ? '/trip/rtms/form?tripId='+param.tripId : '/trip/rtms/form', 'active'},{'2. Jadwal Perjalanan', param.tripId != 0 && param.tripId != null ? '/trip/rtms/form/itinerary?tripId='+param.tripId+'&itineraryGroupId=1' : '#', param.tripId != 0 && param.tripId != null ? 'visited' : ''}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', param.tripId != 0 && param.tripId != null ? '/trip/rtms/form?tripId='+param.tripId : '/trip/rtms/form', 'active'},{'2. Jadwal Perjalanan', param.tripId[0] != '0' && param.tripId != null ? '/trip/rtms/form/itinerary?tripId='+param.tripId+'&itineraryGroupId=1' : '#', param.tripId[0] != '0' && param.tripId != null ? 'visited' : ''}} } )">
             </div>
             <div class="bg-white">
                 <form class="main-form" method="POST" action="/trip/rtms/form/trip/submit" role="form">

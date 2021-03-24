@@ -30,10 +30,11 @@
     position: fixed !important;
     top: 0.5em;
     bottom: auto !important;
-    z-index: 1100;
+    z-index: 1040;
     max-width: 255px;
     right: 0.5em;
     border: none !important;
+    background: transparent;
   }
   form .img-wrap{
     max-width: 500px;
@@ -123,6 +124,10 @@
   .main-sidebar .sidebar-menu li::after {
     display: none;
   }
+  .main-sidebar .sidebar-menu li:hover a{
+    background: transparent;
+    color: var(--white);
+  }
   .content-wrapper {
     border-radius: 0 !important;
     border-top: 1px solid var(--white-five);
@@ -149,8 +154,6 @@
   .modal-body{
     max-height: 50vh;
     overflow-y: scroll;
-  }
-  .modal-body-inner{
   }
 }
 

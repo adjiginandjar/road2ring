@@ -231,7 +231,7 @@ form .box-footer.btn-multi .btn {
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 10000;
+  z-index: 1040;
 }
 .tokenfield {
   border: none;
