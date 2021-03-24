@@ -14,13 +14,13 @@
 <body>
     <div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', ''},{' Buat Perjalanan','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{' Rencana Perjalanan','/trip/rtms', ''},{' Buat Perjalanan','/trip/rtms/form', 'active'}} } )">
         </div>
     </div>
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi','/trip-title', 'active'},{'2. Jadwal Perjalanan','/trip-schedule', ''}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', param.tripId != 0 && param.tripId != null ? '/trip/rtms/form?tripId='+param.tripId : '/trip/rtms/form', 'active'},{'2. Jadwal Perjalanan', param.tripId != 0 && param.tripId != null ? '/trip/rtms/form/itinerary?tripId='+param.tripId+'&itineraryGroupId=1' : '#', param.tripId != 0 && param.tripId != null ? 'visited' : ''}} } )">
             </div>
             <div class="bg-white">
                 <form class="main-form" method="POST" action="/trip/rtms/form/trip/submit" role="form">

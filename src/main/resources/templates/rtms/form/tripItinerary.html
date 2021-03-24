@@ -14,18 +14,20 @@
 <body>
     <div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{' Rencana Perjalanan','/trip-schedule', ''},{' Buat Perjalanan','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{' Rencana Perjalanan','/trip/rtms', ''},{' Buat Perjalanan','/trip/rtms/form', 'active'}} } )">
         </div>
     </div>
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', '/trip/rtms/form?tripId='+param.tripId, 'visited'},{'2. Jadwal Perjalanan','/trip-schedule', 'active'}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', '/trip/rtms/form?tripId='+param.tripId, 'visited'},{'2. Jadwal Perjalanan', '/trip/rtms/form/itinerary?tripId='+param.tripId+'&itineraryGroupId=1', 'active'}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form" method="POST" th:action="${'/trip/rtms/form/itinerary/'+param.tripId+'/submit'}">
+                <form class="main-form" role="form" method="POST"
+                    th:action="${'/trip/rtms/form/itinerary/'+param.tripId+'/submit'}">
                     <div class="box-body">
-                        <div th:replace="rtms/component/itineraryForm::template (trip=${trip},data=${response.object})"></div>
+                        <div th:replace="rtms/component/itineraryForm::template (trip=${trip},data=${response.object})">
+                        </div>
                     </div>
                     <div class="box-footer btn-multi">
                         <button class="btn btn-default">Kembali ke List</button>
@@ -45,14 +47,61 @@
         <script>
             $(function () {
                 editor_textarea();
-                upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
-                $('.input-icon').click(function () {
+                $('.itinerary-section').each(function (i) {
+                    upload_trip("/api/trip/upload_trip", "cover-potrait-" + i, "#cover-potrait-" + i, "#hidden-cover-potrait-" + i, 640, 640, "potrait");
+                });
+                var isDisabled = $('.itinerary-section').length <= 1;
+                $('.itinerary-section:last-of-type #remove').prop('disabled', isDisabled);
+                $(document).on('click', '.input-icon', function () {
                     $(this).prev().click();
                     return false;
                 });
-                $('.itinerary-form .main .btn-default').click(function(){
+                $('input.title-day').on('blur', function () {
+                    var val = $('input.title-day').val();
+                    $('.title-group').each(function () {
+                        $(this).val(val);
+                    });
+                });
+                $('.itinerary-form .main .btn-default').click(function () {
+                    var isDisabled = $('.itinerary-section').length <= 1;
+                    $('.itinerary-section #remove').removeAttr('disabled');
+                    var lastSection = $('.itinerary-section').length;
                     var elDummy = $(this).prev().clone();
+                    elDummy.find('.init-mce').html('<label>Deskripsi</label><textarea name="itineraries[' + lastSection + '].description" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea><span class="help-block">100/100</span>');
+                    elDummy.find('.id').attr({ value: '0', name: 'itineraries[' + lastSection + '].id' });
+                    elDummy.find('.title textarea').attr({ name: 'itineraries[' + lastSection + '].title' });
+                    elDummy.find('.title textarea').text('');
+                    elDummy.find('.image > input.dummy').attr({ value: '', name: 'itineraries[' + lastSection + '].imageUrl', id: 'hidden-cover-potrait-' + lastSection });
+                    elDummy.find('.image input[type=file]').attr({ value: '', id: 'cover-potrait-' + lastSection });
+                    elDummy.find('.image .upload-box img').attr('src', '');
+                    elDummy.find('.image .upload-box > div:first-of-type').attr('class', 'wrap_cover-potrait-' + lastSection + ' collapse');
+                    elDummy.find('.image .upload-box > div:last-of-type').remove();
+                    elDummy.find('.image .upload-box .text-info').text('');
+                    elDummy.find('.title-group').attr({ name: 'itineraries[' + lastSection + '].groupTitle' });
+                    elDummy.find('.id-group').attr({ name: 'itineraries[' + lastSection + '].group' });
                     $(this).prev().after(elDummy);
+                    editor_textarea();
+                    upload_trip("/api/trip/upload_trip", "cover-potrait-" + lastSection, "#cover-potrait-" + lastSection, "#hidden-cover-potrait-" + lastSection, 640, 640, "potrait");
+                });
+                $(document).on("click", ".itinerary-section #remove", function (event) {
+                    var container = $(this).parent();
+                    var indDel = $('.list-del input').length > 0 ? $('.list-del input').length : 0;
+                    if ($('.list-del').length > 0) {
+                        var delId = container.find(':first-child').val();
+                        console.log(delId)
+                        if (delId == null || delId == '') {
+                            delId = 0;
+                        }
+                        var hiddenDelId = $('<input>', {
+                            'type': 'hidden',
+                            'name': 'deletedItinerary[' + indDel + '].id',
+                            'value': delId
+                        });
+                        $('.list-del').append(hiddenDelId);
+                    }
+                    container.remove();
+                    var isDisabled = $('.itinerary-section').length <= 1;
+                    $('.itinerary-section:last-of-type #remove').prop('disabled', isDisabled);
                 })
 
             });
