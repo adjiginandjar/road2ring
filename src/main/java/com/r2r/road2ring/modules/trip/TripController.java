@@ -459,11 +459,18 @@ public class TripController {
   public String addPriceMotor(@RequestParam(value = "tripId")Integer tripId,
       @RequestParam(value = "tripPriceId")Integer tripPriceId,
       Principal principal,Model model,HttpServletRequest reques) {
+    Boolean isReserve = true;
+    TripPrice tripPrice = tripService.getTripPriceById(tripPriceId);
+
+    if(tripPrice.getPersonPaid() == 0){
+      isReserve = false;
+    }
 
     ResponseMessage response = new ResponseMessage();
     response.setObject(tripPriceMotorService.getDatatable(tripPriceId));
     model.addAttribute("response", response);
     model.addAttribute("tripId", tripId);
+    model.addAttribute("isReserve", isReserve);
     model.addAttribute("tripPriceId", tripPriceId);
 
     return "rtms/form/priceMotor";
