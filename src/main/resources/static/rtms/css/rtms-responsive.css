@@ -4,14 +4,30 @@
 
 /*  Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .logo-wrap{
+    position: fixed;
+  }
+  .skin-white .main-header .navbar{
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+  .skin-white .main-sidebar{
+    position: fixed;
+  }
+  .skin-white .content-wrapper{
+    margin-top: 6em;
+  }
   .content-header {
-    position: absolute;
+    position: fixed;
     left: 15.5em;
     top: 1em;
     z-index: 1100;
   }
   form .box-footer {
-    position: absolute !important;
+    position: fixed !important;
     top: 0.5em;
     bottom: auto !important;
     z-index: 1100;
@@ -19,6 +35,16 @@
     right: 0.5em;
     border: none !important;
   }
+  form .img-wrap{
+    max-width: 500px;
+  }
+  .login-box form .box-footer{
+    position: relative !important;
+    top: 0;
+    right: 0;
+    max-width: 100%;
+  }
+
 }
 
 /* Large devices (desktops, 992px and up) */

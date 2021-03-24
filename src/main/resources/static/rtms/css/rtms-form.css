@@ -16,22 +16,22 @@ form .btn-primary:active {
   color: var(--faded-blue) !important;
   background-color: var(--dark-indigo) !important;
 }
-form .btn-default{
+form .btn-default {
   color: var(--black);
   border-color: var(--white-four);
   background-color: var(--white);
 }
-form .btn-danger{
+form .btn-danger {
   border: solid 1px var(--grapefruit);
   background-color: var(--white);
   color: var(--grapefruit);
 }
-form .btn-success{
+form .btn-success {
   background-color: var(--light-sea-green);
   border: 1px solid var(--light-sea-green);
   color: var(--black);
 }
-form .form-group{
+form .form-group {
   position: relative;
 }
 form .form-group label {
@@ -42,6 +42,7 @@ form .form-group label {
 form .form-group input[type="email"],
 form .form-group input[type="password"],
 form .form-group input[type="text"],
+form .form-group input[type="number"],
 form .form-group textarea,
 form .form-group select {
   border-radius: 4px;
@@ -51,23 +52,29 @@ form .form-group select {
   padding-top: 11px;
   padding-bottom: 10px;
 }
-form .form-group .form-control:focus{
+form .form-group .form-control:focus {
   border-color: var(--pale-blue) !important;
 }
-form .form-group select{
+form .form-group select {
   color: var(--black) !important;
 }
-form .form-group .mask-file{
+form .form-group .mask-file {
   text-align: center;
   background-color: var(--white) !important;
   color: var(--cobalt) !important;
   border-style: dashed !important;
   border-color: var(--pinkish-grey) !important;
+  cursor: pointer;
 }
-form .form-group .input-icon{position: relative;}
-form .form-group .input-icon::before{
-  content: '';
-  background-image: url('/rtms/assets/003_icon_image.svg');
+form .form-group .upload-box {
+  margin-top: 1em;
+}
+form .form-group .input-icon {
+  position: relative;
+}
+form .form-group .input-icon::before {
+  content: "";
+  background-image: url("/rtms/assets/003_icon_image.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -95,7 +102,7 @@ form .form-group input::-ms-input-placeholder,
 form .form-group textarea::-ms-input-placeholder {
   color: var(--pinkish-grey);
 }
-form .form-group .help-block{
+form .form-group .help-block {
   font-size: small;
   color: var(--warm-grey);
   position: absolute;
@@ -103,16 +110,16 @@ form .form-group .help-block{
   right: 0;
   margin: 0;
 }
-form .form-group .checkbox{
+form .form-group .checkbox {
   margin-top: 0;
   margin-right: 8px;
   display: inline-flex;
 }
-form .form-group .checkbox label{
+form .form-group .checkbox label {
   color: var(--black);
   text-transform: uppercase;
 }
-form .form-group.flex-line{
+form .form-group.flex-line {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -120,15 +127,32 @@ form .form-group.flex-line{
   margin-bottom: 1.5em;
   padding-bottom: 1.5em;
 }
-form .form-group.flex-line label{
+form .form-group.flex-line label {
   margin: 0;
 }
-form .form-group.flex-line.total{
+form .form-group.flex-line.total {
   border-bottom: none;
   padding: 0;
 }
-form .form-group.flex-line.total label{
+form .form-group.flex-line.total label {
   font-size: 15px;
+}
+form .tox-tinymce {
+  border-radius: 4px;
+}
+form .tox-tinymce,
+form .tox:not([dir="rtl"]) .tox-toolbar__group:not(:last-of-type),
+form .tox .tox-statusbar {
+  border-color: var(--pale-blue);
+}
+.tox .tox-edit-area__iframe {
+  background-color: var(--ice-blue-two) !important;
+}
+.tox .tox-toolbar,
+.tox .tox-toolbar__overflow,
+.tox .tox-toolbar__primary {
+  background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23e5eefd'/%3E%3C/svg%3E")
+    left 0 top 0 #fff !important;
 }
 .callout {
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
@@ -171,12 +195,11 @@ form .box-footer {
   border: none;
 }
 
-form .box-footer.btn-multi{
+form .box-footer.btn-multi {
   display: flex;
   justify-content: space-between;
-
 }
-form .box-footer.btn-multi .btn{
+form .box-footer.btn-multi .btn {
   width: 46%;
 }
 
@@ -184,14 +207,65 @@ form .box-footer.btn-multi .btn{
   padding: 15px;
   padding-bottom: 4em;
 }
-.main-form .box-footer{
+.main-form .box-footer {
   margin-top: 0;
-  padding:1.2em .5em;
+  padding: 1.2em 0.5em;
   border-top: 2px solid var(--white-four);
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 10000;
+}
+.tokenfield {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.tokenfield.focus {
+  border-color: transparent;
+  outline: 0;
+  box-shadow: none;
+}
+.tokenfield .token-input {
+  width: 100% !important;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.tokenfield .token-input:focus {
+  border-color: var(--pale-blue);
+}
+.tokenfield .wrap-token{
+  margin-top: .5em;
+}
+.tokenfield .token {
+  margin-right: 5px;
+  background-color: var(--white-two);
+  border: 1px solid var(--white-four);
+  margin-right: 5px;
+  padding: 4px 0 3px 8px;
+  background-color: var(--white-two);
+  border: 1px solid var(--white-four);
+  border-radius: 4px;
+  height: auto;
+}
+.tokenfield .token span {
+  font-size: small;
+  color: var(--black);
+}
+.tokenfield .token .close {
+  font-family: Arial;
+  display: inline-block;
+  line-height: 100%;
+  color: var(--black);
+  font-weight: 400;
+  font-size: 1.5em;
+  opacity: 1;
+  margin-left: 5px;
+  float: none;
+  height: 100%;
+  vertical-align: top;
+  padding-right: 6px;
 }
 /* Specific Form */
 .login-form .navbar,
@@ -207,6 +281,10 @@ form .box-footer.btn-multi .btn{
   background: none;
   margin: 0;
 }
+.login-form .login-box-wrapper {
+  margin-left: 1em;
+  margin-right: 1em;
+}
 .login-form .login-box {
   max-width: 480px;
   width: 100%;
@@ -220,27 +298,27 @@ form .box-footer.btn-multi .btn{
   margin-top: 1em;
   margin-bottom: 1em;
 }
-.itinerary-form .tab-day > div{
+.itinerary-form .tab-day > div {
   margin-right: 1em;
   margin-bottom: 1em;
   opacity: 0.3;
   border-radius: 18px;
   border: solid 1px var(--cobalt);
   color: var(--cobalt);
-  padding: .5em 1.8em;
+  padding: 0.5em 1.8em;
   font-size: small;
   cursor: pointer;
 }
-.itinerary-form .tab-day > div.active{
+.itinerary-form .tab-day > div.active {
   opacity: 1;
 }
-.itinerary-form .main > div{
+.itinerary-form .main > div {
   display: none;
 }
-.itinerary-form .main > div.active{
+.itinerary-form .main > div.active {
   display: block;
 }
-.itinerary-form .main section{
+.itinerary-form .main section {
   border-radius: 10px;
   border: solid 1px var(--white-four);
   padding: 1.2em;
@@ -248,35 +326,34 @@ form .box-footer.btn-multi .btn{
   margin-bottom: 2em;
   position: relative;
 }
-.itinerary-form .main section::after{
-  content: '';
+.itinerary-form .main section::after {
+  content: "";
   width: 1px;
   height: 110%;
   background-color: var(--pinkish-grey);
   position: absolute;
   top: 4em;
   left: -1.5em;
-
 }
-.itinerary-form .main section::before{
-  content: '';
-    width: 9px;
-    height: 9px;
-    position: absolute;
-    top: 50px;
-    left: -25px;
-    border: solid 1px var(--cobalt);
-    border-radius: 50%;
-    background-color: var(--white);
-    z-index: 1;
+.itinerary-form .main section::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  top: 50px;
+  left: -25px;
+  border: solid 1px var(--cobalt);
+  border-radius: 50%;
+  background-color: var(--white);
+  z-index: 1;
 }
-.itinerary-form .main section:last-of-type{
+.itinerary-form .main section:last-of-type {
   margin-bottom: 0;
 }
-.itinerary-form .main section:last-of-type::after{
+.itinerary-form .main section:last-of-type::after {
   height: 97%;
 }
-.itinerary-form .main .btn-default{
+.itinerary-form .main .btn-default {
   padding-left: 1.5em;
   padding-right: 1.5em;
   margin-left: 2em;
@@ -284,8 +361,8 @@ form .box-footer.btn-multi .btn{
   margin-bottom: 2em;
   position: relative;
 }
-.itinerary-form .main .btn-default::before{
-  content: '';
+.itinerary-form .main .btn-default::before {
+  content: "";
   width: 9px;
   height: 9px;
   position: absolute;
@@ -296,27 +373,27 @@ form .box-footer.btn-multi .btn{
   background-color: var(--white);
   z-index: 1;
 }
-.itinerary-form .main .btn-danger{
+.itinerary-form .main .btn-danger {
   padding-left: 2em;
   padding-right: 2em;
 }
 
-.modal-pick-motor .form-group{
+.modal-pick-motor .form-group {
   margin-bottom: 0;
 }
-.modal-pick-motor .form-group .checkbox:first-of-type{
+.modal-pick-motor .form-group .checkbox:first-of-type {
   padding-top: 10px;
 }
-.modal-pick-motor .form-group .checkbox:last-of-type{
-  border:none;
+.modal-pick-motor .form-group .checkbox:last-of-type {
+  border: none;
   padding-bottom: 0;
 }
-.modal-pick-motor .form-group .checkbox{
+.modal-pick-motor .form-group .checkbox {
   display: block;
   margin-bottom: 19px;
   border-bottom: 1px solid var(--white-two);
   padding-bottom: 20px;
 }
-.modal-pick-motor .form-group .checkbox label{
+.modal-pick-motor .form-group .checkbox label {
   text-transform: none;
 }

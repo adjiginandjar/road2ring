@@ -11,30 +11,33 @@
 
 <body class="login-form">
     <div layout:fragment="content">
-        <div class="login-box">
-            <!-- /.login-logo -->
-            <div class="login-box-body">
+        <div class="login-box-wrapper">
+            <div class="login-box">
+                <!-- /.login-logo -->
+                <div class="login-box-body">
 
-                <div th:if="${param.error}">
-                    <div class="callout callout-danger">
-                        <p class="with-icon">Username or password invalid!</p>
+                    <div th:if="${param.error}">
+                        <div class="callout callout-danger">
+                            <p class="with-icon">Username or password invalid!</p>
+                        </div>
                     </div>
+                    <form role="form" th:action="@{/login}" method="post">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="username" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </div>
+                    </form>
                 </div>
-                <form role="form" th:action="@{/login}" method="post">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="username" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
