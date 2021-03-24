@@ -312,12 +312,7 @@ form .box-footer.btn-multi .btn {
 .itinerary-form .tab-day > div.active {
   opacity: 1;
 }
-.itinerary-form .main > div {
-  display: none;
-}
-.itinerary-form .main > div.active {
-  display: block;
-}
+
 .itinerary-form .main section {
   border-radius: 10px;
   border: solid 1px var(--white-four);

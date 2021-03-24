@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/bootstrap-tokenfield.min.css">
     <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
     <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
     <title>Buat Perjalanan</title>
@@ -22,22 +23,33 @@
                 th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Judul & Deskripsi', '/trip/rtms/form?tripId='+param.tripId, 'visited'},{'2. Jadwal Perjalanan','/trip-schedule', 'active'}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form">
+                <form class="main-form" role="form" method="POST" th:action="${'/trip/rtms/form/itinerary/'+param.tripId+'/submit'}">
                     <div class="box-body">
                         <div th:replace="rtms/component/itineraryForm::template (trip=${trip},data=${response.object})"></div>
                     </div>
                     <div class="box-footer btn-multi">
                         <button class="btn btn-default">Kembali ke List</button>
-                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                        <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <div layout:fragment="footer-js">
+        <script src="https://cdn.tiny.cloud/1/h5x6x3ljqgk1t01ru240uzue8tn77zevvojqax6ejrfraog5/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+        <script src="/rtms/js/jquery.html5uploader.min.js"></script>
+        <script src="/rtms/js/bootstrap-tokenfield.min.js"></script>
+        <script src="/rtms/js/upload.js"></script>
+        <script src="/rtms/js/tinymce.js"></script>
         <script>
             $(function () {
-
+                editor_textarea();
+                upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
+                $('.input-icon').click(function () {
+                    $(this).prev().click();
+                    return false;
+                });
                 $('.itinerary-form .main .btn-default').click(function(){
                     var elDummy = $(this).prev().clone();
                     $(this).prev().after(elDummy);
