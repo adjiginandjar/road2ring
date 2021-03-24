@@ -359,10 +359,26 @@ public class TripController {
 
     List<Trip> trips = tripService.getAllTripByCaptain(user);
 
+
     ResponseMessage response = new ResponseMessage();
     response.setObject(trips);
     model.addAttribute("response", response);
     return "rtms/page/trip";
+  }
+
+  @RequestMapping(value = "/rtms/trip-schedule", method = RequestMethod.GET)
+  public String scheduleRtms(@RequestParam(value = "tripId")Integer tripId,
+      Model model,Principal principal) {
+
+    Authentication auth = (Authentication) principal;
+    User user = userService.findUserByEmail(auth.getName());
+
+    Trip trip = tripService.getTripById(tripId);
+    ResponseMessage response = new ResponseMessage();
+    response.setObject(tripService.getTripPriceList(tripId));
+    model.addAttribute("response", response);
+    model.addAttribute("trip", trip);
+    return "rtms/page/schedule";
   }
 
   @RequestMapping(value = "/rtms/form",method = RequestMethod.GET)
