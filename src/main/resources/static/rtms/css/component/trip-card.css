@@ -42,12 +42,15 @@
 .trip-card .btn.w-100 {
   width: 100%;
 }
+.trip-card .btn{
+	padding: 8px 0 7px;
+}
 .trip-card .btn-primary-blank{
 	border-radius: 4px !important;
 	border-color: var(--cobalt);
 	color: var(--cobalt);
 	background-color: var(--white);
-	padding: 8px 0 7px;
+	
 }
 .trip-card .btn-default{
   color: var(--black);
@@ -121,6 +124,16 @@
 	width: 33.333%;
 	margin: 0px 8px;
 }
+
+.trip-info .trip-info-item .warning-badge{
+	background-image: url(/rtms/assets/011_icon_warning.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+	background-size: contain !important;
+  background-color: transparent !important;
+	padding: 7px;
+	margin-left: 6px;
+}
 .trip-info .trip-info-item-static{
 	font-size: 10px !important;
 	margin-bottom: 8px;
@@ -140,13 +153,54 @@
 	padding: 16px 16px;
 }
 .card-header{
-	/* margin: 5px; */
-}
-.trip-option{
-	float: right;
-	padding-top: 5px;
+	position: relative;
 }
 
+.trip-option-menu{
+	position: absolute;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+	float:right;
+	display: none;
+	z-index: 100;
+	right:0;
+}
+.option-show{
+	display: block;
+}
+
+.trip-option-menu li{
+	padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.trip-option-menu li.divider{
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+}
+.trip-option:before {
+	content: "";
+  }
+.trip-option{
+	background-image: url(/rtms/assets/010_icon_option.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+	background-size: contain !important;
+    background-color: transparent !important;
+	float: right;
+	padding: 10px;
+}
+@media (max-width: 767.98px) {
+	.trip-card{
+		min-width: 300px;
+	}
+
+}
 @media (max-width: 1199.98px) {
 	.trip-card-container {
 		flex-flow: row wrap;
@@ -155,16 +209,15 @@
 
 	.trip-card{
 		position: relative;
-	display: flex;
-	flex-direction: column;
-	min-width: 420px;
-	word-wrap: break-word;
-	background-color: #fff;
-	background-clip: border-box;
-	border: 1px solid #e6e6e6;
-	margin: 10px;
-	border-radius: 10px;
-	flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+		word-wrap: break-word;
+		background-color: #fff;
+		background-clip: border-box;
+		border: 1px solid #e6e6e6;
+		margin: 10px;
+		border-radius: 10px;
+		flex: 1 1 auto;
 	}
 	
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+		<link rel="stylesheet" href="/rtms/css/component/price-card.css" />
+    <title>Buat Jadwal</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Rencana Perjalanan','/trip/rtms', ''},{'Jadwal','/trip-schedule', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+						<div class="trip-price-container">
+							<h4 class="trip-title" th:text="${trip.title}">Belitong (Half Ride)</h4>
+							<div class="trip-info">
+								<div class="trip-info-item">
+									<h6 class="trip-info-item-static">Lama</h6>
+									<h6 th:text="${trip.duration} +' Hari'">12 Hari</h6>
+								</div>
+								<div class="trip-info-item">
+									<h6 class="trip-info-item-static">Jadwal</h6>
+									<h6 th:text="${#lists.size(trip.tripPrices) +' Paket'}">10 Paket</h6>
+								</div>
+								<div class="trip-info-item">
+									<h6 class="trip-info-item-static">Rencana Perjalanan</h6>
+									<h6 th:text="${ trip.groupedItinerary == trip.duration } ? 'Lengkap' : 'Kurang'">Lengkap</h6>
+								</div>
+							</div>
+							<div class="bg-white">
+								<div class="trip-price-card-container">
+									<h4>Jadwal</h4>
+									<h6 th:if="${#lists.size(response.object)==0}"class="zero-state">Belum ada jadwal</h6>
+									<a th:href="@{'/trip/rtms/form/price-date?tripId='+${trip.id}+'&tripPriceId=0'}" class="btn btn-success">Buat Jadwal</a>
+									<div class="trip-price-card-inner-container">
+										<div th:replace="rtms/component/pricecard::template (data = ${response.object} )"></div>
+									</div>
+								
+							</div>
+						</div>
+					</div>
+					<form class="main-form" role="form">
+							<div class="box-footer btn-multi">
+									<a th:href="@{'/trip/rtms/'}" class="btn btn-default">Kembali ke List</a>
+									<a type="submit" class="btn btn-primary" disabled>Tayangkan</a>
+							</div>
+					</form>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script>
+            $(function () {
+            });
+        </script>
+    </div>
+</body>
+
+</html>

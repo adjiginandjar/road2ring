@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="_010_icon_option" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-1{fill:#1c3d8d}
+        </style>
+    </defs>
+    <g id="Group_519229" transform="translate(8.095 277.222)">
+        <circle id="Ellipse_6" cx="1.5" cy="1.5" r="1.5" class="cls-1" transform="translate(0 -263)"/>
+        <circle id="Ellipse_5" cx="1.5" cy="1.5" r="1.5" class="cls-1" transform="translate(0 -269)"/>
+        <circle id="Ellipse_4" cx="1.5" cy="1.5" r="1.5" class="cls-1" transform="translate(0 -275)"/>
+    </g>
+    <path id="Rectangle_800" fill="none" d="M0 0H20V20H0z"/>
+</svg>
