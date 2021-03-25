@@ -30,7 +30,7 @@ function editor_textarea() {
                 var reader = new FileReader();
                 reader.onload = function () {
                     var hostname = $(location).attr('protocol') + '//' + $(location).attr('host');
-                    var api = hostname + "/si/api";
+                    var api = hostname + "/api";
                     var formData = new FormData();
                     formData.append("file", file)
                     var json_data = new XMLHttpRequest();
@@ -40,7 +40,7 @@ function editor_textarea() {
                     json_data.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             var response = JSON.parse(this.responseText);
-                            data = response.object.original;
+                            data = response.object;
                             cb(data, { title: file.name });
                         }
                     };
@@ -64,6 +64,9 @@ function editor_textarea() {
             ed.ui.registry.addButton('inlineimage', {
                 title: 'Add Image',
                 icon: 'image',
+            });
+            ed.on('change', function (e) {
+                ed.save();
             });
         },
     });
