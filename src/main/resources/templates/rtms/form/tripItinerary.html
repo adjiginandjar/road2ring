@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
-                        <button class="btn btn-default">Kembali ke List</button>
+                        <a href="/trip/rtms" class="btn btn-default">Kembali ke List</a>
                         <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
@@ -65,12 +65,22 @@
                 $('.itinerary-form .main .btn-default').click(function () {
                     var isDisabled = $('.itinerary-section').length <= 1;
                     $('.itinerary-section #remove').removeAttr('disabled');
-                    var lastSection = $('.itinerary-section').length;
+                    //var lastSection = $('.itinerary-section').length;
+                    var lastSection = 0;
+                    if ($('.itinerary-section').length <= 1) {
+                        lastSection = $('.itinerary-section').length;
+                    }
+                    else {
+                        var nameInput = $('.itinerary-section:last-of-type').find('.id').attr('name');
+                        var inNameInput = nameInput.split('[').pop().split(']')[0];
+                        lastSection = parseInt(inNameInput) + 1;
+                    }
                     var elDummy = $(this).prev().clone();
+                    console.log(elDummy.find('.image').html());
                     elDummy.find('.init-mce').html('<label>Deskripsi</label><textarea name="itineraries[' + lastSection + '].description" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea><span class="help-block">100/100</span>');
                     elDummy.find('.id').attr({ value: '0', name: 'itineraries[' + lastSection + '].id' });
                     elDummy.find('.title textarea').attr({ name: 'itineraries[' + lastSection + '].title' });
-                    elDummy.find('.title textarea').text('');
+                    elDummy.find('.title textarea').val('').text('');
                     elDummy.find('.image > input.dummy').attr({ value: '', name: 'itineraries[' + lastSection + '].imageUrl', id: 'hidden-cover-potrait-' + lastSection });
                     elDummy.find('.image input[type=file]').attr({ value: '', id: 'cover-potrait-' + lastSection });
                     elDummy.find('.image .upload-box img').attr('src', '');

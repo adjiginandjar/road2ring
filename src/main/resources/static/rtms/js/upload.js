@@ -67,6 +67,7 @@ function upload_trip(url_upload, section, image_field, hidden_field, width, heig
                 }
 
             }
+            console.log(hidden_field);
             if (isValidImg)
                 $(hidden_field).val(hidden_val);
             else

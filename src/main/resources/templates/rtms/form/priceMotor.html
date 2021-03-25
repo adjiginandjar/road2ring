@@ -13,7 +13,7 @@
 <body>
     <div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip-title', ''},{'Rencana Perjalanan','/trip-schedule', ''},{'Jadwal','/trip-schedule', ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Rencana Perjalanan','/trip/rtms', ''},{'Jadwal','/trip/rtms/trip-schedule?tripId='+tripId, ''},{'Buat Jadwal','/trip/rtms/form/price-date?tripId='+tripId, 'active'}} } )">
         </div>
     </div>
     <div layout:fragment="content">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
-                        <button class="btn btn-default">Kembali ke List</button>
+                        <a th:href="${'/trip/rtms/trip-schedule?tripId='+tripId}" class="btn btn-default">Kembali ke List</a>
                         <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                     <div th:replace="rtms/component/modalPickList::template (data = ${listMotor})"></div>

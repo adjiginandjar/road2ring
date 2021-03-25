@@ -52,11 +52,11 @@
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Landscape Perjalanan</label>
-                            <input type="url" id="hidden-cover-landscape" class="collapse" name="coverLandscape"
+                            <input type="url" id="hidden-cover-landscape" style="opacity: 1; position: absolute;" name="coverLandscape"
                                 th:value="${response.object.coverLandscape}" required />
                             <input type="file" id="cover-landscape" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control mask-file" value="Upload Gambar" readonly />
+                                <input type="text" class="form-control mask-file" value="Upload gambar (000 x 000 px)" readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
@@ -66,10 +66,10 @@
                         <div class="form-group">
                             <label>Thumbnail Potrait Perjalanan</label>
                             <input type="url" id="hidden-cover-potrait" name="coverPotrait"
-                                th:value="${response.object.coverPotrait}" class="collapse" required />
+                                th:value="${response.object.coverPotrait}" style="opacity: 1; position: absolute;" required />
                             <input type="file" id="cover-potrait" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control mask-file" value="Upload Gambar" readonly />
+                                <input type="text" class="form-control mask-file" value="Upload gambar (000 x 000 px)" readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
@@ -101,7 +101,7 @@
                         <div class="form-group">
                             <label>Peta Perjalanan</label>
                             <input th:value="${response.object.map}" type="text" class="form-control" name="map"
-                                placeholder="Masukkan link embed peta google" required>
+                                placeholder="Masukkan link embed peta google">
                         </div>
                         <div class="form-group">
                             <label>Tag</label>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
-                        <button class="btn btn-default">Kembali ke List</button>
+                        <a href="/trip/rtms" class="btn btn-default">Kembali ke List</a>
                         <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
