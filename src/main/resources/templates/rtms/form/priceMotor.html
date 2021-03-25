@@ -19,7 +19,7 @@
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'visited'},{'2. List Motor','/trip-schedule', 'active'}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip/rtms/form/price-date?tripId='+param.tripId+'&tripPriceId='+param.tripPriceId, 'visited'},{'2. List Motor','/trip-schedule', 'active'}} } )">
             </div>
             <div class="bg-white">
                 <form class="main-form" role="form" method="POST" th:action="${'/trip/rtms/form/price-motor/'+param.tripPriceId+'/submit'}">
@@ -27,7 +27,7 @@
                         <button type="button" class="btn btn-success w-100" data-toggle="modal"
                             data-target="#modal-default">+ Motor</button>
                         <div class="price-motor-container">
-                            <div th:replace="rtms/component/priceMotorCard::template (data = ${response.object})"></div>
+                            <div th:replace="rtms/component/priceMotorCard::template (data = ${response.object},isReserve=${isReserve})"></div>
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
@@ -44,7 +44,15 @@
             $(function () {
                 $(document).on("click", ".modal-footer .btn", function () {
                     $('.modal-body .checkbox input').each(function () {
-                        var arrIndex = $('.price-motor .card').length;
+                        var arrIndex = 0;
+                        if($('.price-motor .card').length < 1){
+                            arrIndex = $('.price-motor .card').length + 1;
+                        }
+                        else{
+                            var nameInput = $('.price-motor .card:last-of-type').find('#id-trip-price-motor').attr('name');
+                            var inNameInput = nameInput.split('[').pop().split(']')[0]; 
+                            arrIndex = parseInt(inNameInput) + 1
+                        }
                         if ($(this).is(':checked')) {
                             var elCard = $('.price-motor .dummy').clone();
                             elCard.find('#id-trip-price-motor').val(0);
@@ -52,13 +60,14 @@
                             elCard.find('#title-motor').html($(this).val());
                             elCard.removeClass('dummy collapse');
                             elCard.addClass('card');
-                            elCard.find('#id-trip-price-motor').attr('name', 'tripPrice.tripPriceMotorList[].id');
-                            elCard.find('#id-motor').attr('name', 'tripPrice.tripPriceMotorList[].bike.id');
+                            elCard.find('#id-trip-price-motor').attr('name', 'tripPriceMotorList['+arrIndex+'].id');
+                            elCard.find('#id-motor').attr('name', 'tripPriceMotorList['+arrIndex+'].bike.id');
                             elCard.find('#id-motor').prop('required', true);
-                            elCard.find('#qty-motor').attr('name', 'tripPrice.tripPriceMotorList[].stock');
+                            elCard.find('#qty-motor').attr('name', 'tripPriceMotorList['+arrIndex+'].stock');
                             elCard.find('#qty-motor').prop('required', true);
-                            elCard.find('#price-motor').attr('name', 'tripPrice.tripPriceMotorList[].price');
+                            elCard.find('#price-motor').attr('name', 'tripPriceMotorList['+arrIndex+'].price');
                             elCard.find('#price-motor').prop('required', true);
+                            console.log(arrIndex);
                             $('.price-motor').append(elCard);
                         }
                         $(this).prop("checked", false);
@@ -66,7 +75,6 @@
                 });
                 $(document).on("click", ".price-motor .card .qty-group .btn", function(){
                     var idBtn = $(this).attr('id');
-                    console.log(idBtn);
                     if(idBtn=='qty-plus'){
                         $(this).parent().prev().prev().find('.btn').removeAttr('disabled');
                         var inQty = $(this).parent().prev().find('input');
@@ -78,7 +86,6 @@
                         var qty = inQty.val();
                         $(this).prop('disabled', qty=='2' ? true:false);
                         inQty.val(parseInt(qty)-1);
-
                     }
 
                 });
