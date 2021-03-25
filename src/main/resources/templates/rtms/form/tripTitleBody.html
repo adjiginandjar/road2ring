@@ -151,7 +151,13 @@
                     return false;
                 });
                 $('input[name=tag]').on('tokenfield:initialize', function (e) {
-                    $(".token").wrapAll("<div class='wrap-token' />");
+                    var existingTokens = $(this).tokenfield('getTokens');
+                    if (existingTokens.length > 0) {
+                        $(".token").wrapAll("<div class='wrap-token' />");
+                    }
+                    else{
+                        $('.token-input').before("<div class='wrap-token' />");
+                    }
                 }).tokenfield();
                 $('input[name=tag]').on('tokenfield:createdtoken', function (event) {
                     var existingTokens = $(this).tokenfield('getTokens');
