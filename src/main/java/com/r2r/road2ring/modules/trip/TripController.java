@@ -462,13 +462,17 @@ public class TripController {
     Boolean isReserve = true;
     TripPrice tripPrice = tripService.getTripPriceById(tripPriceId);
 
+    List<Motor> motors = motorService.getAllMotor();
+
     if(tripPrice.getPersonPaid() == 0){
       isReserve = false;
     }
 
+
     ResponseMessage response = new ResponseMessage();
     response.setObject(tripPriceMotorService.getDatatable(tripPriceId));
     model.addAttribute("response", response);
+    model.addAttribute("listMotor", motors);
     model.addAttribute("tripId", tripId);
     model.addAttribute("isReserve", isReserve);
     model.addAttribute("tripPriceId", tripPriceId);
