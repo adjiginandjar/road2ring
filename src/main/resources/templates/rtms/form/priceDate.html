@@ -19,7 +19,7 @@
     <div layout:fragment="content">
         <div class="content-inner">
             <div
-                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'active'},{'2. List Motor','/trip-schedule', ''}} } )">
+                th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','#', 'active'},{'2. List Motor',response.object.id != null && response.object.id != 0 ? '/trip/rtms/form/price-motor?tripId='+tripId+'&tripPriceId='+response.object.id : '#', ''}} } )">
             </div>
             <div class="bg-white">
                 <form class="main-form"  th:action="@{'/trip/rtms/form/price-date/'+${tripId}+'/submit'}" role="form">
@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label>Tanggal berangkat</label>
                             <div class="input-date">
-                                <input th:value="${response.object.startTrip != null && response.object.startTrip != '' ? #dates.format(response.object.startTrip, 'MM/dd/yyyy') : ''}" type="text" class="form-control" id="datepicker" name="startTrip" placeholder="Masukkan hari" required>
+                                <input th:value="${response.object.startTrip != null && response.object.startTrip != '' ? #dates.format(response.object.startTrip, 'MM/dd/yyyy') : ''}" type="text" class="form-control" id="datepicker" name="startTrip" placeholder="Masukkan hari"  autocomplete="off" required>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                             </div>
                             <div>
                                 <input type="hidden" min="0" id="companyCommission" name="tripPriceDetail.companyCommission" class="form-control" placeholder="Company Commission Fee" th:value="${companyCommissionFee}" onchange="findTotal()">
-                                <h5 id="companyCommissionFee" >Rp 10.000.000</h5>
+                                <h5 id="companyCommissionFee" >Rp 0</h5>
                             </div>
                         </div>
                         <div class="form-group flex-line total">
@@ -89,7 +89,7 @@
                                 <label>Total Price</label>
                             </div>
                             <div>
-                                <input type="hidden" readonly min="0" id="price" name="price" class="form-control" placeholder="Price" th:value="${response.object.price}"  >
+                                <input type="hidden" readonly min="0" id="price" name="price" class="form-control" placeholder="Price" th:value="${response.object.price} "  >
                                 <h4 id="priceTotal" th:text="'Rp '+${response.object.price}">Rp 0</h4>
                             </div>
                         </div>
@@ -104,6 +104,9 @@
     </div>
     <div layout:fragment="footer-js">
         <script>
+            $( document ).ready(function() {
+                findTotal();
+            });
              $('#datepicker').datepicker({
                 format: 'mm/dd/yyyy',
                 startDate: new Date(),
@@ -123,12 +126,14 @@
               var crewAccommodation = parseInt(document.getElementById('crewAccommodation').value)?parseInt(document.getElementById('crewAccommodation').value):0;
               var total = parseInt(document.getElementById('price').value)?parseInt(document.getElementById('price').value):0;
               total = fuel + hotel  + towing + food + helper + documentation + crewAccommodation;
+
               var companyCommission = total * (parseFloat(document.getElementById('companyCommission').value)/100);
+
               total = Math.round(total + companyCommission);
 
-              document.getElementById('companyCommissionFee').innerText = 'Rp '+companyCommission;
+              document.getElementById('companyCommissionFee').innerText = 'Rp '+companyCommission.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
               document.getElementById('price').value = total;
-              document.getElementById('priceTotal').innerText = 'Rp '+total;
+              document.getElementById('priceTotal').innerText = 'Rp '+total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
             }
           </script>
     </div>
