@@ -83,9 +83,16 @@ public class TripController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public String index(Model model) {
+  public String index(Model model,Principal principal) {
+    Authentication auth = (Authentication) principal;
+    User user = userService.findUserByEmail(auth.getName());
+    if(user.getRole().getName().equals("ROLE_ROAD_CAPTAIN"))
+      return "redirect:/trip/rtms";
+
     ResponseMessage response = new ResponseMessage();
     model.addAttribute("response", response);
+
+
     return "admin/page/trip";
   }
 
