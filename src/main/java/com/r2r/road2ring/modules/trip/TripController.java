@@ -362,12 +362,20 @@ public class TripController {
   }
 
   @RequestMapping(value = "/rtms", method = RequestMethod.GET)
-  public String indexRtms(Model model,Principal principal) {
+  public String indexRtms(@RequestParam(value = "page",required = false)Integer page,
+      Model model,Principal principal) {
+    if(page == null){
+      page = 0;
+    }else{
+      page = page-1;
+    }
 
     Authentication auth = (Authentication) principal;
     User user = userService.findUserByEmail(auth.getName());
 
-    List<Trip> trips = tripService.getAllTripByCaptain(user);
+    List<Trip> trips = tripService.getAllTripByCaptain(user,page);
+
+
 
 
     ResponseMessage response = new ResponseMessage();

@@ -112,10 +112,12 @@ public class TripService {
     return tripRepository.findAll();
   }
 
-  public List<Trip> getAllTripByCaptain(User roadCaptain){
-    List<Trip> trips = tripRepository.findAllByRoadCaptainAndPublishedStatusNot(roadCaptain,
+  public List<Trip> getAllTripByCaptain(User roadCaptain,Integer page){
+
+    List<Trip> trips = tripRepository.findAllByRoadCaptainAndPublishedStatusNotOrderByIdDesc(roadCaptain,
         TripPublishedStatus.DELETED);
     trips = buildListTrip(trips);
+    trips = trips.stream().skip(page*6).limit(6).collect(Collectors.toList());
     return trips;
   }
 
