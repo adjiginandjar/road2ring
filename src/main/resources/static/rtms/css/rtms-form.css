@@ -233,6 +233,64 @@ form .box-footer.btn-multi .btn {
   width: 100%;
   z-index: 1040;
 }
+.main-form .price-motor-container{
+  margin-top: 1.5em;
+  padding-top: 2em;
+  margin-left: -15px;
+  margin-right: -15px;
+  border-top: 1px solid var(--white-two);
+}
+.main-form .price-motor-container .price-motor{
+  margin-left: 1.3em;
+  margin-right: 1.3em;
+}
+.main-form .price-motor .label-group label{
+  font-weight: 400;
+  margin: 0;
+}
+.main-form .price-motor .label-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size:small;
+  margin-bottom: 2em;
+}
+.main-form .price-motor .qty-group{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.main-form .price-motor .qty-group input{
+  border: none;
+  width: 35px;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.main-form .price-motor .qty-group input::-webkit-outer-spin-button,
+.main-form .price-motor input::-webkit-inner-spin-button{  
+  -webkit-appearance: none;
+  margin: 0;
+}
+.main-form .price-motor .qty-group input:focus{
+  border: none;
+  outline: none;
+}
+.main-form .price-motor .qty-group .btn{
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.main-form .price-motor .card{
+  border-bottom: 1px solid var(--white-two);
+  padding-bottom: 2em;
+  margin-bottom: 2em;
+}
+.main-form .price-motor .card:last-of-type{
+  border: none;
+}
+.main-form .price-motor input[type=number] {
+  -moz-appearance: textfield;
+}
 .tokenfield {
   border: none;
   padding: 0;
@@ -385,7 +443,8 @@ form .box-footer.btn-multi .btn {
   background-color: var(--white);
   z-index: 1;
 }
-.itinerary-form .main .btn-danger {
+.itinerary-form .main .btn-danger,
+.price-motor .btn-danger{
   padding-left: 2em;
   padding-right: 2em;
 }

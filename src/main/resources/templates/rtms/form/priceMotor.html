@@ -22,15 +22,19 @@
                 th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip-title', 'visited'},{'2. List Motor','/trip-schedule', 'active'}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form">
+                <form class="main-form" role="form" method="POST" th:action="${'/trip/rtms/form/price-motor/'+param.tripPriceId+'/submit'}">
                     <div class="box-body" style="min-height: 80vh;">
                         <button type="button" class="btn btn-success w-100" data-toggle="modal"
                             data-target="#modal-default">+ Motor</button>
+                        <div class="price-motor-container">
+                            <div th:replace="rtms/component/priceMotorCard::template (data = ${response.object})"></div>
+                        </div>
                     </div>
                     <div class="box-footer btn-multi">
                         <button class="btn btn-default">Kembali ke List</button>
-                        <button type="submit" class="btn btn-primary" disabled>Selanjutnya</button>
+                        <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
+                    <div th:replace="rtms/component/modalPickList::template (data = ${listMotor})"></div>
                 </form>
             </div>
         </div>
@@ -38,7 +42,62 @@
     <div layout:fragment="footer-js">
         <script>
             $(function () {
+                $(document).on("click", ".modal-footer .btn", function () {
+                    $('.modal-body .checkbox input').each(function () {
+                        var arrIndex = $('.price-motor .card').length;
+                        if ($(this).is(':checked')) {
+                            var elCard = $('.price-motor .dummy').clone();
+                            elCard.find('#id-motor').val($(this).attr('data-id'));
+                            elCard.find('#title-motor').html($(this).val());
+                            elCard.removeClass('dummy collapse');
+                            elCard.addClass('card');
+                            elCard.find('#id-motor').attr('name', 'tripPrice[].bike.id');
+                            elCard.find('#id-motor').prop('required', true);
+                            elCard.find('#qty-motor').attr('name', 'tripPrice[].stock');
+                            elCard.find('#qty-motor').prop('required', true);
+                            elCard.find('#price-motor').attr('name', 'tripPrice[].price');
+                            elCard.find('#price-motor').prop('required', true);
+                            $('.price-motor').append(elCard);
+                        }
+                        $(this).prop("checked", false);
+                    });
+                });
+                $(document).on("click", ".price-motor .card .qty-group .btn", function(){
+                    var idBtn = $(this).attr('id');
+                    console.log(idBtn);
+                    if(idBtn=='qty-plus'){
+                        $(this).parent().prev().prev().find('.btn').removeAttr('disabled');
+                        var inQty = $(this).parent().prev().find('input');
+                        var qty = inQty.val();                 
+                        inQty.val(parseInt(qty)+1);
+                    }
+                    else{
+                        var inQty = $(this).parent().next().find('input');
+                        var qty = inQty.val();
+                        $(this).prop('disabled', qty=='2' ? true:false);
+                        inQty.val(parseInt(qty)-1);
+
+                    }
+
+                });
+                $(document).on("click", ".price-motor #remove", function () {
+                    $(this).parent().parent().remove();
+                });
             });
+            function filterByTyping() {
+                var input, filter, listCb, label, i, txtValue;
+                input = document.getElementById("filterMotor");
+                filter = input.value.toUpperCase();
+                listCb = document.querySelectorAll('.modal-body .checkbox');
+                for (i = 0; i < listCb.length; i++) {
+                    label = listCb[i].querySelector("input").value.toUpperCase();
+                    if (label.indexOf(filter) > -1) {
+                        listCb[i].style.display = "";
+                    } else {
+                        listCb[i].style.display = "none";
+                    }
+                }
+            }
         </script>
     </div>
 </body>
