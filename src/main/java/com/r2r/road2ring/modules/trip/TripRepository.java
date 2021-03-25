@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripRepository extends DataTablesRepository<Trip,Integer> {
   List<Trip> findAll();
-  List<Trip> findAllByRoadCaptain(User roadCaptain);
+  List<Trip> findAllByRoadCaptainAndPublishedStatusNot(User roadCaptain,TripPublishedStatus publishedStatus);
   Trip findByCreated(Date date);
 
   @Query(value = "select count(itinerary_id) as countEvent, itinerary_group as groupEvent, itinerary_group_title as groupTitleEvent "

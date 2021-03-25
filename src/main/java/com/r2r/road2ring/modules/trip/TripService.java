@@ -11,16 +11,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
-
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @Service
 public class TripService {
@@ -37,6 +32,7 @@ public class TripService {
 
   @Autowired
   TripPriceDetailService tripPriceDetailService;
+
 
   @Autowired
   public void setTripRepository(TripRepository tripRepository){
@@ -117,8 +113,9 @@ public class TripService {
   }
 
   public List<Trip> getAllTripByCaptain(User roadCaptain){
-    List<Trip> trips = tripRepository.findAllByRoadCaptain(roadCaptain);
-    trips = buildTotalItineraryGroup(trips);
+    List<Trip> trips = tripRepository.findAllByRoadCaptainAndPublishedStatusNot(roadCaptain,
+        TripPublishedStatus.DELETED);
+    trips = buildListTrip(trips);
     return trips;
   }
 
@@ -132,6 +129,12 @@ public class TripService {
     trip.setFacilityInclude(this.getTripFacilityInTrip(trip.getTripFacilities()));
     return trip;
   }
+  public Trip getTripCardById(int id){
+    Trip trip = tripRepository.findOne(id);
+    trip.setFacilityInclude(this.getTripFacilityInTrip(trip.getTripFacilities()));
+    trip = buildTrip(trip);
+    return trip;
+  }
 
   public List<Itinerary> getTripItinerary(int tripId){
     Trip trips = tripRepository.findOne(tripId);
@@ -143,6 +146,12 @@ public class TripService {
     Trip trips = tripRepository.findOne(tripId);
     List<TripPrice> result = trips.getTripPrices();
     return result;
+  }
+
+  public List<TripPrice> getAvaiableTripPrice(List<TripPrice> tripPrices){
+    return tripPrices.stream()
+        .filter(tripPrice -> tripPrice.getStatus() != TripPriceStatus.DELETE).collect(
+        Collectors.toList());
   }
 
   private List<Integer> getTripFacilityInTrip(List<TripFacility> tripFacilities){
@@ -177,6 +186,7 @@ public class TripService {
       saved = tripPriceRepository.findOne(tripPrice.getId());
     } else {
       saved.setPersonPaid(0);
+      saved.setStatus(TripPriceStatus.WAITING);
     }
 
     saved.setDiscount(tripPrice.getDiscount());
@@ -244,13 +254,38 @@ public class TripService {
     }
   }
 
-  private List<Trip> buildTotalItineraryGroup(List<Trip> trips){
+  public Trip changeTripStatus(Integer tripId){
+    Trip saved  = tripRepository.findOne(tripId);
+    if(saved.getPublishedStatus() == TripPublishedStatus.UNPUBLISHED){
+      saved.setPublishedStatus(TripPublishedStatus.PUBLISHED);
+    }else{
+      saved.setPublishedStatus(TripPublishedStatus.UNPUBLISHED);
+    }
+    return tripRepository.save(saved);
+  }
+
+  public void deleteTrip(Integer tripId){
+    Trip saved  = tripRepository.findOne(tripId);
+    saved.setPublishedStatus(TripPublishedStatus.DELETED);
+    tripRepository.save(saved);
+  }
+
+  private List<Trip> buildListTrip(List<Trip> trips){
     List<Trip> result = new ArrayList<>();
     for (Trip trip :
         trips) {
       trip.setGroupedItinerary(itineraryService.getItineraryGroupInTrip(trip.getId()).size());
+      trip.setTripPrices(getAvaiableTripPrice(trip.getTripPrices()));
       result.add(trip);
     }
     return result;
+  }
+
+  private Trip buildTrip(Trip trip){
+
+    trip.setGroupedItinerary(itineraryService.getItineraryGroupInTrip(trip.getId()).size());
+    trip.setTripPrices(getAvaiableTripPrice(trip.getTripPrices()));
+
+    return trip;
   }
 }

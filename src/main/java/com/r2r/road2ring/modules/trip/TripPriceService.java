@@ -65,4 +65,12 @@ public class TripPriceService {
   public TripPrice getOneTripPrice(Integer tripPriceId){
     return tripPriceRepository.findOne(tripPriceId);
   }
+
+  public TripPrice deleteTripPrice(Integer tripPriceId){
+    TripPrice tripPrice = tripPriceRepository.findOne(tripPriceId);
+    tripPrice.setStatus(TripPriceStatus.DELETE);
+
+    return tripPrice;
+
+  }
 }

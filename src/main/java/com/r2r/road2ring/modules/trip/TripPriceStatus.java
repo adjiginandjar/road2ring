@@ -5,5 +5,6 @@ public enum TripPriceStatus {
   WAITING,
   EXPIRED,
   COMPLETE,
-  CANCEL
+  CANCEL,
+  DELETE
 }

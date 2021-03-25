@@ -16,7 +16,7 @@
 			flex-direction: column;
 			align-items: center;
 			padding:16px;
-		
+			margin:auto
 		}
 		.trip-zero-state img{
 			width: 40%;
@@ -97,8 +97,8 @@
 				  <p>Apakah kamu yakin untuk menghapus? kamu tidak dapat mengakses perjalanan ini lagi</p>
 				</div>
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
-				  <button type="button" class="btn btn-danger w-100">Hapus</button>
+				  <button id="deleteCancle" type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
+				  <a id="deleteConfirm" class="btn btn-danger w-100">Hapus</a>
 				</div>
 			  </div>
 			  <!-- /.modal-content -->
@@ -111,8 +111,22 @@
 		<!--<script type="text/javascript" src="https://cdn.datatables.net/s/bs/jqc-1.11.3,dt-1.10.10/datatables.min.js"></script>-->
 		<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 		<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-		<script src="../../rtms/js/component/tripList.js"></script>
 		<script src="../../js/si/jquery.popupoverlay.min.js"></script>
+		<script type="text/javascript">
+            $( ".toggle-option" ).click(function(event) {
+				console.log($(this).next().toggleClass("option-show"));
+			});
+			$("#deleteCancle").click(function(event){
+				$('.modal-rtms').toggleClass("in");
+				$('.modal-rtms').css('display','none');
+				$('#deleteConfirm').attr("href", '');
+			});
+			function showPopUp(tripId){
+				$('.modal-rtms').toggleClass("in");
+				$('.modal-rtms').css('display','block');
+				$('#deleteConfirm').attr("href", '/trip/rtms/form/delete-trip?tripId='+tripId);
+			}
+        </script>
 	</th:block>
 </body>
 

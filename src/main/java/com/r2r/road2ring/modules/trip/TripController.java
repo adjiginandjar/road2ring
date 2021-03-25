@@ -52,6 +52,9 @@ public class TripController {
   SystemConfigService systemConfigService;
 
   @Autowired
+  TripPriceService tripPriceService;
+
+  @Autowired
   UserService userService;
 
   @Autowired
@@ -373,9 +376,10 @@ public class TripController {
     Authentication auth = (Authentication) principal;
     User user = userService.findUserByEmail(auth.getName());
 
-    Trip trip = tripService.getTripById(tripId);
+    Trip trip = tripService.getTripCardById(tripId);
+
     ResponseMessage response = new ResponseMessage();
-    response.setObject(tripService.getTripPriceList(tripId));
+    response.setObject(trip.getTripPrices());
     model.addAttribute("response", response);
     model.addAttribute("trip", trip);
     return "rtms/page/schedule";
@@ -482,6 +486,10 @@ public class TripController {
 
   @RequestMapping(value = "/rtms/form/trip/submit", method = RequestMethod.POST)
   public String rtmsSave(@ModelAttribute Trip trip, Model model, Principal principal) {
+
+    Authentication auth = (Authentication) principal;
+    User userLogin = userService.findUserByEmail(auth.getName());
+
     ResponseMessage response = new ResponseMessage();
     if(trip.getDeletedHotel()!= null) {
       for (Iterator<Hotel> iter = trip.getDeletedHotel().listIterator();
@@ -502,6 +510,7 @@ public class TripController {
         }
       }
     }
+    trip.setRoadCaptain(userLogin);
     Trip saved = tripService.saveTrip(trip);
     response.setObject(saved);
     model.addAttribute("response", response);
@@ -509,7 +518,7 @@ public class TripController {
     return "redirect:/trip/rtms/form/itinerary?tripId="+saved.getId()+"&itineraryGroupId=1";
   }
 
-  @RequestMapping(value = "rtms/form/itinerary/{tripId}/submit")
+  @RequestMapping(value = "/rtms/form/itinerary/{tripId}/submit")
   public String rtmsSaveTripItinerary(@PathVariable("tripId") int tripId,
       @ModelAttribute Trip trip, Model model, Principal principal){
     Trip theTrip = tripService.getTripById(tripId);
@@ -547,7 +556,7 @@ public class TripController {
     return redirect;
   }
 
-  @RequestMapping(value = "rtms/form/price-date/{tripId}/submit")
+  @RequestMapping(value = "/rtms/form/price-date/{tripId}/submit")
   public String rtmsSaveTripPriceList(@PathVariable("tripId") int tripId,
       @ModelAttribute TripPrice tripPrice, Model model) {
     ResponseMessage response = new ResponseMessage();
@@ -564,7 +573,7 @@ public class TripController {
     return "redirect:/trip/rtms/form/price-motor?tripId="+tripId+"&tripPriceId="+saved.getId();
   }
 
-  @RequestMapping(value = "rtms/form/price-motor/{tripPriceId}/submit")
+  @RequestMapping(value = "/rtms/form/price-motor/{tripPriceId}/submit")
   public String rtmsSaveTripPriceMotorList(@PathVariable("tripPriceId") int tripPriceId,
       @ModelAttribute TripPrice tripPrice, Model model) {
     ResponseMessage response = new ResponseMessage();
@@ -600,6 +609,46 @@ public class TripController {
 
     return "redirect:/trip/rtms/trip-schedule?tripId="+pricedate.getTrip().getId();
   }
+
+  @RequestMapping(value = "/rtms/form/publish-trip")
+  public String publishTrip(@RequestParam("tripId") int tripId, Model model) {
+    ResponseMessage response = new ResponseMessage();
+    String message ="publish";
+
+    Trip trip = tripService.changeTripStatus(tripId);
+    if(trip.getPublishedStatus() == TripPublishedStatus.UNPUBLISHED)
+      message="unpublish";
+
+    model.addAttribute("response", response);
+
+    return "redirect:/trip/rtms?alert="+message;
+  }
+
+  @RequestMapping(value = "/rtms/form/delete-trip")
+  public String deleteTrip(@RequestParam("tripId") int tripId, Model model) {
+    ResponseMessage response = new ResponseMessage();
+
+    tripService.deleteTrip(tripId);
+
+    model.addAttribute("response", response);
+
+    return "redirect:/trip/rtms?alert=deleteSuccess";
+
+  }
+
+  @RequestMapping(value = "/rtms/form/delete-trip-price")
+  public String deleteTripPrice(@RequestParam("tripPriceId") int tripPriceId, Model model) {
+    ResponseMessage response = new ResponseMessage();
+
+    TripPrice tripPrice = tripPriceService.deleteTripPrice(tripPriceId);
+
+    model.addAttribute("response", response);
+
+    return "redirect:/trip//rtms/trip-schedule?tripId="+tripPrice.getTrip().getId()+"&alert=deleteSuccess";
+
+  }
+
+
 
 
 }

@@ -13,6 +13,6 @@
     </div>
     <div class="trip-price-card-button-info">
         <a th:href="@{'/trip/rtms/form/price-date?tripId='+${tripprice.trip.id}+'&tripPriceId='+${tripprice.id}}"  class="btn btn-default">Edit</a>
-        <a class="btn btn-danger">Hapus</a>
+        <a th:onclick="${tripprice.personPaid == 0 ? 'showPopUp('+tripprice.id+')':''}" th:disabled="${tripprice.personPaid > 0}" class="btn btn-danger">Hapus</a>
     </div>
 </div>

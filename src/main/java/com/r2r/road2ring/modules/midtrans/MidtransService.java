@@ -99,9 +99,9 @@ public class MidtransService {
     requestBody.put("expiry", expiry);
     requestBody.put("callbacks", callbacks);
 
-    System.out.println("requestBody = " + requestBody);
+//    System.out.println("requestBody = " + requestBody);
 
-    System.out.println("coreApi = " + coreApi.chargeTransaction(requestBody));
+//    System.out.println("coreApi = " + coreApi.chargeTransaction(requestBody));
 
     return snapApi.createTransactionToken(requestBody);
   }

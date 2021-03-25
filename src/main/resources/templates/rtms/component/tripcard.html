@@ -5,9 +5,9 @@
 				<span th:utext="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? '&nbsp;Terpublikasi' : 'Draft'}"></span>
 			</span>
 
-				<a id="option" href="#" class="trip-option "></a>
+				<a id="option" href="#" class="trip-option toggle-option"></a>
 				<ul class="trip-option-menu">
-					<li>Hapus</li>
+					<li th:onclick="'showPopUp('+${trip.id}+')'">Hapus</li>
 					<li>Lihat Panduan</li>
 				</ul>
 		</div>
@@ -51,7 +51,9 @@
 			<div class="trip-info-item">
 				<a type="button" class="btn w-100" 
 				th:classappend="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'btn-danger'  : 'btn-primary'}"
-				th:text="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'Turunkan'  : 'Tayangkan'}">Turunkan</a>
+				th:text="${#strings.equalsIgnoreCase(trip.publishedStatus, 'PUBLISHED') ? 'Turunkan'  : 'Tayangkan'}"
+				th:href="@{'/trip/rtms/form/publish-trip?tripId='+${trip.id}}"
+				>Turunkan</a>
 			</div>
 		</div>
 	</div>

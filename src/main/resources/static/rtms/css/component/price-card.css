@@ -11,19 +11,20 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	margin-bottom: 12px;
-	width:40%;
+	width:100%;
+	max-width: 365px;
 }
 .trip-info .trip-info-item{
 	width: 33.333%;
 	margin: 0px 8px;
 }
 .trip-info .trip-info-item-static{
-	font-size: 10px !important;
+	font-size: 12px !important;
 	margin-bottom: 8px;
 	color: #999999;
 }
 .trip-info .trip-info-item h6{
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: normal;
 }
 .trip-info .trip-info-item:first-child{
@@ -39,8 +40,8 @@
 }
 .trip-price-card-container .zero-state{
 	margin-top:16px;
-	font-size: 12px;
-  font-weight: normal
+	font-size: 14px;
+  	font-weight: normal;
 	
 }
 
@@ -96,13 +97,13 @@
 	text-align: center;
 }
 .trip-price-card-date .month{
-	font-size: 10px;
+	font-size: small;
 	background-color: var(--cobalt);
 	color: var(--white);
 }
 
 .trip-price-card-date .date{
-	font-size: 24px;
+	font-size: 26px;
 	color: var(--cobalt);
 }
 
@@ -118,12 +119,12 @@
 }
 
 .trip-price-card-info .rider,.max-rider{
-	font-size: 10px;
+	font-size: small;
 	color: var(--warm-grey);
 }
 
 .trip-price-card-info .price{
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
 	color: var(--black);
 	margin-top:3px;
@@ -135,7 +136,7 @@
 
 .trip-price-card-button-info .btn{
 	margin: 3px 0px;
-	font-size: 10px;
+	font-size: small;
 	padding: 3px 12px;
 	width:66px;
 }
