@@ -47,15 +47,17 @@
                         var arrIndex = $('.price-motor .card').length;
                         if ($(this).is(':checked')) {
                             var elCard = $('.price-motor .dummy').clone();
+                            elCard.find('#id-trip-price-motor').val(0);
                             elCard.find('#id-motor').val($(this).attr('data-id'));
                             elCard.find('#title-motor').html($(this).val());
                             elCard.removeClass('dummy collapse');
                             elCard.addClass('card');
-                            elCard.find('#id-motor').attr('name', 'tripPrice[].bike.id');
+                            elCard.find('#id-trip-price-motor').attr('name', 'tripPrice.tripPriceMotorList[].id');
+                            elCard.find('#id-motor').attr('name', 'tripPrice.tripPriceMotorList[].bike.id');
                             elCard.find('#id-motor').prop('required', true);
-                            elCard.find('#qty-motor').attr('name', 'tripPrice[].stock');
+                            elCard.find('#qty-motor').attr('name', 'tripPrice.tripPriceMotorList[].stock');
                             elCard.find('#qty-motor').prop('required', true);
-                            elCard.find('#price-motor').attr('name', 'tripPrice[].price');
+                            elCard.find('#price-motor').attr('name', 'tripPrice.tripPriceMotorList[].price');
                             elCard.find('#price-motor').prop('required', true);
                             $('.price-motor').append(elCard);
                         }

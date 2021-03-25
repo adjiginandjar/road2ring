@@ -2,6 +2,32 @@
     <div class="dummy collapse">
         <div class="label-group">
             <input id="id-motor" type="hidden" />
+            <input id="id-trip-price-motor" type="hidden" />
+            <label id="title-motor"></label>
+            <div class="qty-group">
+                <div>
+                    <button type="button" id="qty-min" class="btn btn-default btn-qty" disabled><img src="/rtms/assets/013_icon_minus.svg" /></button>
+                </div>
+                <div>
+                    <input type="number" value="1" id="qty-motor">
+                </div>
+                <div>
+                    <button type="button" id="qty-plus" class="btn btn-default btn-qty"><img src="/rtms/assets/012_icon_plus.svg" /></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Harga Motor</label>
+            <input id="price-motor" type="number" class="form-control" placeholder="Masukkan Harga">
+        </div>
+        <div>
+            <button id="remove" class="btn btn-danger pull-left">Hapus</button>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div th:each="tripPrice, iterStat:${data}" class="card">
+        <div class="label-group">
+            <input id="id-motor" type="hidden" name="tripPrice[].id" />
             <label id="title-motor"></label>
             <div class="qty-group">
                 <div>
