@@ -31,7 +31,6 @@
                 <div class="form-group init-mce description">
                     <label>Deskripsi</label>
                     <textarea th:text="${itinerary.description}" th:name="${'itineraries['+iterStat.index+'].description'}" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>
-                    <span class="help-block">100/100</span>
                 </div>
                 <input type="hidden" class="title-group" th:name="${'itineraries['+iterStat.index+'].groupTitle'}" th:value="${itinerary.groupTitle}" />
                 <input type="hidden" class="id-group" th:name="${'itineraries['+iterStat.index+'].group'}" th:value="${itinerary.group}" />

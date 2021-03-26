@@ -76,8 +76,8 @@
                         lastSection = parseInt(inNameInput) + 1;
                     }
                     var elDummy = $(this).prev().clone();
-                    console.log(elDummy.find('.image').html());
-                    elDummy.find('.init-mce').html('<label>Deskripsi</label><textarea name="itineraries[' + lastSection + '].description" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea><span class="help-block">100/100</span>');
+                    console.log('ATAS#####' + elDummy.find('.image').html());
+                    elDummy.find('.init-mce').html('<label>Deskripsi</label><textarea name="itineraries[' + lastSection + '].description" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>');
                     elDummy.find('.id').attr({ value: '0', name: 'itineraries[' + lastSection + '].id' });
                     elDummy.find('.title textarea').attr({ name: 'itineraries[' + lastSection + '].title' });
                     elDummy.find('.title textarea').val('').text('');
@@ -85,12 +85,15 @@
                     elDummy.find('.image input[type=file]').attr({ value: '', id: 'cover-potrait-' + lastSection });
                     elDummy.find('.image .upload-box img').attr('src', '');
                     elDummy.find('.image .upload-box > div:first-of-type').attr('class', 'wrap_cover-potrait-' + lastSection + ' collapse');
-                    elDummy.find('.image .upload-box > div:last-of-type').remove();
+                    if (elDummy.find('.image .upload-box > div').length > 1) {
+                        elDummy.find('.image .upload-box > div:last-of-type').remove();
+                    }
                     elDummy.find('.image .upload-box .text-info').text('');
                     elDummy.find('.title-group').attr({ name: 'itineraries[' + lastSection + '].groupTitle' });
                     elDummy.find('.id-group').attr({ name: 'itineraries[' + lastSection + '].group' });
                     $(this).prev().after(elDummy);
                     editor_textarea();
+                    console.log('BAWAH#####' + elDummy.find('.image').html());
                     upload_trip("/api/trip/upload_trip", "cover-potrait-" + lastSection, "#cover-potrait-" + lastSection, "#hidden-cover-potrait-" + lastSection, 640, 640, "potrait");
                 });
                 $(document).on("click", ".itinerary-section #remove", function (event) {
