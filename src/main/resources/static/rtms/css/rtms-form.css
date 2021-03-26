@@ -448,6 +448,11 @@ form .box-footer.btn-multi .btn {
   padding-left: 2em;
   padding-right: 2em;
 }
+.itinerary-form .main .btn-danger:disabled,
+.price-motor .btn-danger:disabled{
+  background: transparent;
+  color: var(--grapefruit);
+}
 
 .modal-pick-motor .form-group {
   margin-bottom: 0;
