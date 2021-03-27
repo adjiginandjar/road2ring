@@ -376,16 +376,16 @@ form .box-footer.btn-multi .btn {
 .itinerary-form .tab-day > div {
   margin-right: 1em;
   margin-bottom: 1em;
-  opacity: 0.3;
   border-radius: 18px;
-  border: solid 1px var(--cobalt);
+  border: solid 1px var(--light-periwinkle);
   color: var(--cobalt);
   padding: 0.5em 1.8em;
   font-size: small;
   cursor: pointer;
 }
+.itinerary-form .tab-day > div:hover,
 .itinerary-form .tab-day > div.active {
-  opacity: 1;
+  background-color: var(--light-periwinkle);
 }
 
 .itinerary-form .main section {

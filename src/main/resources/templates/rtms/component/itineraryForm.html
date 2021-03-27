@@ -16,7 +16,7 @@
                     <input type="url" th:id="${'hidden-cover-potrait-'+iterStat.index}" style="opacity: 1; position: absolute;"  class="dummy" th:name="${'itineraries['+iterStat.index+'].imageUrl'}" th:value="${itinerary.imageUrl}" required />
                     <input type="file" style="display: none;" th:id="${'cover-potrait-'+iterStat.index}" />
                     <div class="input-icon">
-                        <input type="text" class="form-control mask-file" value="Upload gambar (000 x 000 px)" readonly />
+                        <input type="text" class="form-control mask-file" value="Upload gambar" readonly />
                     </div>
                     <span class="help-block">Maks. 150kb</span>
                     <div

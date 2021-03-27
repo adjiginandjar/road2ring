@@ -32,7 +32,7 @@
             <label id="title-motor">[[${tripPrice.bike.title}]]</label>
             <div class="qty-group">
                 <div>
-                    <button type="button" id="qty-min" class="btn btn-default btn-qty" th:attr="disabled=${tripPrice.stock == 1 ? true : false}"><img src="/rtms/assets/013_icon_minus.svg" /></button>
+                    <button type="button" id="qty-min" class="btn btn-default btn-qty" th:attr="disabled=${tripPrice.stock == 1 || isReserve ? true : false}"><img src="/rtms/assets/013_icon_minus.svg" /></button>
                 </div>
                 <div>
                     <input type="number" th:value="${tripPrice.stock}" th:name="${'tripPriceMotorList['+iterStat.index+'].stock'}" id="qty-motor"  required>
@@ -50,5 +50,5 @@
             <button id="remove" class="btn btn-danger pull-left" th:disabled="${isReserve}">Hapus</button>
             <div style="clear: both;"></div>
         </div>
-    </div>
+    </div>    
 </div>

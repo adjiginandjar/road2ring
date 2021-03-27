@@ -76,7 +76,6 @@
                         lastSection = parseInt(inNameInput) + 1;
                     }
                     var elDummy = $(this).prev().clone();
-                    console.log('ATAS#####' + elDummy.find('.image').html());
                     elDummy.find('.init-mce').html('<label>Deskripsi</label><textarea name="itineraries[' + lastSection + '].description" class="form-control mce-editor dummy" rows="4" placeholder="Masukkan deskripsi singkat"></textarea>');
                     elDummy.find('.id').attr({ value: '0', name: 'itineraries[' + lastSection + '].id' });
                     elDummy.find('.title textarea').attr({ name: 'itineraries[' + lastSection + '].title' });
@@ -93,7 +92,6 @@
                     elDummy.find('.id-group').attr({ name: 'itineraries[' + lastSection + '].group' });
                     $(this).prev().after(elDummy);
                     editor_textarea();
-                    console.log('BAWAH#####' + elDummy.find('.image').html());
                     upload_trip("/api/trip/upload_trip", "cover-potrait-" + lastSection, "#cover-potrait-" + lastSection, "#hidden-cover-potrait-" + lastSection, 640, 640, "potrait");
                 });
                 $(document).on("click", ".itinerary-section #remove", function (event) {

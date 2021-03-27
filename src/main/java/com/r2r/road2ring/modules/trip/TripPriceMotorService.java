@@ -118,7 +118,7 @@ public class TripPriceMotorService {
     saved.setTripPrice(tripPrice);
     saved.setStock(tripPriceMotor.getStock());
     saved.setBike(motor);
-    saved.setPrice(tripPrice.getPrice());
+    saved.setPrice(tripPriceMotor.getPrice());
 
     return tripPriceMotorRepository.save(saved);
   }

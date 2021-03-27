@@ -13,7 +13,7 @@
 <body>
     <div layout:fragment="header">
         <div
-            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Rencana Perjalanan','/trip/rtms', ''},{'Jadwal','/trip/rtms/trip-schedule?tripId='+tripId, ''},{'Buat Jadwal','/trip-schedule', 'active'}} } )">
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Rencana Perjalanan','/trip/rtms', ''},{'Jadwal','/trip/rtms/trip-schedule?tripId='+tripId, ''},{'Buat Jadwal','#', 'active'}} } )">
         </div>
     </div>
     <div layout:fragment="content">

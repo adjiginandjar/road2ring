@@ -29,6 +29,7 @@
                         <div class="price-motor-container">
                             <div th:replace="rtms/component/priceMotorCard::template (data = ${response.object},isReserve=${isReserve})"></div>
                         </div>
+                        <div class="list-del collapse"></div>
                     </div>
                     <div class="box-footer btn-multi">
                         <a th:href="${'/trip/rtms/trip-schedule?tripId='+tripId}" class="btn btn-default">Kembali ke List</a>
@@ -50,6 +51,7 @@
                         }
                         else{
                             var nameInput = $('.price-motor .card:last-of-type').find('#id-trip-price-motor').attr('name');
+                            console.log(nameInput);
                             var inNameInput = nameInput.split('[').pop().split(']')[0]; 
                             arrIndex = parseInt(inNameInput) + 1
                         }
@@ -90,7 +92,23 @@
 
                 });
                 $(document).on("click", ".price-motor #remove", function () {
-                    $(this).parent().parent().remove();
+                    var container = $(this).parent().parent();
+                    var indDel = $('.list-del input').length > 0 ? $('.list-del input').length : 0;
+                    if ($('.list-del').length > 0) {
+                        var delId = container.find('#id-motor').val();
+                        console.log(delId)
+                        if (delId == null || delId == '') {
+                            delId = 0;
+                        }
+                        var hiddenDelId = $('<input>', {
+                            'type': 'hidden',
+                            'name': 'deletedTripPriceMotorList[' + indDel + '].id',
+                            'value': delId
+                        });
+                        $('.list-del').append(hiddenDelId);
+                    }
+                    container.remove();
+                    //$(this).parent().parent().remove();
                 });
             });
             function filterByTyping() {
