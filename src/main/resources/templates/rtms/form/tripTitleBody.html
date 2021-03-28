@@ -122,6 +122,11 @@
                             <input type="hidden" name="facilityInclude" id="trip-facility"
                                 th:value="${response.object.facilityInclude}">
                         </div>
+                        <div class="form-group">
+                            <label>Tidak termasuk dalam fasilitas</label>
+                            <textarea th:text="${response.object.facilityNot}" name="facilityNot"
+                                class="mce-editor form-control" rows="4" placeholder="Masukkan yang tidak termasuk dalam fasilitas"></textarea>
+                        </div>
                     </div>
                     <div class="box-footer btn-multi">
                         <a href="/trip/rtms" class="btn btn-default">Kembali ke List</a>
