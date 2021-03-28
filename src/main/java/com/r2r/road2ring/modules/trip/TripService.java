@@ -194,7 +194,6 @@ public class TripService {
     saved.setDiscount(tripPrice.getDiscount());
     saved.setFinishTrip(tripPrice.getFinishTrip());
     saved.setStartTrip(tripPrice.getStartTrip());
-    saved.setStatus(tripPrice.getStatus());
     saved.setPrice(tripPrice.getPrice());
     saved.setTrip(tripRepository.findOne(tripId));
     saved.setTripPriceDetail(tripPriceDetailService.save(tripPrice.getTripPriceDetail()));
