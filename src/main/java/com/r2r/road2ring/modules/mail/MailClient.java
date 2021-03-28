@@ -83,8 +83,8 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
-      message.setSubject("Paid Transaction Road2Ring");
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
+      message.setSubject("Paid Transaction RANSTOURING");
 
       Map model = new HashMap();
       model.put("consumerName", consumerName);
@@ -104,8 +104,8 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
-      message.setSubject("Paid Transaction Road2Ring");
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
+      message.setSubject("Paid Transaction RANSTOURING");
 
       Map model = new HashMap();
       model.put("consumerName", consumerName);
@@ -138,7 +138,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
 
       message.setSubject("Congratulation for your transaction");
       Map model = new HashMap();
@@ -197,7 +197,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
       message.setSubject("Welcome to RANSTOURING");
 
       Map model = new HashMap();
@@ -223,8 +223,8 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
-      message.setSubject("Reset Password On Road2Ring");
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
+      message.setSubject("Reset Password On RANSTOURING");
 
       Map model = new HashMap();
       model.put("consumerName", consumerName);
@@ -247,7 +247,7 @@ public class MailClient {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
       message.setTo(recipient);
-      message.setFrom(new InternetAddress("admin@road2ring.com"));
+      message.setFrom(new InternetAddress("noreply@ranstouring.com"));
       message.setSubject("Be Ready For Your Touring");
 
       Map model = new HashMap();
