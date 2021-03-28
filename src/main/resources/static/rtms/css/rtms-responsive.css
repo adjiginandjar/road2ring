@@ -151,16 +151,23 @@
     width: 100%;
   }
   .form-price-motor .modal-content {
-    height: 450px;
+    height: 75vh;
   }
   .form-price-motor .modal-body {
-    max-height: 63%;
+    height: 70%;
     overflow-y: scroll;
   }
   .form-price-motor .modal-footer {
     position: absolute;
     width: 100%;
     bottom: 0;
+  }
+}
+
+@media (max-height: 700px) {
+  .form-price-motor .modal-body {
+    height: 64%;
+    overflow-y: scroll;
   }
 }
 
