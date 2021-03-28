@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Landscape Perjalanan</label>
-                            <input type="url" id="hidden-cover-landscape" style="opacity: 1; position: absolute;" name="coverLandscape"
+                            <input type="url" id="hidden-cover-landscape" style="opacity: 0; position: absolute;" name="coverLandscape"
                                 th:value="${response.object.coverLandscape}" required />
                             <input type="file" id="cover-landscape" style="display: none;" />
                             <div class="input-icon">
@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <label>Thumbnail Potrait Perjalanan</label>
                             <input type="url" id="hidden-cover-potrait" name="coverPotrait"
-                                th:value="${response.object.coverPotrait}" style="opacity: 1; position: absolute;" required />
+                                th:value="${response.object.coverPotrait}" style="opacity: 0; position: absolute;" required />
                             <input type="file" id="cover-potrait" style="display: none;" />
                             <div class="input-icon">
                                 <input type="text" class="form-control mask-file" value="Upload gambar (720 x 1280 px)" readonly />
@@ -149,7 +149,8 @@
                 editor_textarea();
                 upload_trip("/api/trip/upload_trip", "cover-landscape", "#cover-landscape", "#hidden-cover-landscape", 640, 640, "landscape");
                 upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
-                $('.input-icon').click(function () {
+                
+                $('.input-icon').on("click touchend", function () {
                     $(this).prev().click();
                     return false;
                 });

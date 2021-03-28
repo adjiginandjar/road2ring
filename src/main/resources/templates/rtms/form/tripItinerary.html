@@ -52,7 +52,7 @@
                 });
                 var isDisabled = $('.itinerary-section').length <= 1;
                 $('.itinerary-section:last-of-type #remove').prop('disabled', isDisabled);
-                $(document).on('click', '.input-icon', function () {
+                $(document).on('click touchend', '.input-icon', function () {
                     $(this).prev().click();
                     return false;
                 });
@@ -87,7 +87,6 @@
                     if (elDummy.find('.image .upload-box > div').length > 1) {
                         elDummy.find('.image .upload-box > div:last-of-type').remove();
                     }
-                    elDummy.find('.image .upload-box .text-info').text('');
                     elDummy.find('.title-group').attr({ name: 'itineraries[' + lastSection + '].groupTitle' });
                     elDummy.find('.id-group').attr({ name: 'itineraries[' + lastSection + '].group' });
                     $(this).prev().after(elDummy);

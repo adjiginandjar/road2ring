@@ -13,7 +13,7 @@
                 <input class="id" type="hidden" th:name="${'itineraries['+iterStat.index+'].id'}"  th:value="${itinerary.id != null && itinerary.id != 0 ? itinerary.id : 0}" />
                 <div class="form-group image">
                     <label>Foto</label>
-                    <input type="url" th:id="${'hidden-cover-potrait-'+iterStat.index}" style="opacity: 1; position: absolute;"  class="dummy" th:name="${'itineraries['+iterStat.index+'].imageUrl'}" th:value="${itinerary.imageUrl}" required />
+                    <input type="url" th:id="${'hidden-cover-potrait-'+iterStat.index}" style="opacity: 0; position: absolute;"  class="dummy" th:name="${'itineraries['+iterStat.index+'].imageUrl'}" th:value="${itinerary.imageUrl}" required />
                     <input type="file" style="display: none;" th:id="${'cover-potrait-'+iterStat.index}" />
                     <div class="input-icon">
                         <input type="text" class="form-control mask-file" value="Upload gambar" readonly />
