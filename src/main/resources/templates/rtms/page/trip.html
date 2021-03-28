@@ -66,7 +66,23 @@
 		<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 		<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 		<script src="../../js/si/jquery.popupoverlay.min.js"></script>
+		<script th:inline="javascript">
+			$( document ).ready(function() {
+				var message = [[${param.alert}]];
+				if(message != null){
+					if(message=='publish')
+                		showToast('Rencana Perjalanan sudah ditayangkan','toast-success');
+					else if(message=='unpublish')
+						showToast('Rencana Perjalanan sudah diturunakan','toast-warning');
+					else if(message=='deleteSuccess')
+						showToast('Rencana Perjalanan sudah dihapus','toast-danger');
+					else if(message=='createSuccess')
+						showToast('Rencana Perjalanan berhasil disimpan','toast-success');
+				}
+            });
+		</script>
 		<script type="text/javascript">
+			
             $( ".toggle-option" ).click(function(event) {
 				console.log($(this).next().toggleClass("option-show"));
 			});
@@ -79,6 +95,13 @@
 				$('.modal-rtms').toggleClass("in");
 				$('.modal-rtms').css('display','block');
 				$('#deleteConfirm').attr("href", '/trip/rtms/form/delete-trip?tripId='+tripId);
+			}
+			function showToast(text,status) {
+				var x = document.getElementById("snackbar");
+				document.getElementById("snackbar").innerHTML=text;
+				x.className = "show "+status;
+
+				setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 			}
         </script>
 	</th:block>
