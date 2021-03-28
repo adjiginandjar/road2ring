@@ -220,9 +220,9 @@ public class TransactionService {
       int index = result.getUser().getEmail().indexOf('@');
       String username = result.getUser().getEmail().substring(0,index);
 
-      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
-          transaction.getMotor(), transaction.getAccessories(), tripPrice,
-          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
+//      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
+//          transaction.getMotor(), transaction.getAccessories(), tripPrice,
+//          transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
       return view;
     } else {
       throw new Road2RingException("CAN NOT CREATE TRANSACTION, ALREADY FULL", 705);
