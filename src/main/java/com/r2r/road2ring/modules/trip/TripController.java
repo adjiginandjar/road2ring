@@ -539,7 +539,7 @@ public class TripController {
     Trip theTrip = tripService.getTripById(tripId);
     List<Itinerary> saved;
     int nextGroup;
-    String redirect = "redirect:/trip/rtms";
+    String redirect = "redirect:/trip/rtms?alert=createSuccess";
     theTrip.setItineraries(trip.getItineraries());
     theTrip.setDeletedItinerary(trip.getDeletedItinerary());
 

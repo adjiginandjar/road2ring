@@ -70,6 +70,21 @@
         </div>
     </div>
     <div layout:fragment="footer-js">
+		<script th:inline="javascript">
+			$( document ).ready(function() {
+				var message = [[${param.alert}]];
+				if(message != null){
+					if(message =='publish')
+                		showToast('Jadwalsudah ditayangkan','toast-success');
+					else if(message =='unpublish')
+						showToast('Jadwal sudah diturunakan','toast-warning');
+					else if(message =='deleteSuccess')
+						showToast('Jadwal sudah dihapus','toast-danger');
+					else if(message =='createSuccess')
+						showToast('Jadwal berhasil disimpan','toast-success');
+				}
+            });
+		</script>
         <script type="text/javascript">
 
 			$("#deleteCancle").click(function(event){
@@ -81,6 +96,13 @@
 				$('.modal-rtms').toggleClass("in");
 				$('.modal-rtms').css('display','block');
 				$('#deleteConfirm').attr("href", '/trip/rtms/form/delete-trip-price?tripPriceId='+tripPriceId);
+			}
+			function showToast(text,status) {
+				var x = document.getElementById("snackbar");
+				document.getElementById("snackbar").innerHTML=text;
+				x.className = "show "+status;
+
+				setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 			}
         </script>
     </div>
