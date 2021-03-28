@@ -29,8 +29,8 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Judul</label>
-                            <input th:value="${response.object.title}" type="text" class="form-control" name="title"
-                                placeholder="Masukkan Judul" required>
+                            <input th:value="${response.object.title}" type="text" class="form-control input-counter"
+                                name="title" placeholder="Masukkan Judul" maxlength="100" autocomplete="off" required>
                             <span class="help-block">100/100</span>
                         </div>
                         <div class="form-group">
@@ -51,11 +51,12 @@
                         </div>
                         <div class="form-group">
                             <label>Thumbnail Landscape Perjalanan</label>
-                            <input type="url" id="hidden-cover-landscape" style="opacity: 0; position: absolute;" name="coverLandscape"
-                                th:value="${response.object.coverLandscape}" required />
+                            <input type="url" id="hidden-cover-landscape" style="opacity: 0; position: absolute;"
+                                name="coverLandscape" th:value="${response.object.coverLandscape}" required />
                             <input type="file" id="cover-landscape" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control mask-file" value="Upload gambar (1280 x 720 px)" readonly />
+                                <input type="text" class="form-control mask-file" value="Upload gambar (1280 x 720 px)"
+                                    readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
@@ -65,10 +66,12 @@
                         <div class="form-group">
                             <label>Thumbnail Potrait Perjalanan</label>
                             <input type="url" id="hidden-cover-potrait" name="coverPotrait"
-                                th:value="${response.object.coverPotrait}" style="opacity: 0; position: absolute;" required />
+                                th:value="${response.object.coverPotrait}" style="opacity: 0; position: absolute;"
+                                required />
                             <input type="file" id="cover-potrait" style="display: none;" />
                             <div class="input-icon">
-                                <input type="text" class="form-control mask-file" value="Upload gambar (720 x 1280 px)" readonly />
+                                <input type="text" class="form-control mask-file" value="Upload gambar (720 x 1280 px)"
+                                    readonly />
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
@@ -97,7 +100,7 @@
                                 required></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Peta Perjalanan</label>
+                            <label>Peta Perjalanan (Google Maps)</label>
                             <input th:value="${response.object.map}" type="text" class="form-control" name="map"
                                 placeholder="Masukkan link embed peta google">
                         </div>
@@ -113,8 +116,7 @@
                                     <label>
                                         <input type="checkbox" class="check-facility" th:value="${facility.id}"
                                             name="facilities[]"
-                                            th:checked="${response.object.facilityInclude != udefined ? #lists.contains(response.object.facilityInclude, facility.id) : false}"
-                                            th:required="${response.object.facilityInclude != null ? false : true}" />
+                                            th:checked="${response.object.facilityInclude != udefined ? #lists.contains(response.object.facilityInclude, facility.id) : false}"  />
                                         [[${facility.name}]]
                                     </label>
                                 </div>
@@ -125,7 +127,8 @@
                         <div class="form-group">
                             <label>Tidak termasuk dalam fasilitas</label>
                             <textarea th:text="${response.object.facilityNot}" name="facilityNot"
-                                class="mce-editor form-control" rows="4" placeholder="Masukkan yang tidak termasuk dalam fasilitas"></textarea>
+                                class="mce-editor form-control" rows="4"
+                                placeholder="Masukkan yang tidak termasuk dalam fasilitas"></textarea>
                         </div>
                     </div>
                     <div class="box-footer btn-multi">
@@ -149,7 +152,7 @@
                 editor_textarea();
                 upload_trip("/api/trip/upload_trip", "cover-landscape", "#cover-landscape", "#hidden-cover-landscape", 640, 640, "landscape");
                 upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
-                
+
                 $('.input-icon').on("click touchend", function () {
                     $(this).prev().click();
                     return false;
@@ -159,7 +162,7 @@
                     if (existingTokens.length > 0) {
                         $(".token").wrapAll("<div class='wrap-token' />");
                     }
-                    else{
+                    else {
                         $('.token-input').before("<div class='wrap-token' />");
                     }
                 }).tokenfield();
@@ -174,6 +177,24 @@
                 });
                 var facility = $('#trip-facility').val();
                 $('#trip-facility').val(facility.replace("[", "").replace("]", ""));
+
+                // var textarea = $("#my_textarea");
+                $(".input-counter").each(function(){
+                    var maxlength = $(this).attr("maxlength");
+                    var currentLength = $(this).val().length;
+                    $(this).next().html(maxlength-currentLength+'/100');
+                })
+                $(".input-counter").keyup(function (event) {
+                    var maxlength = $(this).attr("maxlength");
+                    var currentLength = $(this).val().length;
+                    if (currentLength >= maxlength) {
+                        $(this).next().html('0');
+                        console.log("You have reached the maximum number of characters.");
+                    } else {
+                        $(this).next().html(maxlength-currentLength+'/100');
+                        //console.log(maxlength - currentLength + " chars left");
+                    }
+                });
 
             });
             var checked = $('#trip-facility').val() != null && $('#trip-facility').val() != "" ? $('#trip-facility').val() : []
