@@ -115,6 +115,7 @@
   .sidebar-open .main-sidebar {
     width: 100%;
     background-color: var(--cobalt) !important;
+    position: fixed;
   }
   .sidebar-open .main-sidebar a {
     color: var(--white);
