@@ -22,7 +22,7 @@
                 th:replace="rtms/component/tabMenu::template (data = ${ {{'1. Tanggal & Harga','/trip/rtms/form/price-date?tripId='+param.tripId+'&tripPriceId='+param.tripPriceId, 'visited'},{'2. List Motor','/trip-schedule', 'active'}} } )">
             </div>
             <div class="bg-white">
-                <form class="main-form" role="form" method="POST" th:action="${'/trip/rtms/form/price-motor/'+param.tripPriceId+'/submit'}">
+                <form class="main-form form-price-motor" role="form" method="POST" th:action="${'/trip/rtms/form/price-motor/'+param.tripPriceId+'/submit'}">
                     <div class="box-body" style="min-height: 80vh;">
                         <button type="button" class="btn btn-success w-100" data-toggle="modal"
                             data-target="#modal-default">+ Motor</button>

@@ -48,17 +48,18 @@
 	display: flex;
 	flex-flow: column wrap;
 	height: 900px;
+	padding-bottom: 4em;
 }
 
 
 
-.trip-card-container::before,
+ /*.trip-card-container::before,
 .trip-card-container::after {
-  /* content: "";
+  content: "";
   flex-basis: 100%;
   width: 0;
-  order: 2; */
-}
+  order: 2; 
+}*/
 .trip-card {
 	width: 48%;
 	word-wrap: break-word;

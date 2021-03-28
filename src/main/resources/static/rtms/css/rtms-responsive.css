@@ -138,24 +138,26 @@
     padding: 0;
     margin-top: 1.5em;
   }
-
-  .modal-dialog {
+  .form-price-motor .modal-header .close{
+    position: relative;
+    z-index: 100;
+  }
+  .form-price-motor .modal-dialog {
     margin: 0;
   }
-  .modal.in .modal-dialog {
-    -webkit-transform: translate(0, 25%);
-    -ms-transform: translate(0, 25%);
-    -o-transform: translate(0, 25%);
-    transform: translate(0, 25%);
+  .form-price-motor .modal.in .modal-dialog {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-  .modal-content {
-    height: 80vh;
+  .form-price-motor .modal-content {
+    height: 450px;
   }
-  .modal-body {
-    max-height: 50vh;
+  .form-price-motor .modal-body {
+    max-height: 63%;
     overflow-y: scroll;
   }
-  .modal-footer {
+  .form-price-motor .modal-footer {
     position: absolute;
     width: 100%;
     bottom: 0;

@@ -280,6 +280,9 @@ form .box-footer.btn-multi .btn {
   height: 30px;
   padding: 0;
 }
+.main-form .price-motor .qty-group .btn:disabled{
+  opacity: .4;
+}
 .main-form .price-motor .card{
   border-bottom: 1px solid var(--white-two);
   padding-bottom: 2em;
@@ -463,6 +466,7 @@ form .box-footer.btn-multi .btn {
 .modal-pick-motor .form-group .checkbox:last-of-type {
   border: none;
   padding-bottom: 0;
+  margin-bottom: 0;
 }
 .modal-pick-motor .form-group .checkbox {
   display: block;
