@@ -95,7 +95,7 @@ public class MidtransService {
     requestBody.put("item_details", itemDetails);
     requestBody.put("customer_details", customerDetails);
     requestBody.put("enabled_payments", listedPayment);
-    requestBody.put("credit_card", creditCard);
+//    requestBody.put("credit_card", creditCard);
     requestBody.put("bca_va", bcaVA);
     requestBody.put("bri_va", briVA);
     requestBody.put("expiry", expiry);
@@ -152,8 +152,8 @@ public class MidtransService {
 
   private List<String> buildListPayment() {
     List<String> listPayment = new ArrayList<>();
-    listPayment.add("credit_card");
-    listPayment.add("bca_va");
+//    listPayment.add("credit_card");
+//    listPayment.add("bca_va");
     listPayment.add("bri_va");
     listPayment.add("bank_transfer");
     listPayment.add("gopay");
