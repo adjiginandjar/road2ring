@@ -96,10 +96,11 @@ public class MidtransService {
     requestBody.put("customer_details", customerDetails);
     requestBody.put("enabled_payments", listedPayment);
 //    requestBody.put("credit_card", creditCard);
-    requestBody.put("bca_va", bcaVA);
+//    requestBody.put("bca_va", bcaVA);
     requestBody.put("bri_va", briVA);
     requestBody.put("expiry", expiry);
     requestBody.put("callbacks", callbacks);
+
 
     return snapApi.createTransactionToken(requestBody);
   }
