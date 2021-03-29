@@ -154,3 +154,6 @@ table#rsp-tbl .dropdown .dropdown-menu li {
     -webkit-border-radius: 10px;
     margin-top: 50px;
 }
+img{
+  max-width: 65%;
+}
