@@ -10,7 +10,8 @@ function multi_page_editor(){
           plugins: "autoresize",
           height: 300,
           menubar: false,
-          plugins: ["advlist", "code", "paste", "hr", "link", "media", "fullscreen", "preview", "image"],
+          
+        plugins: ["lists", "code", "paste", "hr", "link", "media", "fullscreen", "preview", "image", "wordcount"],
           theme_advanced_buttons3_add: "pastetext,pasteword,selectall",
           toolbar: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | removeformat | code | link image | hr |  bullist numlist | media | fullscreen preview | suggested-article block-quote",
           extended_valid_elements: "+iframe[width|height|name|align|class|frameborder|allowfullscreen|allow|src|*]," +
@@ -75,7 +76,7 @@ function multi_page_editor(){
           paste_data_images: true,
           paste_strip_class_attributes: true,
           setup: function (ed) {
-              ed.on('NodeChange', function (e) {
+            ed.on('NodeChange', function (e) {
                 if(e.element.tagName === "IMG"){
                     console.log(e.element)
                   $(e.element).wrap("<span class='d-block img__wrap' />");
@@ -86,46 +87,10 @@ function multi_page_editor(){
                 }
               });
 
-              ed.addButton('inlineimage', {
+              ed.ui.registry.addButton('inlineimage', {
                   title: 'Add Image',
                   icon: 'image',
               });
-
-              ed.addButton('suggested-article', {
-                  text: 'Date',
-//                  icon: 'insert-time',
-                  onclick: function (event) {
-                    ed.windowManager.open({
-                      title: 'Insert Date',
-                      body: [
-                          {type: 'textbox', name: 'date', label: 'Date'},
-                      ],
-                      onsubmit: function(e) {
-                          ed.focus();
-                          ed.selection.setContent('<div class="text-center mb-4">'+
-                          '<span class="h2 title-section title-section__with-border">'+ e.data.date +'</span></div>');
-                      }
-                    })
-                  }
-              });
-
-              ed.addButton('block-quote', {
-                title: 'Blockquoute',
-                icon: 'blockquote',
-                onclick: function (event) {
-                  ed.windowManager.open({
-                    title: 'Insert Quote',
-                    body: [
-                        {type: 'textbox', name: 'quote', label: 'Quote'},
-                        {type: 'textbox', name: 'author', label: 'Author'}
-                    ],
-                    onsubmit: function(e) {
-                        ed.focus();
-                        ed.selection.setContent('<blockquote><p>' + e.data.quote + '</p><p> '+ e.data.author + '</p></blockquote>');
-                    }
-                  });
-                }
-              })
 
               ed.on('blur', function(e){
                 var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -152,21 +117,21 @@ var hostname = $(location).attr('protocol') + '//' + $(location).attr('host');
   tinymce.init({
             selector: ".mce-general",
             forced_root_block: false,
-            content_style: "body {font-size:13px !important; font-family: Roboto, sans-serif !important; color: #555 !important}",
-            invalid_elements: "span",
-            plugins: "autoresize",
-            height: 300,
-            menubar: false,
-            plugins: ["advlist", "code", "paste", "hr", "link", "media", "fullscreen", "preview", "image"],
-            theme_advanced_buttons3_add: "pastetext,pasteword,selectall",
-            toolbar: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | removeformat | code | link image | hr |  bullist numlist | media | fullscreen preview | suggested-article block-quote",
-            extended_valid_elements: "+iframe[width|height|name|align|class|frameborder|allowfullscreen|allow|src|*]," +
-                    "script[language|type|async|src|charset]" +
-                    "img[*]" +
-                    "embed[width|height|name|flashvars|src|bgcolor|align|play|loop|quality|allowscriptaccess|type|pluginspage]" +
-                    "blockquote[dir|style|cite|class|id|lang|onclick|ondblclick"
-                    +"|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
-                    +"|onmouseover|onmouseup|title]",
+        content_style: "body {font-size:14px !important; font-family: 'Open Sans', sans-serif !important; color: #555 !important}",
+        invalid_elements: "span",
+        plugins: "autoresize",
+        height: 300,
+        menubar: false,
+        plugins: ["lists", "code", "paste", "hr", "link", "media", "fullscreen", "preview", "image", "wordcount"],
+        theme_advanced_buttons3_add: "pastetext,pasteword,selectall",
+        toolbar: "undo redo | h1 h2 h3 | bold italic underline | alignleft aligncenter alignright alignjustify | suggested-article block-quote kastv | link image media | bullist numlist | fullscreen preview code | hr removeformat",
+        extended_valid_elements: "+iframe[width|height|name|align|class|frameborder|allowfullscreen|allow|src|*]," +
+            "script[language|type|async|src|charset]" +
+            "img[*]" +
+            "embed[width|height|name|flashvars|src|bgcolor|align|play|loop|quality|allowscriptaccess|type|pluginspage]" +
+            "blockquote[dir|style|cite|class|id|lang|onclick|ondblclick"
+            + "|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
+            + "|onmouseover|onmouseup|title]",
 
             image_caption: true,
             file_picker_types: 'image',
