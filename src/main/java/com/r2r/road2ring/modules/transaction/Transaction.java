@@ -137,4 +137,35 @@ public class Transaction implements Serializable {
   @Transient
   private Boolean bringOwnHelm;
 
+  @Override
+  public String toString() {
+    return "Transaction{" +
+        "id=" + id +
+        ", created=" + created +
+        ", updated=" + updated +
+        ", updatedBy='" + updatedBy + '\'' +
+        ", createdBy='" + createdBy + '\'' +
+        ", expiredPaymentDate=" + expiredPaymentDate +
+        ", completePaymentDate=" + completePaymentDate +
+        ", notes='" + notes + '\'' +
+        ", paymentStatus=" + paymentStatus +
+        ", tripStatus=" + tripStatus +
+        ", code='" + code + '\'' +
+        ", trip=" + trip +
+        ", startDate=" + startDate +
+        ", user=" + user +
+        ", price=" + price +
+        ", isCancelled=" + isCancelled +
+        ", transactionCreator=" + transactionCreator +
+        ", singleRoom=" + singleRoom +
+        ", pillion=" + pillion +
+        ", midtransToken='" + midtransToken + '\'' +
+        ", motor=" + motor +
+        ", accessories=" + accessories +
+        ", startTimestamp=" + startTimestamp +
+        ", endDate=" + endDate +
+        ", bringOwnMotor=" + bringOwnMotor +
+        ", bringOwnHelm=" + bringOwnHelm +
+        '}';
+  }
 }

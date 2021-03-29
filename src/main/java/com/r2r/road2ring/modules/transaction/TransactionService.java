@@ -220,7 +220,7 @@ public class TransactionService {
       int index = result.getUser().getEmail().indexOf('@');
       String username = result.getUser().getEmail().substring(0,index);
 
-      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,result,
+      mailClient.sendCheckoutEmail(result.getUser().getEmail(),username,saved,
           transaction.getMotor(), transaction.getAccessories(), tripPrice,
           transaction.getBringOwnHelm(), transaction.getBringOwnMotor());
       return view;

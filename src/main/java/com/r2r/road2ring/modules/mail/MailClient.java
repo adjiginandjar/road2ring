@@ -133,7 +133,7 @@ public class MailClient {
       TripPriceMotor motor, List<Accessory> accessories, TripPrice tripPrice,
       boolean bringOwnHelm, boolean bringOwnMotor) {
 
-    Transaction resultTransaction = transactionRepository.findOne(transaction.getTrip().getId());
+    Transaction resultTransaction = transaction;
 
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
