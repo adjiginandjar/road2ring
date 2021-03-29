@@ -366,7 +366,6 @@ public class TransactionService {
 
   @Transactional
   public void expirePaymentMidtrans(String transactionId){
-    System.out.println("transactionId = " + transactionId);
     Transaction saved  = transactionRepository.findOneByCode(transactionId);
     saved.setPaymentStatus(PaymentStatus.FAILED);
     saved.setUpdatedBy(TransactionCreator.SYSTEM.name());

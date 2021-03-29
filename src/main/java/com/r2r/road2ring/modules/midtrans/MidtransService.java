@@ -86,6 +86,7 @@ public class MidtransService {
     Map<String,Object> customerDetails = this.buildCustomerDetails(user);
     List<String> listedPayment = this.buildListPayment();
     Map<String,String> bcaVA = this.buildBCAVirtualAccount();
+    Map<String,String> briVA = this.buildBRIVirtualAccount();
     Map<String,String> creditCard = this.buildCreditCard();
     Map<String,String> expiry = this.buildExpire();
     Map<String,String> callbacks = this.buildCallbacks(transaction.getId());
@@ -94,14 +95,11 @@ public class MidtransService {
     requestBody.put("item_details", itemDetails);
     requestBody.put("customer_details", customerDetails);
     requestBody.put("enabled_payments", listedPayment);
-//    requestBody.put("credit_card", creditCard);
-//    requestBody.put("bca_va", bcaVA);
+    requestBody.put("credit_card", creditCard);
+    requestBody.put("bca_va", bcaVA);
+    requestBody.put("bri_va", briVA);
     requestBody.put("expiry", expiry);
     requestBody.put("callbacks", callbacks);
-
-//    System.out.println("requestBody = " + requestBody);
-
-//    System.out.println("coreApi = " + coreApi.chargeTransaction(requestBody));
 
     return snapApi.createTransactionToken(requestBody);
   }
@@ -145,11 +143,18 @@ public class MidtransService {
 
     return bcaVirtualAccount;
   }
+  private Map<String, String> buildBRIVirtualAccount() {
+    Map<String, String> briVirtualAccount = new HashMap<>();
+
+    briVirtualAccount.put("va_number",this.generateRandomVACode(11));
+    return briVirtualAccount;
+  }
 
   private List<String> buildListPayment() {
     List<String> listPayment = new ArrayList<>();
-//    listPayment.add("credit_card");
-//    listPayment.add("bca_va");
+    listPayment.add("credit_card");
+    listPayment.add("bca_va");
+    listPayment.add("bri_va");
     listPayment.add("bank_transfer");
     listPayment.add("gopay");
 

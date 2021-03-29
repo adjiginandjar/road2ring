@@ -53,7 +53,6 @@ public class MidtransMAPIController {
       String fraudStatus = (String) response.get("fraud_status");
 
       notifResponse = "Transaction notification received. Order ID: "+orderId+". Transaction status: "+transactionStatus+". Fraud status: "+fraudStatus;
-      System.out.println(notifResponse);
 
       if (transactionStatus.equals("capture") || transactionStatus.equals("settlement")  ) {
         if (fraudStatus.equals("challenge")) {

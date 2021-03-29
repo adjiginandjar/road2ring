@@ -218,7 +218,6 @@ public class UserService {
   }
 
   public User verificationEmail(String verificationCode) throws Exception {
-    System.out.println("verificationCode = " + verificationCode);
     User saved = userRepository.findOneByVerificationCode(verificationCode);
     if (saved == null) {
       throw new Road2RingException("Invalid verification code", 800);

@@ -40,8 +40,6 @@ public class r2rUserDetailsService implements UserDetailsService {
     List<GrantedAuthority> authorities;
     UserDetails user;
 
-    System.out.println("username = " + username);
-
     Iterable<String> result = Splitter.on("+via+").trimResults().omitEmptyStrings().split(username);
     for (String s : result) {
       if (i == 0) {
