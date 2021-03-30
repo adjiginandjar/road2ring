@@ -23,7 +23,7 @@
     </div>
     <form role="form" id="tripFeatureForm" th:action="@{'/trip-feature/save'}" th:object="${response}" method="post" data-parsley-validate>
       <div class="box-body">
-        <input id="object_id" type="hidden" name="id" th:if="${response.object.id != null && response.object.id != 0}" th:value="${response.object.id != null && response.object.id != 0 ? response.object.id : 0}">
+        <input id="object_id" type="hidden" name="id"  th:value="${response.object.id != null && response.object.id != 0 ? response.object.id : 0}">
 
         <div class="form-group">
           <label for="title">Trip Feature Title</label>

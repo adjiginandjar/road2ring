@@ -15,10 +15,19 @@ public class TripFeatureService {
   @Autowired
   TripFeatureRepository tripFeatureRepository;
 
-  public TripFeature save(TripFeature saved){
-    if(saved.getId() == null){
+  public TripFeature save(TripFeature tripFeature){
+    TripFeature saved = new TripFeature();
+    if(tripFeature.getId() != null && tripFeature.getId() != 0){
+      saved = tripFeatureRepository.findOne(tripFeature.getId());
+    }else{
       saved.setPublishStatus(PublishedStatus.UNPUBLISHED);
     }
+
+    saved.setTitle(tripFeature.getTitle());
+    saved.setIcon(tripFeature.getIcon());
+    saved.setLink(tripFeature.getLink());
+    saved.setCover(tripFeature.getCover());
+
     return tripFeatureRepository.save(saved);
   }
 
