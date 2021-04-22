@@ -4,6 +4,7 @@ import static com.r2r.road2ring.modules.common.Static.HEADLINE;
 import static com.r2r.road2ring.modules.common.Static.M_API;
 
 import com.r2r.road2ring.modules.common.ResponseMessage;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class HeadlineMAPIController {
   @GetMapping("")
   public ResponseMessage getHeadline(){
     ResponseMessage responseMessage = new ResponseMessage();
-    Headline result = headlineService.getHeadlineById(1);
+    List<Headline> result = headlineService.getAllHeadline();
     responseMessage.setObject(result);
     return responseMessage;
   }
