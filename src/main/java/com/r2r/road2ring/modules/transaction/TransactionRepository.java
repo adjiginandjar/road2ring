@@ -16,4 +16,6 @@ public interface TransactionRepository extends DataTablesRepository<Transaction,
   List<Transaction> findAllByUserIdOrderByCreatedDesc(Integer userId, Pageable pageable);
   Transaction findOneByIdAndUserId(int id, int userId);
   List<Transaction> findAllByPaymentStatusAndStartDate(PaymentStatus paymentStatus, Date startDate);
+
+  List<Transaction> findAllByStartDateAndTripId(Date startDate,Integer tripId);
 }

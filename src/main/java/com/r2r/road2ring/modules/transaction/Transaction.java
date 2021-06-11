@@ -126,6 +126,9 @@ public class Transaction implements Serializable {
   private List<Accessory> accessories;
 
   @Transient
+  private TransactionDetail transactionDetail;
+
+  @Transient
   private Long startTimestamp;
 
   @Transient

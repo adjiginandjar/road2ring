@@ -31,6 +31,9 @@ public interface TripRepository extends DataTablesRepository<Trip,Integer> {
   Page<Trip> findByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusOrderByIdDesc(Pageable pageable,
       TripPublishedStatus tripPublishedStatus,Date startDate,TripPriceStatus tripPriceStatus);
 
+  Page<Trip> findByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusAndRoadCaptainIdOrderByIdDesc(Pageable pageable,
+      TripPublishedStatus tripPublishedStatus,Date startDate,TripPriceStatus tripPriceStatus,Integer roadCaptainId);
+
   @Query(value="select "
       + "trip.* "
       + "from trip "
@@ -65,4 +68,7 @@ public interface TripRepository extends DataTablesRepository<Trip,Integer> {
   List<Trip> findAllByTagInOrderByIdDesc(
       @Param("id")int id,
       @Param("tags")String tags);
+
+
+
 }

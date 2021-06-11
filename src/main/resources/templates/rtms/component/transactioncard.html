@@ -1,0 +1,50 @@
+<div th:each="price : ${data}" class="trip-card" th:fragment="template (data)">
+	<div class="card-body">
+		<div class="card-header">
+			<span th:if="${#strings.equalsIgnoreCase(price.status, 'WAITING') }" class="badge" th:classappend="${ price.personPaid==price.trip.maxRider ? 'badge-publish'  : 'badge-draft'}">
+				<i th:if="${price.personPaid==price.trip.maxRider }" class="fa fa-check" aria-hidden="true"></i>
+				<span th:utext="${price.personPaid==price.trip.maxRider ? '&nbsp;Rider Complete' : 'On Progress'}"></span>
+			</span>
+			<span th:unless="${#strings.equalsIgnoreCase(price.status, 'WAITING') }" class="badge" th:classappend="${ #strings.equalsIgnoreCase(price.status, 'COMPLETE') ? 'badge-publish'  : 'badge-draft'}">
+				<i th:if="${#strings.equalsIgnoreCase(price.status, 'COMPLETE')  }" class="fa fa-check" aria-hidden="true"></i>
+				<span th:utext="${#strings.equalsIgnoreCase(price.status, 'COMPLETE') ? '&nbsp;Trips Complete' :
+				#strings.equalsIgnoreCase(price.status, 'EXPIRED') ? 'Expired' :'Trips Gagal' }"></span>
+			</span>
+		</div>
+		<h4 class="card-title" th:text="${price.trip.title}">Belitong (Half Ride)</h4>
+		<div class="trip-info">
+			<div class="trip-info-item">
+				<h6 class="trip-info-item-static">Tanggal</h6>
+				<h6 th:text="${#dates.format(price.startTrip, 'dd MMM YY')} +' '">1 Apr 21</h6>
+			</div>
+			<div class="trip-info-item">
+				<h6 class="trip-info-item-static">Jumlah Hari</h6>
+				<div style="display: flex;">
+					<h6 th:text="${price.trip.duration +' Hari'}">3 Hari</h6>
+				</div>
+			</div>
+			<div class="trip-info-item">
+				<h6 class="trip-info-item-static">Jumlah Rider</h6>
+				<div style="display: flex;">
+					<h6 th:text="${price.personPaid +'/'+price.trip.maxRider}">12/12</h6>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		</div>
+
+		<div class="trip-info">
+			<div class="trip-info-item">
+				<a th:href="@{'/transaction/detail?id='+${price.id}}" class="btn w-100 btn-default">Detail</a>
+			</div>
+			<div th:if="${#strings.equalsIgnoreCase(price.status, 'WAITING') }"  class="trip-info-item">
+				<a type="button" class="btn w-100 btn-danger" 
+				th:onclick="'showPopUp('+${price.id}+')'"
+				>Batalkan</a>
+			</div>
+			<div class="trip-info-item">
+
+			</div>
+		</div>
+	</div>
+</div>

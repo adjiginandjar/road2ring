@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionDetailRepository extends JpaRepository<TransactionDetail, Integer> {
   List<TransactionDetail> findAllByTransactionIdOrderByIdDesc(int transactionId);
+
+  TransactionDetail findOneByTransactionIdAndTypeIgnoreCase(int transactionId,String type);
 }

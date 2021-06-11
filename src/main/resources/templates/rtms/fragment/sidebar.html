@@ -8,6 +8,7 @@
       <!--</a>-->
     <!--</li>-->
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/trip/rtms">Trip Saya</a></li>
+    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/transaction/rtms/list">Trip Akan Datang</a></li>
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="#">Profil</a></li>
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="#">Bantuan</a></li>
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}" class="treeview"><a href="/logout">Keluar</a></li>

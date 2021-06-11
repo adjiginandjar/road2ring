@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,6 @@ public class TripService {
 
   @Autowired
   TripPriceDetailService tripPriceDetailService;
-
 
   @Autowired
   public void setTripRepository(TripRepository tripRepository){
@@ -236,6 +238,23 @@ public class TripService {
     trips.addAll(tripRepository.findAllByTagInOrderByIdDesc(tripId,tag));
     return trips;
   }
+
+//  public List<Trip> geListMyPaidTrip(User user,Integer page){
+//    List<Trip> tripList;
+//    Pageable pageable = new PageRequest(page,10);
+//    Page<Trip> trip = tripRepository
+//        .findByPublishedStatusAndTripPricesStartTripGreaterThanAndTripPricesStatusAndRoadCaptainIdOrderByIdDesc(
+//            pageable,TripPublishedStatus.PUBLISHED,new Date(),TripPriceStatus.WAITING,user.getId());
+//
+//    tripList = buildListTrip(trip.getContent());
+//
+//    for (Trip data :
+//        tripList) {
+//      System.out.println("data.getTripPrices() = " + data.getTripPrices());
+//    }
+//
+//    return tripList;
+//  }
 
   /*Change status trip*/
   public void changeTripStatus(TripPublishedStatus statusId, Integer tripId)

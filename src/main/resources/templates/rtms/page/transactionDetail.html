@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+	<link rel="stylesheet" href="/rtms/css/fragment/modal.css" />
+	<link rel="stylesheet" href="/rtms/css/component/transaction.css" />
+	<link rel="stylesheet" href="/rtms/css/component/price-card.css" />
+    <title>Buat Jadwal</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Trips akan datang','/transaction/list', ''},{'Detail','/transaction/detail', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+			<div class="trip-price-container">
+				<h4 class="trip-title" th:text="${tripPrice.trip.title}">Belitong (Half Ride)</h4>
+				<div class="trip-info">
+					<div class="trip-info-item">
+						<h6 class="trip-info-item-static">Tanggal</h6>
+						<h6 th:text="${#dates.format(tripPrice.startTrip, 'dd MMM YY')} +' '">1 Apr 21</h6>
+					</div>
+					<div class="trip-info-item">
+						<h6 class="trip-info-item-static">Lama</h6>
+						<h6 th:text="${tripPrice.trip.duration} +' Hari'">12 Hari</h6>
+					</div>
+					<div class="trip-info-item">
+						<!-- <h6 class="trip-info-item-static">Lama</h6>
+						<h6 th:text="${tripPrice.trip.duration} +' Hari'">12 Hari</h6> -->
+					</div>
+				</div>
+				<div class="trip-info">
+					<div class="trip-info-item">
+						<h6 class="trip-info-item-static">Price/Rider</h6>
+						<h6 th:text="${'Rp. '+#numbers.formatDecimal(tripPrice.price,3,'POINT',0,'COMMA')}">Rp. 12.000.000</h6>
+					</div>
+					<div class="trip-info-item">
+						<h6 class="trip-info-item-static">Jumlah Rider</h6>
+						<h6 th:text="${tripPrice.personPaid +'/'+tripPrice.trip.maxRider}">12/12</h6>
+					</div>
+					<div class="trip-info-item">
+						<h6 class="trip-info-item-static">Total Price</h6>
+						<h6 th:text="${totalPrice == 0 ? 'Rp. 0':'Rp '+#numbers.formatDecimal(totalPrice,3,'POINT',0,'COMMA')}" >Rp. 144.000.000</h6>
+					</div>
+				</div>
+				
+			</div>
+			<div class="bg-white">
+				<div class="trip-price-card-container">
+					<h4>Peserta</h4>
+					<h6 th:if="${#lists.size(response.object)==0}" class="zero-state">Belum ada Peserta</h6>
+					
+					<div class="trip-price-card-inner-container">
+						<!-- <div th:replace="rtms/component/pricecard::template (data = ${response.object} )"></div> -->
+						<div class="transaction-card" th:each="transaction, iStat : ${response.object}">
+							<h6 th:text="${iStat.index+1 +' '+ transaction.user.fullName}">1. Ezra Marcella</h6>
+							<div class="transaction-detail">
+								<div class="transaction-detail-item">
+									<h6 class="static">Kontak</h6>
+									<div class="field"> 
+										<h6 th:text="${transaction.user.email}">ezra@gmail.com</h6>
+										<h6 th:text="${#strings.isEmpty(transaction.user.phoneNumber)? '-' : transaction.user.phoneNumber}">+6211112341234</h6>
+									</div>
+								</div>
+								<div class="transaction-detail-item">
+									<h6 class="static">Pilihan Motor</h6>
+									<div class="field" >
+										<h6 th:text="${transaction.transactionDetail.itemId == null ?'Pribadi' : 'Sewa'}" >Pribadi</h6>
+										<h6 th:text="${transaction.transactionDetail.title }">Honda CBX (B 3 ZRA)</h6> 
+									</div>
+								</div>
+								<div class="transaction-detail-item">
+									<h6 class="static">Notes</h6>
+									<div class="field" >
+										<h6 >Saya request, kalau bisa saya dijemput di bandara Ngurahrai Bali</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!--  -->
+			</div>
+		</div>
+		<form class="main-form" role="form">
+			<div class="box-footer btn-multi">
+				<a th:href="@{'/transaction/rtms/list'}" class="btn btn-default">Kembali ke List</a>
+				<!-- <a type="submit" class="btn btn-primary" disabled>Tayangkan</a> -->
+			</div>
+		</form>
+		<div class="modal modal-rtms fade" id="modal-default" style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<p>Apakah kamu yakin untuk menghapus? kamu tidak dapat mengakses perjalanan ini lagi</p>
+					</div>
+					<div class="modal-footer">
+						<button id="deleteCancle" type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
+						<a id="deleteConfirm" class="btn btn-danger w-100">Hapus</a>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+		<script th:inline="javascript">
+			$( document ).ready(function() {
+				var message = [[${param.alert}]];
+				if(message != null){
+					if(message =='publish')
+                		showToast('Jadwalsudah ditayangkan','toast-success');
+					else if(message =='unpublish')
+						showToast('Jadwal sudah diturunakan','toast-warning');
+					else if(message =='deleteSuccess')
+						showToast('Jadwal sudah dihapus','toast-danger');
+					else if(message =='createSuccess')
+						showToast('Jadwal berhasil disimpan','toast-success');
+				}
+            });
+		</script>
+        <script type="text/javascript">
+
+			$("#deleteCancle").click(function(event){
+				$('.modal-rtms').toggleClass("in");
+				$('.modal-rtms').css('display','none');
+				$('#deleteConfirm').attr("href", '');
+			});
+			function showPopUp(tripPriceId){
+				$('.modal-rtms').toggleClass("in");
+				$('.modal-rtms').css('display','block');
+				$('#deleteConfirm').attr("href", '/trip/rtms/form/delete-trip-price?tripPriceId='+tripPriceId);
+			}
+			function showToast(text,status) {
+				var x = document.getElementById("snackbar");
+				document.getElementById("snackbar").innerHTML=text;
+				x.className = "show "+status;
+
+				setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+			}
+        </script>
+    </div>
+</body>
+
+</html>

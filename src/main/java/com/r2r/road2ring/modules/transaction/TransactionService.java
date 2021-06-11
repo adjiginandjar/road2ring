@@ -531,6 +531,7 @@ public class TransactionService {
     return saved;
   }
 
+
   /*Change Status Payment by Admin*/
   public void changeStatusPayment(Consumer consumer,PaymentStatus statusId, String transactionCode)
       throws Road2RingException {
@@ -571,6 +572,17 @@ public class TransactionService {
   public List<Transaction> findPaidTransaction(Date startDate){
     List<Transaction> result = transactionRepository.findAllByPaymentStatusAndStartDate(PaymentStatus.PAID, startDate);
     return result;
+  }
+
+  public List<Transaction> getTransactionByTripPrice(TripPrice tripPrice){
+    List<Transaction> transactions = transactionRepository.findAllByStartDateAndTripId(
+        tripPrice.getStartTrip(),tripPrice.getTrip().getId());
+    for (Transaction transaction :
+        transactions) {
+      transaction.setTransactionDetail(
+          transactionDetailService.getReserveMotor(transaction.getId()));
+    }
+    return transactions;
   }
 
 

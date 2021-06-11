@@ -104,13 +104,17 @@ public class TransactionDetailService {
     } else {
       transactionDetail.setTransaction(transaction);
       transactionDetail.setTitle("Bring Own Motor");
-      transactionDetail.setType("motor");
+      transactionDetail.setType("Motor");
       return null;
     }
   }
 
   public List<TransactionDetail> getAllDetailByTrxId(int id) {
     return transactionDetailRepository.findAllByTransactionIdOrderByIdDesc(id);
+  }
+
+  public TransactionDetail getReserveMotor(int id) {
+    return transactionDetailRepository.findOneByTransactionIdAndTypeIgnoreCase(id,"motor");
   }
 
 }

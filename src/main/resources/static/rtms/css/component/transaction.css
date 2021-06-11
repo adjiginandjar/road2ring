@@ -1,0 +1,60 @@
+.transaction-card{
+    width: 100%;
+    margin : 10px 0px;
+}
+
+.transaction-detail{
+    margin: 5px 10px;
+    display: flex;
+    flex-flow: column wrap;
+}
+.transaction-detail-item{
+    margin: 10px 0px;
+    display: flex;
+
+}
+.transaction-detail-item .static{
+    color: var(--warm-grey);
+    max-width: 100px;
+    flex: 1 1 0;
+
+}
+.transaction-detail-item .field{
+    width: 60%;
+    flex: 3 1 0;
+}
+
+.transaction-detail-item h6{
+    font-size: small;
+    font-weight: normal;
+    max-width: 350px;
+    line-height: normal;
+    letter-spacing: normal;    
+}
+@media (min-width: 768px) {
+    .transaction-detail-item .field{
+        min-width:200px
+    
+    }
+    .transaction-detail{
+        max-height: 125px;
+    }
+}
+@media (max-width: 768px) {
+    .transaction-detail{
+        flex-wrap: nowrap;
+    }
+    .transaction-detail-item .field{
+    
+    }
+}
+
+@media (max-width: 320px) {
+    .transaction-detail-item h6{
+        font-size: x-small;   
+    }
+    .transaction-detail-item .field{
+        max-width:100px
+    
+    
+}

@@ -43,6 +43,7 @@
 						<div class="trip-price-card-inner-container">
 							<div th:replace="rtms/component/pricecard::template (data = ${response.object} )"></div>
 						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -55,18 +56,17 @@
 		<div class="modal modal-rtms fade" id="modal-default" style="display: none;">
 			<div class="modal-dialog">
 				<div class="modal-content">
-				<div class="modal-body">
-					<p>Apakah kamu yakin untuk menghapus? kamu tidak dapat mengakses perjalanan ini lagi</p>
-				</div>
-				<div class="modal-footer">
-					<button id="deleteCancle" type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
-					<a id="deleteConfirm" class="btn btn-danger w-100">Hapus</a>
-				</div>
+					<div class="modal-body">
+						<p>Apakah kamu yakin untuk menghapus? kamu tidak dapat mengakses perjalanan ini lagi</p>
+					</div>
+					<div class="modal-footer">
+						<button id="deleteCancle" type="button" class="btn btn-default w-100" data-dismiss="modal">Batal</button>
+						<a id="deleteConfirm" class="btn btn-danger w-100">Hapus</a>
+					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
-			</div>
         </div>
     </div>
     <div layout:fragment="footer-js">
