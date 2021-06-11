@@ -36,7 +36,7 @@
 						<div th:if="${#lists.size(response.object)==0}" class="trip-zero-state">
 							<h3>Kamu belum mempunyai perjalanan yang akan datang!</h3>
 						</div>
-						<div th:replace="rtms/component/transactionCard::template (data = ${response.object} )"></div>
+						<div th:replace="rtms/component/transactioncard::template (data = ${response.object} )"></div>
 							
 					</div>
 				</form>
