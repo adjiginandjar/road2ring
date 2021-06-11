@@ -28,7 +28,7 @@
 				<form class="main-form" role="form">
 					<div class="itinerary-form">
 						<div class="tab-day">
-							<div th:class="${#strings.equalsIgnoreCase(tripStatus, 'waiting')? 'active' : ''}"  th:onclick="'window.location.href = \''+@{/transaction/list}+'\''" >Trips Akan Datang</div>
+							<div th:class="${#strings.equalsIgnoreCase(tripStatus, 'waiting')? 'active' : ''}"  th:onclick="'window.location.href = \''+@{/transaction/rtms/list}+'\''" >Trips Akan Datang</div>
 							<div th:class="${#strings.equalsIgnoreCase(tripStatus, 'complete')? 'active' : ''}"  th:onclick="'window.location.href = \''+@{/transaction/list/complete}+'\''">Trips Selesai</div>
 						</div>
 					</div>
