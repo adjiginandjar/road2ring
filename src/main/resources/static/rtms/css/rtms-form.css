@@ -88,6 +88,9 @@ form .form-group .input-icon::before {
   right: 0;
   bottom: 0;
 }
+.profil-form .input-icon::before{
+  left: -9em !important;
+}
 
 form .form-group .input-date::before {
   content: "";
@@ -126,6 +129,10 @@ form .form-group .help-block {
   top: 0;
   right: 0;
   margin: 0;
+}
+form .form-group a.help-block{
+  color: var(--cobalt) !important;
+  font-weight: 700;
 }
 form .form-group .checkbox {
   margin-top: 0;
@@ -476,4 +483,36 @@ form .box-footer.btn-multi .btn {
 }
 .modal-pick-motor .form-group .checkbox label {
   text-transform: none;
+}
+.profil-form .pro-pic{
+  background-image: url(../assets/img_notrips@2x.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: auto;
+  position: relative;
+}
+.profil-form .pro-pic img{
+  width: 16px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+.profil-form .pro-pic::after{
+  content: '';
+  background-color: rgba(0, 0, 0, 0.6);
+  background-position: center;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
 }

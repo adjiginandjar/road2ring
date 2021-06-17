@@ -34,4 +34,10 @@ public class WebController {
     //return "admin/page/login";
     return "rtms/form/login";
   }
+
+  @GetMapping("/help/rtms")
+  public String help(Model model){
+   return "rtms/page/help";
+  }
+
 }

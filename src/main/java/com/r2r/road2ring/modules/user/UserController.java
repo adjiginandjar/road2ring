@@ -39,6 +39,16 @@ public class UserController {
     return "admin/page/roadCaptain";
   }
 
+   @RequestMapping(value = "/profile/rtms", method = RequestMethod.GET)
+  public String editProfile (Model model){
+    return "rtms/form/editProfile";
+  }
+
+   @RequestMapping(value = "/profile/rtms/edit-password", method = RequestMethod.GET)
+  public String changePassword (Model model){
+    return "rtms/form/changePassword";
+  }
+
   @RequestMapping(value = "/email-verification", method = RequestMethod.GET)
   public String emailVerification (@RequestParam("verificationCode") String verificationCode,
       Model model){

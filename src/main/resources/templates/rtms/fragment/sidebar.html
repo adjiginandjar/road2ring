@@ -7,10 +7,10 @@
         <!--<i class="fa fa-dashboard"></i> <span>Dashboard</span>-->
       <!--</a>-->
     <!--</li>-->
-    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/trip/rtms">Trip Saya</a></li>
+    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/trip/rtms">Rencana Perjalanan</a></li>
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/transaction/rtms/list">Trip Akan Datang</a></li>
-    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="#">Profil</a></li>
-    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="#">Bantuan</a></li>
+    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/user/profile/rtms">Profil</a></li>
+    <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}"><a href="/help/rtms">Bantuan</a></li>
     <li th:if="${#httpServletRequest.isUserInRole('ADMINISTRATOR') || #httpServletRequest.isUserInRole('ROLE_ROAD_CAPTAIN')}" class="treeview"><a href="/logout">Keluar</a></li>
   </ul>
 </section>
