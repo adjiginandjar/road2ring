@@ -1,0 +1,39 @@
+.help-container {
+  margin: 1.3rem;
+  max-width: 600px;
+}
+.help-container a {
+  text-decoration: none;
+  color: var(--black);
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.help-container a::after {
+  content: "";
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  position: absolute;
+  right: 0.8rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  height: 3px;
+  margin: auto;
+}
+.help-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.help-container li {
+  background-color: var(--white);
+  border: 1px solid var(--white-four);
+  margin-bottom: 1.3rem;
+  padding: 1.3rem;
+  border-radius: 8px;
+}

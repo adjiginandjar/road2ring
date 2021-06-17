@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <link rel="stylesheet" href="/rtms/css/fragment/modal.css" />
+    <link rel="stylesheet" href="/rtms/css/component/list-button-link.css" />
+    <title>Bantuan</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{'Bantuan','/help/rtms', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+            <div class="help-container">
+                <div
+                    th:replace="rtms/component/listButtonLink::template (data = ${ {{'Cara buat perjalanan','#'},{'Cara mebuat trips pribadi','#'},{'Cara menarik uang','#'}} } )">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script type="text/javascript">
+        </script>
+    </div>
+</body>
+
+</html>

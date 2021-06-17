@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html layout:decorate="~{rtms/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/rtms/css/fragment/tab-menu.css">
+    <link rel="stylesheet" href="/rtms/css/rtms-form.css" />
+    <title>Ubah Profil</title>
+</head>
+
+<body>
+    <div layout:fragment="header">
+        <div
+            th:replace="rtms/component/breadcrumb::template (data = ${ {{'Beranda','/trip/rtms', ''},{' Profil','/user/profile/rtms', 'active'}} } )">
+        </div>
+    </div>
+    <div layout:fragment="content">
+        <div class="content-inner">
+            <div class="bg-white">
+                <form class="main-form profil-form" method="POST" action="" role="form">
+                    <input type="hidden" name="id">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="pro-pic" style="width: 88px; height: 88px;">
+                                <img src="/rtms/assets/icon-cam.png" alt="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control input-counter"
+                                name="fullName" placeholder="Masukkan Nama" maxlength="50" autocomplete="off" required>
+                            <span class="help-block">50/50</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <div class="input-date">
+                                <input  type="text" class="form-control" id="datepicker"
+                                    name="userBirthday" placeholder="Pilih Tanggal" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Telepon</label>
+                            <input  type="number" class="form-control"
+                                name="phoneNumber" placeholder="Masukkan No Telepon" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Golongan Darah</label>
+                            <select class="form-control" name="bloodType" id="">
+                                <option value="">Pilih Golongan Darah</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="O">O</option>
+                                <option value="AB">AB</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input th:value="${'sample@email.com'}" type="text" class="form-control"
+                                name="" disabled required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input th:value="${'response.object.location'}" type="password" class="form-control"
+                                name="" disabled required>
+                            <a href="/user/profile/rtms/edit-password" class="help-block">edit password</a>
+                        </div>                        
+                        <div class="form-group">
+                            <label>No KTP</label>
+                            <input type="text" class="form-control"
+                                name="userIdentitiyNumber" placeholder="Masukkan No KTP" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Foto KTP</label>
+                            <input type="url" id="hidden-cover-landscape" style="opacity: 0; position: absolute;"
+                                name="userIdentityPicture" th:value="${''}" required />
+                            <input type="file" id="cover-landscape" style="display: none;" />
+                            <div class="input-icon">
+                                <input type="text" class="form-control mask-file" value="Upload gambar"
+                                    readonly />
+                            </div>
+                            <span class="help-block">Maks. 150kb</span>
+                            <div
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-landscape'}, urlImageField=${''})">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>No SIM C</label>
+                            <input type="text" class="form-control"
+                                name="driverLicensePicture" placeholder="Masukkan No SIM C" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Foto SIM C</label>
+                            <input type="url" id="hidden-cover-potrait" name="coverPotrait"
+                                th:value="${''}" style="opacity: 0; position: absolute;"
+                                required />
+                            <input type="file" id="cover-potrait" style="display: none;" />
+                            <div class="input-icon">
+                                <input type="text" class="form-control mask-file" value="Upload gambar"
+                                    readonly />
+                            </div>
+                            <span class="help-block">Maks. 150kb</span>
+                            <div
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-potrait'}, urlImageField=${''})">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer btn-multi">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="footer-js">
+        <script src="/rtms/js/jquery.html5uploader.min.js"></script>
+        <script src="/rtms/js/upload.js"></script>
+
+        <script>
+            $(function () {
+                $('#datepicker').datepicker({
+                    format: 'mm/dd/yyyy',
+                });
+                upload_trip("/api/trip/upload_trip", "cover-landscape", "#cover-landscape", "#hidden-cover-landscape", 640, 640, "landscape");
+                upload_trip("/api/trip/upload_trip", "cover-potrait", "#cover-potrait", "#hidden-cover-potrait", 640, 640, "potrait");
+
+                $('.input-icon').on("click touchend", function () {
+                    $(this).prev().click();
+                    return false;
+                });
+                $(".input-counter").each(function () {
+                    var maxlength = $(this).attr("maxlength");
+                    var currentLength = $(this).val().length;
+                    $(this).next().html(maxlength - currentLength + '/50');
+                })
+                $(".input-counter").keyup(function (event) {
+                    var maxlength = $(this).attr("maxlength");
+                    var currentLength = $(this).val().length;
+                    if (currentLength >= maxlength) {
+                        $(this).next().html('0');
+                        console.log("You have reached the maximum number of characters.");
+                    } else {
+                        $(this).next().html(maxlength - currentLength + '/50');
+                        //console.log(maxlength - currentLength + " chars left");
+                    }
+                });
+
+            });
+
+        </script>
+    </div>
+</body>
+
+</html>
