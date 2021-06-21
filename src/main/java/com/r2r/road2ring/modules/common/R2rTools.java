@@ -15,6 +15,12 @@ public class R2rTools {
     return hashedPassword;
   }
 
+  public Boolean comparePassword(String encrypted,String oldPasseword) {
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    return encoder.matches(oldPasseword,encrypted);
+  }
+
   public String md5Encode(String pass) {
     MessageDigest alg = null;
     try {

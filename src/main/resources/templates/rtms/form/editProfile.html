@@ -19,62 +19,69 @@
     <div layout:fragment="content">
         <div class="content-inner">
             <div class="bg-white">
-                <form class="main-form profil-form" method="POST" action="" role="form">
-                    <input type="hidden" name="id">
+                <form class="main-form profil-form" method="POST" th:action="@{'/user/profile/rtms/submit'}" role="form">
+                    <input type="hidden" name="id" th:value="${response.object.id}">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="pro-pic" style="width: 88px; height: 88px;">
-                                <img src="/rtms/assets/icon-cam.png" alt="" />
+                            <div class="pro-pic" style="width: 88px; height: 88px;" 
+                                th:styleappend="${response.object.picture != null} ? 'background-image:url('+${response.object.picture}+');border-radius:50%;'">
+                                <img 
+                                src="/rtms/assets/icon-cam.png" alt="" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Nama Lengkap</label>
                             <input type="text" class="form-control input-counter"
+                                th:value="${response.object.fullName}"
                                 name="fullName" placeholder="Masukkan Nama" maxlength="50" autocomplete="off" required>
                             <span class="help-block">50/50</span>
                         </div>
                         <div class="form-group">
                             <label>Tanggal Lahir</label>
                             <div class="input-date">
-                                <input  type="text" class="form-control" id="datepicker"
-                                    name="userBirthday" placeholder="Pilih Tanggal" autocomplete="off" required>
+                                <input  type="text" class="form-control" id="datepicker" 
+                                    th:value="${response.object.birthday != null && response.object.birthday != '' ? #dates.format(response.object.birthday, 'MM/dd/yyyy') : ''}" 
+                                    name="birthday" placeholder="Pilih Tanggal" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Nomor Telepon</label>
                             <input  type="number" class="form-control"
+                                th:value="${response.object.phoneNumber}"
                                 name="phoneNumber" placeholder="Masukkan No Telepon" required>
                         </div>
                         <div class="form-group">
                             <label>Golongan Darah</label>
                             <select class="form-control" name="bloodType" id="">
                                 <option value="">Pilih Golongan Darah</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="O">O</option>
-                                <option value="AB">AB</option>
+                                <option value="A" th:selected="${response.object.bloodType == 'A'}">A</option>
+                                <option value="B" th:selected="${response.object.bloodType == 'B'}">B</option>
+                                <option value="O" th:selected="${response.object.bloodType == 'O'}">O</option>
+                                <option value="AB" th:selected="${response.object.bloodType == 'AB'}">AB</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input th:value="${'sample@email.com'}" type="text" class="form-control"
+                            <input type="text" class="form-control"
+                                th:value="${response.object.email}" 
                                 name="" disabled required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input th:value="${'response.object.location'}" type="password" class="form-control"
+                            <input th:value="${'response.object.password'}" type="password" class="form-control"
                                 name="" disabled required>
                             <a href="/user/profile/rtms/edit-password" class="help-block">edit password</a>
                         </div>                        
                         <div class="form-group">
                             <label>No KTP</label>
                             <input type="text" class="form-control"
+                                th:value="${response.object.userIdentitiyNumber}" 
                                 name="userIdentitiyNumber" placeholder="Masukkan No KTP" required>
                         </div>
                         <div class="form-group">
                             <label>Foto KTP</label>
                             <input type="url" id="hidden-cover-landscape" style="opacity: 0; position: absolute;"
-                                name="userIdentityPicture" th:value="${''}" required />
+                                name="userIdentityPicture" th:value="${response.object.userIdentityPicture}" required />
                             <input type="file" id="cover-landscape" style="display: none;" />
                             <div class="input-icon">
                                 <input type="text" class="form-control mask-file" value="Upload gambar"
@@ -82,18 +89,19 @@
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
-                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-landscape'}, urlImageField=${''})">
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-landscape'}, urlImageField=${response.object.userIdentityPicture})">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>No SIM C</label>
                             <input type="text" class="form-control"
-                                name="driverLicensePicture" placeholder="Masukkan No SIM C" required>
+                                th:value="${response.object.driverLicenseNumber}" 
+                                name="driverLicenseNumber" placeholder="Masukkan No SIM C" required>
                         </div>
                         <div class="form-group">
                             <label>Foto SIM C</label>
-                            <input type="url" id="hidden-cover-potrait" name="coverPotrait"
-                                th:value="${''}" style="opacity: 0; position: absolute;"
+                            <input type="url" id="hidden-cover-potrait" name="driverLicensePicture"
+                                th:value="${response.object.driverLicensePicture}" style="opacity: 0; position: absolute;"
                                 required />
                             <input type="file" id="cover-potrait" style="display: none;" />
                             <div class="input-icon">
@@ -102,7 +110,7 @@
                             </div>
                             <span class="help-block">Maks. 150kb</span>
                             <div
-                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-potrait'}, urlImageField=${''})">
+                                th:replace="rtms/component/uploadSuccessBox::template(section = ${'cover-potrait'}, urlImageField=${response.object.driverLicensePicture})">
                             </div>
                         </div>
                     </div>

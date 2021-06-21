@@ -217,6 +217,28 @@ public class UserService {
     return userRepository.save(saved);
   }
 
+  public User saveUserProfileCMS(User user){
+    User saved = userRepository.findOneByEmailIgnoreCase(user.getEmail());
+    saved.setBirthday(user.getBirthday());
+    saved.setDriverLicensePicture(user.getDriverLicensePicture() != null ?
+        user.getDriverLicensePicture() : saved.getDriverLicensePicture());
+    saved.setDriverLicenseNumber(user.getDriverLicenseNumber() != null ? user.getDriverLicenseNumber() :
+        saved.getDriverLicenseNumber());
+    saved.setFullName(user.getFullName() != null ? user.getFullName() : saved.getFullName());
+    saved.setUserIdentity(user.getUserIdentity() != null ? user.getUserIdentity() :
+        saved.getUserIdentity());
+    saved.setUserIdentitiyNumber(user.getUserIdentitiyNumber() != null ? user.getUserIdentitiyNumber() :
+        saved.getUserIdentitiyNumber());
+    saved.setUserIdentityPicture(user.getUserIdentityPicture() != null ?
+        user.getUserIdentityPicture() : saved.getUserIdentityPicture());
+    saved.setPicture(user.getPicture() != null ?
+        user.getPicture() : saved.getPicture());
+
+    saved.setBloodType(user.getBloodType());
+    saved.setPhoneNumber(user.getPhoneNumber());
+    return userRepository.save(saved);
+  }
+
   public User verificationEmail(String verificationCode) throws Exception {
     User saved = userRepository.findOneByVerificationCode(verificationCode);
     if (saved == null) {
@@ -263,6 +285,14 @@ public class UserService {
     saved.setPassword(r2rTools.hashingPassword(user.getPassword()));
     saved.setVerificationCodePassword(null);
     saved.setVerificationCodePasswordLastSend(null);
+    return userRepository.save(saved);
+  }
+
+  public User updatePassword(User user) {
+    User saved = userRepository.findOne(user.getId());
+
+    saved.setPassword(r2rTools.hashingPassword(user.getNewPassword()));
+
     return userRepository.save(saved);
   }
 

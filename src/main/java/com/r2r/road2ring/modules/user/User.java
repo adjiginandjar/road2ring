@@ -104,6 +104,12 @@ public class User implements Serializable {
   @Transient
   private String socialToken;
 
+  @Transient
+  private String oldPassword;
+
+  @Transient
+  private String newPassword;
+
   //  private String facebookPageID;
   //  private String twitterPageID;
   //  private String facebookPassword;
