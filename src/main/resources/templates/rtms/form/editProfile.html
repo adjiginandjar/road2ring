@@ -26,8 +26,7 @@
                             <div class="pro-pic profile-picture" style="width: 88px; height: 88px;" 
                                 th:styleappend="${response.object.picture != null} ? 'background-image:url('+${response.object.picture}+');border-radius:50%;'">
                                 <input type="url" id="hidden-profile-picture" name="picture"
-                                    th:value="${response.object.picture}" style="opacity: 0; position: absolute;"
-                                    required />
+                                    th:value="${response.object.picture}" style="opacity: 0; position: absolute;"/>
                                 <input type="file" id="profile-picture" style="display: none;"/>
                                 <img class="input-icon" style="cursor: pointer;" 
                                 src="/rtms/assets/icon-cam.png" alt="" />

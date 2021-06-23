@@ -226,13 +226,15 @@ public class UserService {
         saved.getDriverLicenseNumber());
     saved.setFullName(user.getFullName() != null ? user.getFullName() : saved.getFullName());
     saved.setUserIdentity(user.getUserIdentity() != null ? user.getUserIdentity() :
-        saved.getUserIdentity());
+    saved.getUserIdentity());
     saved.setUserIdentitiyNumber(user.getUserIdentitiyNumber() != null ? user.getUserIdentitiyNumber() :
         saved.getUserIdentitiyNumber());
+    
     saved.setUserIdentityPicture(user.getUserIdentityPicture() != null ?
         user.getUserIdentityPicture() : saved.getUserIdentityPicture());
-    saved.setPicture(user.getPicture() != null ?
-        user.getPicture() : saved.getPicture());
+
+    saved.setPicture(user.getPicture() == null || user.getPicture().equals("") ?
+          saved.getPicture() : user.getPicture());
 
     saved.setBloodType(user.getBloodType());
     saved.setPhoneNumber(user.getPhoneNumber());
