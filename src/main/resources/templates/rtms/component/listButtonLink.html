@@ -1,7 +1,7 @@
 <div class="list-btn" th:fragment="template (data)">
     <ul>
         <li th:each="result : ${data}">
-            <a th:href="${result[1]}">
+            <a th:href="${result[1]}" download>
                 [[${result[0]}]]
             </a>
         </li>
